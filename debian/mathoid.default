@@ -1,0 +1,10 @@
+# Defaults for mathoid initscript
+
+# File where the mathoid daemon will write stderr and stdout to
+MATHOID_LOG_FILE=/var/log/mathoid/mathoid.log
+
+MATHOID_PORT="10042"
+
+# Default is to listen on all interfaces
+#MATHOID_INTERFACE="0.0.0.0"
+

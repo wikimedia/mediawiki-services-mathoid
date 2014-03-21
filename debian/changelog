@@ -1,0 +1,31 @@
+mathoid (0.2.1) precise; urgency=low
+
+  * correcting git submodules
+  * add Math submodule again
+
+ -- Moritz Schubotz (Physikerwelt) <wiki@physikerwelt.de>  Wed, 19 Feb 2014 10:35:32 +0000
+
+mathoid (0.1.3) precise; urgency=low
+
+  * remove npm dependency again
+    (has to wait until npm 1.3.0 is widely spread)
+
+ -- Moritz Schubotz (Physikerwelt) <wiki@physikerwelt.de>  Tue, 18 Feb 2014 10:56:44 +0000
+
+mathoid (0.1.2) precise; urgency=low
+
+  * Change to semantic version numbers
+
+ -- Moritz Schubotz (Physikerwelt) <wiki@physikerwelt.de>  Wed, 12 Feb 2014 23:46:11 +0000
+
+mathoid (0.1-0ubuntu1) precise; urgency=low
+
+  * use npm to build the node_packages folder
+
+ -- Moritz Schubotz (Physikerwelt) <wiki@physikerwelt.de>  Wed, 12 Feb 2014 21:57:50 +0000
+
+mathoid (0.1-0) precise; urgency=low
+
+  * Initial Release.
+
+ -- Moritz Schubotz (Physikerwelt) <wiki@physikerwelt.de>  Tue, 11 Feb 2014 17:56:54 +0000

@@ -2,23 +2,36 @@
 This file is loaded from main.js (phantomjs).
 -->
 <html>
-  <head>
+<head>
     <script type="text/javascript">
-      MathJax = {
-        jax: ["input/TeX","output/SVG","output/NativeMML"],
-        extensions: ["tex2jax.js","toMathML.js","TeX/noErrors.js","TeX/noUndefined.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
-        showProcessingMessages: false,
-        messageStyle: "none",
-        tex2jax: {
-          inlineMath: [["$","$"],["\\(","\\)"]]
-        }
-      };
+        MathJax = {
+            jax: ["input/TeX",
+                "input/MathML","output/SVG","output/NativeMML"],
+            extensions: ["mml2jax.js",
+                "tex2jax.js","toMathML.js", "TeX/noErrors.js","TeX/noUndefined.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+            showProcessingMessages: false,
+            messageStyle: "none",
+            tex2jax: {
+                inlineMath: [["$","$"]]
+            }
+        };
     </script>
     <script type="text/javascript" src="Math/modules/MathJax/unpacked/MathJax.js">
     </script>
     <script type="text/javascript" src="engine.js"></script>
-  </head>
+</head>
   <body>
-  <div id="math">${}$</div>
+    <h1>svgtex bench file</h1>
+    <p>TeX equation:</p>
+    <div id="math-tex">${\frac{x}{2}}$</div>
+    <p>MathML equation:</p>
+    <div id="math-mml">
+      <math>
+        <mfrac>
+          <mi>y</mi>
+          <mn>2</mn>
+        </mfrac>
+      </math>
+    </div>
   </body>
 </html>

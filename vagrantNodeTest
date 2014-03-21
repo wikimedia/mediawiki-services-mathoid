@@ -1,0 +1,9 @@
+#/bin/bash
+sudo killall node
+sudo killall phantomjs
+node mathoid &
+sleep 6
+phantomjs main.js -p 16000&
+php /vagrant/mediawiki/tests/phpunit/phpunit.php /vagrant/mediawiki/extensions/Math/tests/MathoidParserTest.php
+sudo killall node
+echo "test done... killing node"

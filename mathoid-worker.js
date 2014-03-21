@@ -60,7 +60,7 @@ var startBackend = function (cb) {
 	}
 	backendPort = Math.floor(9000 + Math.random() * 50000);
 	console.error(instanceName + ': Starting backend on port ' + backendPort);
-	backend = child_process.spawn('phantomjs', ['main.js', backendPort]);
+	backend = child_process.spawn('phantomjs', ['main.js', '-p', backendPort]);
 	backend.stdout.pipe(process.stderr);
 	backend.stderr.pipe(process.stderr);
 	backend.on('close', startBackend);
@@ -93,9 +93,9 @@ app.get(/^\/robots.txt$/, function ( req, res ) {
 
 
 
-function handleRequest(req, res, tex) {
+function handleRequest(req, res, q, type) {
 	// do the backend request
-	var reqbody = new Buffer(querystring.stringify({tex: tex})),
+        var reqbody = new Buffer(querystring.stringify({q: q, type: type, format: "json"})),
 		options = {
 		method: 'POST',
 		uri: 'http://localhost:' + backendPort.toString() + '/',
@@ -110,12 +110,16 @@ function handleRequest(req, res, tex) {
 		timeout: 2000
 	};
 	request(options, function (err, response, body) {
-		body = new Buffer(body);
+        try{
+            body = new Buffer(body);
+        } catch ( e ) {
+            body = new Buffer(e.message.toString());
+        }
 		if (err || response.statusCode !== 200) {
 			var errBuf;
 			if (err) {
 				errBuf = new Buffer(JSON.stringify({
-					tex: tex,
+					tex: q,
 					log: err.toString(),
 					success: false
 				}));
@@ -154,13 +158,16 @@ handleRequests = function() {
 
 app.post(/^\/$/, function ( req, res ) {
 	// First some rudimentary input validation
-	if (!req.body.tex) {
+	if (!(req.body.q)) {
 		res.writeHead(400);
-		return res.end(JSON.stringify({error: "'tex' post parameter is missing!"}));
+		return res.end(JSON.stringify({error: "q (query) post parameter is missing!"}));
 	}
-	var tex = req.body.tex;
-
-	requestQueue.push(handleRequest.bind(null, req, res, tex));
+	var q = req.body.q;
+    var type = req.body.type;
+    if (!(req.body.type) ){
+        type = 'tex';
+    }
+	requestQueue.push(handleRequest.bind(null, req, res, q, type));
 	// phantomjs only handles one request at a time. Enforce this.
 	if (requestQueue.length === 1) {
 		// Start this process
