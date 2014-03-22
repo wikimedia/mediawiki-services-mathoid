@@ -1,3 +1,9 @@
+mathoid (0.2.2) precise; urgency=low
+
+  * Fix: Math-folder was missing in Build 0.2.1
+
+ -- Moritz Schubotz (Physikerwelt) <wiki@physikerwelt.de>  Wed, 19 Feb 2014 13:10:26 +0000
+
 mathoid (0.2.1) precise; urgency=low
 
   * correcting git submodules
