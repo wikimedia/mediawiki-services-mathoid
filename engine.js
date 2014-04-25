@@ -80,12 +80,17 @@ window.engine = (new (function() {
 
     // clone and copy all used paths into local defs.
     // xlink:href in uses FIX
-    var uses = svg.getElementsByTagName("use");
+    var uses = svg.getElementsByTagName("use"),
+		// copy only one copy of each path
+		havePaths = {};
     for (var k = 0; k < uses.length; ++k) {
       var id = uses[k].getAttribute("href");
-      defs.appendChild(
-        document.getElementById(id.substr(1)).cloneNode(true)
-      );
+	  if (!havePaths[id]) {
+		  defs.appendChild(
+			document.getElementById(id.substr(1)).cloneNode(true)
+		  );
+		  havePaths[id] = true;
+	  }
       uses[k].setAttribute("xlink:href", id);
     }
 
