@@ -4,7 +4,10 @@
  * not much else right now.
  */
 
-var cluster = require('cluster');
+var cluster = require('cluster'),
+	// when running on appfog.com the listen port for the app
+	// is passed in an environment variable.  Most users can ignore this!
+	port = process.env.MATHOID_PORT || 10042;
 
 if (cluster.isMaster) {
 	// Start a few more workers than there are cpus visible to the OS, so that we
@@ -35,13 +38,13 @@ if (cluster.isMaster) {
 		console.log('Done killing workers, bye');
 		process.exit(1);
 	} );
+	console.log('Starting Mathoid on port ' + port +
+			'\nPoint your browser to http://localhost:' + port + '/ for a test form\n');
 } else {
 	var mathoidWorker = require('./mathoid-worker.js');
 	process.on('SIGTERM', function() {
 		console.log('Worker shutting down');
 		process.exit(1);
 	});
-	// when running on appfog.com the listen port for the app
-	// is passed in an environment variable.  Most users can ignore this!
-	mathoidWorker.listen(process.env.MATHOID_PORT || 10042);
+	mathoidWorker.listen(port);
 }

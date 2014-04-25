@@ -82,7 +82,7 @@ app.use( express.limit( '25mb' ) );
 app.get('/', function(req, res){
 	res.write('<html><body>\n');
 	res.write('Welcome to Mathoid. POST to / with var <code>tex</code>');
-	res.write('<form action="/" method="POST"><input type="text" name="tex"></form>');
+	res.write('<form action="/" method="POST"><input type="text" name="q"></form>');
 	res.end('</body></html>');
 });
 
