@@ -5,14 +5,17 @@ This file is loaded from main.js (phantomjs).
 <head>
     <script type="text/javascript">
         MathJax = {
-            jax: ["input/TeX",
+            jax: ["input/TeX", "input/AsciiMath",
                 "input/MathML","output/SVG","output/NativeMML"],
-            extensions: ["mml2jax.js",
+            extensions: ["mml2jax.js", "asciimath2jax.js",
                 "tex2jax.js","toMathML.js", "TeX/noErrors.js","TeX/noUndefined.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
             showProcessingMessages: false,
             messageStyle: "none",
             tex2jax: {
                 inlineMath: [["$","$"]]
+            },
+            SVG: {
+                font: 'STIX-Web'
             }
         };
     </script>
@@ -24,11 +27,13 @@ This file is loaded from main.js (phantomjs).
     <h1>svgtex bench file</h1>
     <p>TeX equation:</p>
     <div id="math-tex">${\frac{x}{2}}$</div>
+    <p>AsciiMath equation:</p>
+    <div id="math-asciimath">`x/2`</div>
     <p>MathML equation:</p>
     <div id="math-mml">
       <math>
         <mfrac>
-          <mi>y</mi>
+          <mi>x</mi>
           <mn>2</mn>
         </mfrac>
       </math>

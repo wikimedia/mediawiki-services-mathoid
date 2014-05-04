@@ -2,6 +2,7 @@
 window.engine = (new (function() {
 
   this.Q = MathJax.Hub.queue;
+  this.asciimath = null;
   this.tex = null;
   this.mml = null;
   this.buffer = [];
@@ -33,6 +34,12 @@ window.engine = (new (function() {
   // Initialize engine.
   this._init = function() {
     this.Q.Push(this.bind(function () {
+      this.asciimath = {
+        div: document.getElementById("math-asciimath"),
+        jax: MathJax.Hub.getAllJax("math-asciimath")[0],
+        last_width: null,
+        last_q: ''
+      }
       this.tex = {
         div: document.getElementById("math-tex"),
         jax: MathJax.Hub.getAllJax("math-tex")[0],

@@ -189,6 +189,10 @@ page.onCallback = function(data) {
               mml = '';
               src = 'mathml';
           }
+          else if (query.type == 'asciimath'){
+              mml = '';
+              src = 'asciimath';
+          }
           //End of fix
           out = JSON.stringify({input:src,
               svg:svg_or_error,
