@@ -15,6 +15,7 @@ var fs = BBPromise.promisifyAll(require('fs'));
 var sUtil = require('./lib/util');
 var packageInfo = require('./package.json');
 var mjAPI = require("MathJax-node/lib/mj-single.js");
+var yaml = require('js-yaml');
 
 
 /**
@@ -46,6 +47,40 @@ function initApp(options) {
     // set outgoing proxy
     if(app.conf.proxy) {
         process.env.HTTP_PROXY = app.conf.proxy;
+        // if there is a list of domains which should
+        // not be proxied, set it
+        if(app.conf.no_proxy_list) {
+            if(Array.isArray(app.conf.no_proxy_list)) {
+                process.env.NO_PROXY = app.conf.no_proxy_list.join(',');
+            } else {
+                process.env.NO_PROXY = app.conf.no_proxy_list;
+            }
+        }
+    }
+
+    // set up the spec
+    if(!app.conf.spec) {
+        app.conf.spec = __dirname + '/spec.yaml';
+    }
+    try {
+        app.conf.spec = yaml.safeLoad(fs.readFileSync(app.conf.spec));
+    } catch(e) {
+        app.logger.log('warn/spec', 'Could not load the spec: ' + e);
+        app.conf.spec = {};
+    }
+    if(!app.conf.spec.swagger) {
+        app.conf.spec.swagger = '2.0';
+    }
+    if(!app.conf.spec.info) {
+        app.conf.spec.info = {
+            version: app.info.version,
+            title: app.info.name,
+            description: app.info.description
+        };
+    }
+    app.conf.spec.info.version = app.info.version;
+    if(!app.conf.spec.paths) {
+        app.conf.spec.paths = {};
     }
 
     // set the CORS and CSP headers

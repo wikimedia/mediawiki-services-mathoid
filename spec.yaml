@@ -1,0 +1,75 @@
+swagger: '2.0'
+info:
+  version: 0.2.8
+  title: Mathoid
+  description: Renders TeX to SVG and MathML using MathJax
+  termsOfService: https://wikimediafoundation.org/wiki/Terms_of_Use
+  contact:
+    name: the Wikimedia Services team
+    url: http://mediawiki.org/wiki/Services
+  license:
+    name: Apache2
+    url: http://www.apache.org/licenses/LICENSE-2.0
+paths:
+  # from routes/root.js
+  /robots.txt:
+    get:
+      tags:
+        - Root
+        - Robots
+      description: Gets robots.txt
+      x-monitor: false
+  /:
+    get:
+      tags:
+        - Root
+      description: The root service end-point
+      produces:
+        - application/json
+      x-amples:
+        - title: spec from root
+          request:
+            query:
+              spec: true
+          response:
+            status: 200
+  # from routes/info.js
+  /_info:
+    get:
+      tags:
+        - Service information
+      description: Gets information about the service
+      produces:
+        - application/json
+      x-amples:
+        - title: retrieve service info
+          request: {}
+          response:
+            status: 200
+            headers:
+              content-type: application/json
+            body:
+              name: /.+/
+              description: /.+/
+              version: /.+/
+              home: /.+/
+  # from routes/mathoid.js
+  /:
+    post:
+      tags:
+        - Render
+      description: Converts TeX to MathML and SVG
+      produces:
+        - application/json
+      x-amples:
+        - title: mass-energy equivalence
+          request:
+            body:
+              q: 'E=mc^2'
+          response:
+            status: 200
+            body:
+              log: success
+              success: true
+              svg: /.+/
+              mml: /.+/
