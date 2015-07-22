@@ -16,10 +16,28 @@ var router = sUtil.router();
  */
 var app;
 
+function emitError(txt) {
+    throw new HTTPError({
+        status: 400,
+        title: 'Bad Request',
+        type: 'bad_request',
+        detail: txt,
+        error: txt,
+        success: false
+    });
+}
 
-function handleRequest(res, q, type) {
-    var mml = true;
+function emitFormatError(format) {
+    emitError("Output format " + format + " is disabled via config, try setting \"" +
+        format + ": true\" to enable "+ format + "rendering.");
+}
+
+function handleRequest(res, q, type, outFormat, speakText) {
     var sanitizedTex;
+    var svg = false;
+    var mml = false;
+    var png = false;
+    var img = false;
     //Keep format variables constant
     if (type === "tex") {
         type = "TeX";
@@ -29,55 +47,69 @@ function handleRequest(res, q, type) {
             sanitizedTex = sanitizationOutput.output || '';
             q = sanitizedTex;
         } else {
-            throw new HTTPError
-            ({
-                status: 400,
-                log: sanitizationOutput.status + ': ' + sanitizationOutput.details,
-                success: false
-            });
+            emitError(sanitizationOutput.status + ': ' + sanitizationOutput.details);
         }
     }
+    mml = outFormat === "mml" || outFormat === "json";
+    png = app.conf.png && (outFormat === "png" || outFormat === "json");
+    svg = app.conf.svg && (outFormat === "svg" || outFormat === "json");
+    img = app.conf.img && outFormat === "json";
     if (type === "mml" || type === "MathML") {
         type = "MathML";
-        mml = false;
+        mml = false; // use the original MathML
     }
     if (type === "ascii" || type === "asciimath") {
         type = "AsciiMath";
     }
-    app.mjAPI.typeset( {
+    if (speakText && outFormat === "png") {
+        speakText = false;
+    }
+    app.mjAPI.typeset({
         math: q,
         format: type,
-        svg: app.conf.svg,
-        img: app.conf.img,
+        svg: svg,
+        img: img,
         mml: mml,
-        speakText: app.conf.speakText,
-        png: app.conf.png }, function (data) {
-        if (data.errors) {
-            data.success = false;
-            data.log = "Error:" + JSON.stringify(data.errors);
-        } else {
-            data.success = true;
-            data.log = "success";
-        }
+        speakText: speakText,
+        png: png }, function (data) {
+            if (data.errors) {
+                data.success = false;
+                data.log = "Error:" + JSON.stringify(data.errors);
+            } else {
+                data.success = true;
+                data.log = "success";
+            }
 
-        // Strip some styling returned by MathJax
-        if (data.svg) {
-            data.svg = data.svg.replace(/style="([^"]+)"/, function(match, style) {
-                return 'style="'
-                    + style.replace(/(?:margin(?:-[a-z]+)?|position):[^;]+; */g, '')
-                    + '"';
-            });
-        }
+            // Strip some styling returned by MathJax
+            if (data.svg) {
+                data.svg = data.svg.replace(/style="([^"]+)"/, function(match, style) {
+                    return 'style="'
+                        + style.replace(/(?:margin(?:-[a-z]+)?|position):[^;]+; */g, '')
+                        + '"';
+                });
+            }
 
-        // Return the sanitized TeX to the client
-        if (sanitizedTex !== undefined) {
-            data.sanetex = sanitizedTex;
-        }
-
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
-        res.end(JSON.stringify(data));
+            // Return the sanitized TeX to the client
+            if (sanitizedTex !== undefined) {
+                data.sanetex = sanitizedTex;
+            }
+            switch (outFormat) {
+                case "json":
+                    res.json(data).end();
+                    break;
+                case "svg":
+                    res.type('image/svg+xml');
+                    res.send(data.svg).end();
+                    break;
+                case "png":
+                    res.type('image/png');
+                    res.send(data.png).end();
+                    break;
+                case "mml":
+                    res.type('application/mathml+xml');
+                    res.send(data.mml).end();
+                    break;
+            }
     });
 }
 
@@ -86,22 +118,50 @@ function handleRequest(res, q, type) {
  * POST /
  * Performs the rendering request
  */
-router.post(/^\/$/, function(req, res) {
-
+router.post('/:outformat?/', function(req, res) {
+    var outFormat;
+    var speakText = app.conf.speakText;
     // First some rudimentary input validation
     if (!(req.body.q)) {
-        throw new HTTPError
-        ({
-            status: 400,
-            error: "q (query) post parameter is missing!"
-        });
+        emitError( "q (query) post parameter is missing!" );
     }
     var q = req.body.q;
-    var type = req.body.type;
-    if (!(req.body.type) ){
-        type = 'tex';
+    var type = (req.body.type || 'tex').toLowerCase();
+    if (req.body.noSpeak){
+        speakText = false;
     }
-    handleRequest(res, q, type);
+    function setOutFormat(fmt) {
+        if (app.conf[fmt]) {
+            outFormat = fmt;
+        } else {
+            emitFormatError(fmt);
+        }
+    }
+    if (req.params.outformat) {
+        switch (req.params.outformat.toLowerCase()) {
+            case "svg":
+                setOutFormat('svg');
+                break;
+            case "png":
+                setOutFormat('png');
+                break;
+            case "json":
+                outFormat = "json";
+                break;
+            case "mml":
+            case "mathml":
+                outFormat = "mml";
+                break;
+            default:
+                throw new HTTPError({
+                    status: 400,
+                    error: "Output format \"" + req.params.outformat + "\" is not recognized!"
+                });
+        }
+    } else {
+        outFormat = "json";
+    }
+    handleRequest(res, q, type, outFormat, speakText);
 
 });
 

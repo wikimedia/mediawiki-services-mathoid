@@ -47,6 +47,7 @@ services:
       # no_proxy_list:
       #   - domain1.com
       #   - domain2.org
+      # list of enabled renders
       svg: true
       img: true
       png: true #new feature

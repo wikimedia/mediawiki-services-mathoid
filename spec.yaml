@@ -58,11 +58,11 @@ paths:
     post:
       tags:
         - Render
-      description: Converts TeX to MathML and SVG
+      description: Converts TeX to MathML, SVG, PNG and IMG
       produces:
         - application/json
       x-amples:
-        - title: mass-energy equivalence
+        - title: mass-energy equivalence (json)
           request:
             body:
               q: 'E=mc^2'
@@ -73,3 +73,34 @@ paths:
               success: true
               svg: /.+/
               mml: /.+/
+  /{format}/:
+    post:
+      tags:
+        - Render
+      description: Converts TeX to SVG, PNG or MathML depending on the parameter format
+      produces:
+        - image/svg+xml
+        - application/mathml+xml
+      x-amples:
+        - title: mass-energy equivalence (svg)
+          request:
+            params:
+              format: svg
+            body:
+              q: 'E=mc^2'
+          response:
+            status: 200
+            headers:
+              content-type: /image\/svg/
+            body: /^\<svg[\s\S]+svg\>$/
+        - title: mass-energy equivalence (mml)
+          request:
+            params:
+              format: mml
+            body:
+              q: 'E=mc^2'
+          response:
+            status: 200
+            headers:
+              content-type: /application\/mathml\+xml/
+            body: /^\<math[\s\S]+math\>$/
