@@ -39,8 +39,7 @@ function handleRequest(res, q, type, outFormat, speakText) {
     var png = false;
     var img = false;
     //Keep format variables constant
-    if (type === "tex") {
-        type = "TeX";
+    if (type === "TeX" || type === "inline-TeX") {
         var sanitizationOutput = texvcjs.check(q);
         // XXX properly handle errors here!
         if (sanitizationOutput.status === '+') {
@@ -54,12 +53,8 @@ function handleRequest(res, q, type, outFormat, speakText) {
     png = app.conf.png && (outFormat === "png" || outFormat === "json");
     svg = app.conf.svg && (outFormat === "svg" || outFormat === "json");
     img = app.conf.img && outFormat === "json";
-    if (type === "mml" || type === "MathML") {
-        type = "MathML";
+    if (type === "MathML") {
         mml = false; // use the original MathML
-    }
-    if (type === "ascii" || type === "asciimath") {
-        type = "AsciiMath";
     }
     if (speakText && outFormat === "png") {
         speakText = false;
@@ -127,6 +122,25 @@ router.post('/:outformat?/', function(req, res) {
     }
     var q = req.body.q;
     var type = (req.body.type || 'tex').toLowerCase();
+    switch (type) {
+        case "tex":
+            type = "TeX";
+            break;
+        case "inline-tex":
+            type = "inline-TeX";
+            break;
+        case "mml":
+        case "mathml":
+            type = "MathML";
+            break;
+        case "ascii":
+        case "asciimathml":
+        case "asciimath":
+            type = "AsciiMath";
+            break;
+        default :
+            emitError("Input format \""+type+"\" is not recognized!");
+    }
     if (req.body.noSpeak){
         speakText = false;
     }

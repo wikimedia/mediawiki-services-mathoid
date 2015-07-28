@@ -159,6 +159,19 @@ describe('Simple Mathoid API tests', function () {
                 assert.deepEqual(res.body.log, "F: \\newcommand");
             });
         });
+        it("reject invalid input type", function () {
+            return preq.post({
+                uri: baseURL,
+                body: {q: "E=mc^2}", type: "invalid"}
+            }).then(function (res) {
+                // if we are here, no error was thrown, not good
+                throw new Error('Expected an error to be thrown, got status: ' + res.status);
+            }, function (res) {
+                assert.status(res, 400);
+                assert.deepEqual(res.body.success, false);
+                assert.deepEqual(res.body.detail, "Input format \"invalid\" is not recognized!");
+            });
+        });
     });
 
 });
