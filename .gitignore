@@ -12,3 +12,4 @@ debian/mathoid.substvars
 node_modules
 .idea
 mathoid*.iml
+config.vagrant.yaml

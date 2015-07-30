@@ -133,7 +133,7 @@ describe('Simple Mathoid API tests', function () {
     describe('Standard input / output pairs', function () {
         testData.forEach(function (data) {
             it(data.query.q, function () {
-                this.timeout(15000);
+                this.timeout(30000);
                 return preq.post({
                     uri: baseURL,
                     body: data.query
@@ -154,6 +154,7 @@ describe('Simple Mathoid API tests', function () {
     });
     describe('annotation security', function () {
         it("annotation xml should be properly escaped", function () {
+            this.timeout(4000);
             return preq.post({
                 uri: baseURL,
                 body: {
