@@ -15,8 +15,13 @@ see http://formulasearchengine.com/mathoid
 
 ## API Description
 
-There is basically just one entry point '/' with one required POST parameter 'q'.
+The main entry point is '/' with one required POST parameter 'q'.
 
+Additional entry points for individual formats are
+* /mml only MathML
+* /svg only SVG
+* /png only PNG
+* /json (same as /)
 #### q (input to be converted)
 
 * required parameter
@@ -27,8 +32,19 @@ There is basically just one entry point '/' with one required POST parameter 'q'
 * defalult 'tex'
 * possible values
   * tex (texvc input will be verified by texvccheck)
-  * mml (MathML input, used in MW_MATH_LATEXML rendering mode)
+  * inline-tex (texvc input will be rendered with small operators)
+  * mml (MathML input, used in latexml rendering mode)
   * ascii (ascii mathml input, experimental)
+
+#### noSpeak
+* optional
+* if speech output is enabled this switch suppresses speech output for one particular request
+
+## Config
+* svg: creates and svg image (turned on by default)
+* img: creates a img element with dimension information about the svg image
+* png: creates png images using java
+* speakText: creates speech output using speech rule engine
 
 ## Create a new release
 
