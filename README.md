@@ -2,7 +2,7 @@
 
 [![Build Status][1]][2] [![dependency status][3]][4] [![dev dependency status][5]][6] [![Coverage Status][7]][8]
 
-[![NPM][9]][10]
+[![NPM](https://nodei.co/npm/mathoid.png)](https://nodei.co/npm/mathoid/)
 
 Mathoid-server is a service that uses MathJax and PhantomJS to create SVGs and MathML on server side.
 Mathoid-server is a based on svgtex - https://github.com/agrbin/svgtex.
@@ -22,6 +22,7 @@ Additional entry points for individual formats are
 * /svg only SVG
 * /png only PNG
 * /json (same as /)
+
 #### q (input to be converted)
 
 * required parameter
@@ -95,5 +96,3 @@ npm install
 [6]: https://david-dm.org/physikerwelt/mathoid-server#info=devDependencies
 [7]: https://img.shields.io/coveralls/physikerwelt/mathoid-server.svg
 [8]: https://coveralls.io/r/physikerwelt/mathoid-server
-[9]: https//nodei.co/npm/mathoid.svg
-[10]: https://nodei.co/npm/mathoid/
