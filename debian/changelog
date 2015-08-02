@@ -1,3 +1,93 @@
+mathoid (0.2.8) trusty; urgency=medium
+
+  [ Marko Obrovac ]
+  * Add the API Design doc
+  * Add the template overview document
+  * Add the main doc README file
+  * Add the configuration document
+  * Add link to Wikia's APIDesign document
+  * Doc: Configuration: Minor link fix
+  * Add the API Design doc
+  * Add the template overview document
+  * Add the main doc README file
+  * Add the configuration document
+  * Add link to Wikia's APIDesign document
+  * Doc: Configuration: Minor link fix
+  * Add the API Design doc
+  * Add the template overview document
+  * Add the main doc README file
+  * Add the configuration document
+  * Add link to Wikia's APIDesign document
+  * Doc: Configuration: Minor link fix
+  * Added the coding guide
+  * Minor fixes
+  * Add the commands document
+  * Minor fixes
+  * Add the link to the docs in the README
+  * Adjust the headings in the README
+  * Add the table of contents to docs
+  * Attach a request ID to each request
+  * Better error logging, with adjusted levels
+  * Dev config: Use the default logger to output metrics
+  * Test logger: Allow users to specify whether it should be verbose
+  * Package: update deps and bump the version
+  * Docs: Update the docs to use `req.logger` instead of `app.logger`
+  * Bump service-runner version to 0.1.5
+  * Minor error-case test fixes
+
+  [ physikerwelt (Moritz Schubotz) ]
+  * Platform independent test for return status >399
+  * Remove node modules
+
+  [ Moritz Schubotz ]
+  * Update README.md
+
+  [ physikerwelt (Moritz Schubotz) ]
+  * Add png support
+
+  [ Marko Obrovac ]
+  * Add init script templates and a generator script
+  * Corrections from PR #29
+  * Bump service-runner to 0.1.6
+
+  [ Yuri Astrakhan ]
+  * Minor cleanup in string concatenation
+
+  [ Marko Obrovac ]
+  * Add the CORS and CSP headers and set proxy if defined
+  * Update the deps and release v0.1.3
+  * Add deploy-related config and remove docker.js
+  * Add deployment docs and slightly update the others
+  * Minor: use `statsd` as the default metrics object in production
+  * Use `app.logger` as an alternative to `req.logger`
+  * Define the build requirements for Mathoid
+  * Disable exact PNG checks
+
+  [ Moritz Schubotz ]
+  * add debian package update to travis build script
+  * Make mathoid options configurable
+
+  [ Marko Obrovac ]
+  * Small improvements
+  * Do not use the relative './node_modules' path in require
+
+  [ physikerwelt ]
+  * Update dependency to mathjax-node 0.2.8
+
+  [ Marko Obrovac ]
+  * Update to template v0.2.1 and add the monitoring spec
+
+  [ physikerwelt ]
+  * Create separate endpoints for formats
+  * Fix inline-tex input format
+  * Add TeX annotation to MathML again
+  * Improve testing robustness
+  * Update readme
+  * Add test for LaTeX command pagecolor
+  * Fix Github markdown problems in README.MD
+
+ -- Moritz Schubotz <wiki@physikerwelt.de>  Sun, 02 Aug 2015 15:45:32 +0000
+
 mathoid (0.2.6) trusty; urgency=medium
 
   * test new way of ppa building
