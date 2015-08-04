@@ -1,0 +1,15 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -1.338ex; " width="42.432ex" height="3.509ex" viewBox="-5 -934.9 18269.1 1510.9" xmlns="http://www.w3.org/2000/svg">
+<defs></defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+<rect fill="rgb(255, 255, 136)" stroke="none" width="18259" height="1306" x="0" y="-460"></rect>
+<g fill="rgb(204, 0, 0)" stroke="rgb(204, 0, 0)" transform="translate(71,0)">
+<g transform="scale(0.9)">
+<text direction="ltr" stroke="none" style="font-family: monospace" transform="scale(71.759) matrix(1 0 0 -1 0 0)">Undefined control sequence \vline</text>
+</g>
+</g>
+<line stroke-linecap="square" stroke="#c00" stroke-width="71.76" y1="35" x2="35" x1="35" y2="1270" transform="translate(-5,-460)"></line>
+<line stroke-linecap="square" stroke="#c00" stroke-width="71.76" y1="35" x2="35" x1="35" y2="1270" transform="translate(18192,-460)"></line>
+<line stroke-linecap="square" stroke="#c00" stroke-width="71.76" y2="35" y1="35" x1="35" x2="18223" transform="translate(0,779)"></line>
+<line stroke-linecap="square" stroke="#c00" stroke-width="71.76" y2="35" y1="35" x1="35" x2="18223" transform="translate(0,-465)"></line>
+</g>
+</svg>
