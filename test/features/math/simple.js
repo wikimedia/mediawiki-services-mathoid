@@ -226,7 +226,9 @@ describe('Simple Mathoid API tests', function () {
             }, function (res) {
                 assert.status(res, 400);
                 assert.deepEqual(res.body.success, false);
-                assert.deepEqual(res.body.log, "F: \\newcommand");
+                assert.deepEqual(res.body.error, "SyntaxError: \\Illegal TeX function");
+                assert.deepEqual(res.body.detail.error.found, "\\newcommand");
+                assert.deepEqual(res.body.detail.error.location.end.column, 12);
             });
         });
         it("reject invalid input type", function () {
@@ -248,7 +250,7 @@ describe('Simple Mathoid API tests', function () {
                 body: {q: "\\hbar+\\mathcal{S}"}
             }).then(function (res) {
                 assert.status(res, 200);
-                assert.ok(res.body.texvcinfo.identifier.indexOf("\\hbar")===0);
+                assert.ok(res.body.texvcinfo.identifiers.indexOf("\\hbar")===0);
             });
         });
     });

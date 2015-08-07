@@ -35,3 +35,4 @@ services:
       # more per-service config settings
       svg: true
       img: true
+      texvcinfo: true

@@ -7,17 +7,17 @@
 	{
 		"id": 2,
 		"input": "\\koppa",
-		"texvcjs": "\\mbox{\\koppa} "
+		"texvcjs": "\\mathrm {\\koppa} "
 	},
 	{
 		"id": 3,
 		"input": "\\stigma",
-		"texvcjs": "\\mbox{\\stigma} "
+		"texvcjs": "\\mathrm {\\stigma} "
 	},
 	{
 		"id": 4,
 		"input": "\\coppa",
-		"texvcjs": "\\mbox{\\coppa} "
+		"texvcjs": "\\mathrm {\\coppa} "
 	},
 	{
 		"id": 5,
@@ -82,14 +82,12 @@
 	{
 		"id": 17,
 		"input": "\\P",
-		"texvcjs": "\\P ",
-		"ignore": true,
-		"comment": "current bug that needs to be fixed"
+		"texvcjs": "\\P "
 	},
 	{
 		"id": 18,
 		"input": "\\AA",
-		"texvcjs": "\\mbox{\\AA} "
+		"texvcjs": "\\mathrm {\\AA} "
 	},
 	{
 		"id": 19,
@@ -164,7 +162,7 @@
 	{
 		"id": 33,
 		"input": "\\textvisiblespace",
-		"texvcjs": "\\mbox{\\textvisiblespace} "
+		"texvcjs": "\\mathrm {\\textvisiblespace} "
 	},
 	{
 		"id": 34,
@@ -367,17 +365,17 @@
 	{
 		"id": 73,
 		"input": "\\Koppa",
-		"texvcjs": "\\mbox{\\Koppa} "
+		"texvcjs": "\\mathrm {\\Koppa} "
 	},
 	{
 		"id": 74,
 		"input": "\\Stigma",
-		"texvcjs": "\\mbox{\\Stigma} "
+		"texvcjs": "\\mathrm {\\Stigma} "
 	},
 	{
 		"id": 75,
 		"input": "\\Coppa",
-		"texvcjs": "\\mbox{\\Coppa} "
+		"texvcjs": "\\mathrm {\\Coppa} "
 	},
 	{
 		"id": 76,
@@ -453,16 +451,14 @@
 	},
 	{
 		"id": 90,
-		"input": "\\pagecolor{red}",
-		"texvcjs": "\\pagecolor {red}",
-		"comment": "since pagecolor is ignore no output is expred"
+		"input": "\\pagecolor{red}x",
+		"texvcjs": "\\pagecolor {red}x",
+		"comment": "Since pagecolor is ignored, no color is expected."
 	},
 	{
 		"id": 91,
 		"input": "\\vline",
-		"texvcjs": "\\vline ",
-		"ignore": true,
-		"comment": "current bug that needs to be fixed"
+		"texvcjs": "\\vline "
 	},
 	{
 		"id": 92,

@@ -55,6 +55,20 @@ are now (JSON) objects containing the 'body' and 'headers' fields.
 * speakText: creates speech output using speech rule engine
 * texvcinfo: displays information regarding the texvc input (experimental)
 
+## Performance
+The performance tests can be run by executing the [performance.sh](scripts/performance.sh) script.
+
+On our labs-vagrant test instance with 8 workers and 100 request the following results were obtained
+for the input $E = m c^2$:
+
+|format                                      |time|    sd|
+|--------------------------------------------|----|------|
+| [texvcinfo](doc/test_results/performance_texvcinfo.txt) |0008|0006.5|
+| [mml](doc/test_results/performance_mml.txt)             |1207|0626.4|
+| [svg](doc/test_results/performance_svg.txt)             |1295|0434.7|
+| [png](doc/test_results/performance_png.txt)             |3116|2301.2|
+
+The time, i.e. "Total Connection Times" were measured in unit ms.
 ## Create a new release
 
 Checkout the latest version and switch to the master branch:
@@ -65,8 +79,6 @@ see also https://wikitech.wikimedia.org/wiki/Git-buildpackage
 
 publish as ppa
 * dput ppa:physikerwelt/mathoid ../version.changes
-
-
 
 ## Tests
 Based on the Template for creating MediaWiki Services in Node.js

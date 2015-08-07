@@ -46,9 +46,8 @@
     "js-yaml": "^3.4.3",
     "preq": "^0.4.4",
     "service-runner": "^0.2.11",
-    "texvcjs": "git+https://github.com/wikimedia/texvcjs",
-    "MathJax-node": "git+https://github.com/wikimedia/MathJax-node#mathoid-0-2-8",
-    "texvcinfo": "^0.3.1"
+    "mathjax-node": "git+https://github.com/wikimedia/MathJax-node#mathoid-0.2.9",
+    "texvcinfo": "^0.3.3"
   },
   "devDependencies": {
     "extend": "^3.0.0",

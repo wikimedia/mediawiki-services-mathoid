@@ -2,7 +2,6 @@
 
 
 var sUtil = require('../lib/util');
-var texvcjs = require('texvcjs');
 var texvcInfo = require('texvcinfo');
 var HTTPError = sUtil.HTTPError;
 
@@ -32,14 +31,17 @@ var outHeaders = {
 };
 
 
-function emitError(txt) {
+function emitError(txt,detail) {
+    if (detail === undefined) {
+        detail = txt;
+    }
     throw new HTTPError({
         status: 400,
+        success: false,
         title: 'Bad Request',
         type: 'bad_request',
-        detail: txt,
-        error: txt,
-        success: false
+        detail: detail,
+        error: txt
     });
 }
 
@@ -50,37 +52,27 @@ function emitFormatError(format) {
 
 function handleRequest(res, q, type, outFormat, features) {
     var sanitizedTex;
-    var svg = false;
-    var mml = false;
-    var png = false;
-    var img = false;
-    var speakText = features.speakText;
-    //Keep format variables constant
+    var svg = app.conf.svg && /^svg|json|complete$/.test(outFormat);
+    var mml = (type !== "MathML") && /^mml|json|complete$/.test(outFormat);
+    var png = app.conf.png && /^png|json|complete$/.test(outFormat);
+    var img = app.conf.img && /^json|complete$/.test(outFormat);
+    var speakText = (outFormat !== "png") && features.speakText;
+
     if (type === "TeX" || type === "inline-TeX") {
-        var sanitizationOutput = texvcjs.check(q);
+        var feedback = texvcInfo.feedback(q);
         if (app.conf.texvcinfo && outFormat === "texvcinfo") {
-            var tok = texvcInfo.texvcinfo(q, {format:"all"});
-            res.json({sanetex: sanitizationOutput, texvcinfo: tok}).end();
+            res.json({texvcinfo: feedback}).end();
             return;
         }
         // XXX properly handle errors here!
-        if (sanitizationOutput.status === '+') {
-            sanitizedTex = sanitizationOutput.output || '';
+        if (feedback.success) {
+            sanitizedTex = feedback.checked || '';
             q = sanitizedTex;
         } else {
-            emitError(sanitizationOutput.status + ': ' + sanitizationOutput.details);
+            emitError(feedback.error.name + ': ' + feedback.error.message, feedback);
         }
     }
-    mml = /^mml|json|complete$/.test(outFormat);
-    png = app.conf.png && /^png|json|complete$/.test(outFormat);
-    svg = app.conf.svg && /^svg|json|complete$/.test(outFormat);
-    img = app.conf.img && /^json|complete$/.test(outFormat);
-    if (type === "MathML") {
-        mml = false; // use the original MathML
-    }
-    if (speakText && outFormat === "png") {
-        speakText = false;
-    }
+
     app.mjAPI.typeset({
         math: q,
         format: type,
@@ -92,9 +84,11 @@ function handleRequest(res, q, type, outFormat, features) {
     }, function (data) {
         if (data.errors) {
             data.success = false;
+            // @deprecated replace with emitError
             data.log = "Error:" + JSON.stringify(data.errors);
         } else {
             data.success = true;
+            // @deprecated
             data.log = "success";
         }
 
@@ -199,10 +193,7 @@ router.post('/:outformat?/', function (req, res) {
                 outFormat = "mml";
                 break;
             default:
-                throw new HTTPError({
-                    status: 400,
-                    error: "Output format \"" + req.params.outformat + "\" is not recognized!"
-                });
+                emitError("Output format \"" + req.params.outformat + "\" is not recognized!");
         }
     } else {
         outFormat = "json";

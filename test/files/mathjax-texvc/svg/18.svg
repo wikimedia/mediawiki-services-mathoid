@@ -1,11 +1,6 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.838ex;" width="4.68ex" height="2.843ex" viewBox="0 -863.1 2015 1223.9" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<path stroke-width="10" id="E1-MJMAIN-5C" d="M56 731Q56 740 62 745T75 750Q85 750 92 740Q96 733 270 255T444 -231Q444 -239 438 -244T424 -250Q414 -250 407 -240Q404 -236 230 242T56 731Z"></path>
-<path stroke-width="10" id="E1-MJMAIN-41" d="M255 0Q240 3 140 3Q48 3 39 0H32V46H47Q119 49 139 88Q140 91 192 245T295 553T348 708Q351 716 366 716H376Q396 715 400 709Q402 707 508 390L617 67Q624 54 636 51T687 46H717V0H708Q699 3 581 3Q458 3 437 0H427V46H440Q510 46 510 64Q510 66 486 138L462 209H229L209 150Q189 91 189 85Q189 72 209 59T259 46H264V0H255ZM447 255L345 557L244 256Q244 255 345 255H447Z"></path>
-</defs>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -1.171ex;" width="1.417ex" height="3.343ex" viewBox="0 -934.9 610 1439.2" xmlns="http://www.w3.org/2000/svg">
+<defs></defs>
 <g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
- <use xlink:href="#E1-MJMAIN-5C"></use>
- <use xlink:href="#E1-MJMAIN-41" x="505" y="0"></use>
- <use xlink:href="#E1-MJMAIN-41" x="1260" y="0"></use>
+<text font-family="STIXGeneral,'Arial Unicode MS',serif" font-style="" font-weight="" stroke="none" style="font-family: monospace" transform="scale(71.759) matrix(1 0 0 -1 0 0)">Å</text>
 </g>
 </svg>

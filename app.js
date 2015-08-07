@@ -15,7 +15,7 @@ var fs = BBPromise.promisifyAll(require('fs'));
 var sUtil = require('./lib/util');
 var packageInfo = require('./package.json');
 var yaml = require('js-yaml');
-var mjAPI = require("MathJax-node/lib/mj-single.js");
+var mjAPI = require("mathjax-node/lib/mj-single.js");
 
 
 /**
@@ -131,7 +131,8 @@ function initApp(options) {
     mjAPI.config({
         MathJax: {
             menuSettings: {semantics: true},
-            SVG: {font: "TeX"}//,
+            SVG: {font: "TeX"},
+            TeX: {noErrors: {disabled: true}}//,
             //TeX: {extensions: ["mediawiki-texvc.js"]}
         }
     });
