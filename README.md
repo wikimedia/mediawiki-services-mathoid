@@ -22,6 +22,12 @@ Additional entry points for individual formats are
 * /svg only SVG
 * /png only PNG
 * /json (same as /)
+* /complete (see below)
+
+The 'complete' output format is equal to the 'json' one except that it also
+includes the headers for individual types in the response body as well. The
+output specification is identical, except that the 'mml', 'svg' and 'png' fields
+are now (JSON) objects containing the 'body' and 'headers' fields.
 
 #### q (input to be converted)
 

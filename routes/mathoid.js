@@ -16,6 +16,21 @@ var router = sUtil.router();
  */
 var app;
 
+
+/* The response headers for different render types */
+var outHeaders = {
+    svg: {
+        'content-type': 'image/svg+xml'
+    },
+    png: {
+        'content-type': 'image/png'
+    },
+    mml: {
+        'content-type': 'application/mathml+xml'
+    }
+};
+
+
 function emitError(txt) {
     throw new HTTPError({
         status: 400,
@@ -49,10 +64,10 @@ function handleRequest(res, q, type, outFormat, speakText) {
             emitError(sanitizationOutput.status + ': ' + sanitizationOutput.details);
         }
     }
-    mml = outFormat === "mml" || outFormat === "json";
-    png = app.conf.png && (outFormat === "png" || outFormat === "json");
-    svg = app.conf.svg && (outFormat === "svg" || outFormat === "json");
-    img = app.conf.img && outFormat === "json";
+    mml = /^mml|json|complete$/.test(outFormat);
+    png = app.conf.png && /^png|json|complete$/.test(outFormat);
+    svg = app.conf.svg && /^svg|json|complete$/.test(outFormat);
+    img = app.conf.img && /^json|complete$/.test(outFormat);
     if (type === "MathML") {
         mml = false; // use the original MathML
     }
@@ -89,21 +104,23 @@ function handleRequest(res, q, type, outFormat, speakText) {
                 data.sanetex = sanitizedTex;
             }
             switch (outFormat) {
-                case "json":
+                case 'json':
                     res.json(data).end();
                     break;
-                case "svg":
-                    res.type('image/svg+xml');
-                    res.send(data.svg).end();
+                case 'complete':
+                    Object.keys(outHeaders).forEach(function(outType) {
+                        if (data[outType]) {
+                            data[outType] = {
+                                headers: outHeaders[outType],
+                                body: data[outType]
+                            };
+                        }
+                    });
+                    res.json(data).end();
                     break;
-                case "png":
-                    res.type('image/png');
-                    res.send(data.png).end();
-                    break;
-                case "mml":
-                    res.type('application/mathml+xml');
-                    res.send(data.mml).end();
-                    break;
+                default:
+                    res.set(outHeaders[outFormat]);
+                    res.send(data[outFormat]).end();
             }
     });
 }
@@ -161,6 +178,9 @@ router.post('/:outformat?/', function(req, res) {
                 break;
             case "json":
                 outFormat = "json";
+                break;
+            case 'complete':
+                outFormat = 'complete';
                 break;
             case "mml":
             case "mathml":

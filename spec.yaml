@@ -82,6 +82,26 @@ paths:
         - image/svg+xml
         - application/mathml+xml
       x-amples:
+        - title: mass-energy equivalence (complete)
+          request:
+            params:
+              format: complete
+            body:
+              q: 'E=mc^2'
+          response:
+            status: 200
+            headers:
+              content-type: /application\/json/
+            body:
+              success: true
+              svg:
+                headers:
+                  content-type: image/svg+xml
+                body: /.+/
+              mml:
+                headers:
+                  content-type: application/mathml+xml
+                body: /.+/
         - title: mass-energy equivalence (svg)
           request:
             params:
