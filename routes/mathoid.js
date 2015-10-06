@@ -3,6 +3,7 @@
 
 var sUtil = require('../lib/util');
 var texvcjs = require('texvcjs');
+var texvcInfo = require('texvcinfo');
 var HTTPError = sUtil.HTTPError;
 
 
@@ -44,18 +45,24 @@ function emitError(txt) {
 
 function emitFormatError(format) {
     emitError("Output format " + format + " is disabled via config, try setting \"" +
-        format + ": true\" to enable "+ format + "rendering.");
+        format + ": true\" to enable " + format + "rendering.");
 }
 
-function handleRequest(res, q, type, outFormat, speakText) {
+function handleRequest(res, q, type, outFormat, features) {
     var sanitizedTex;
     var svg = false;
     var mml = false;
     var png = false;
     var img = false;
+    var speakText = features.speakText;
     //Keep format variables constant
     if (type === "TeX" || type === "inline-TeX") {
         var sanitizationOutput = texvcjs.check(q);
+        if (app.conf.texvcinfo && outFormat === "texvcinfo") {
+            var tok = texvcInfo.texvcinfo(q, {format:"all"});
+            res.json({sanetex: sanitizationOutput, texvcinfo: tok}).end();
+            return;
+        }
         // XXX properly handle errors here!
         if (sanitizationOutput.status === '+') {
             sanitizedTex = sanitizationOutput.output || '';
@@ -81,47 +88,48 @@ function handleRequest(res, q, type, outFormat, speakText) {
         img: img,
         mml: mml,
         speakText: speakText,
-        png: png }, function (data) {
-            if (data.errors) {
-                data.success = false;
-                data.log = "Error:" + JSON.stringify(data.errors);
-            } else {
-                data.success = true;
-                data.log = "success";
-            }
+        png: png
+    }, function (data) {
+        if (data.errors) {
+            data.success = false;
+            data.log = "Error:" + JSON.stringify(data.errors);
+        } else {
+            data.success = true;
+            data.log = "success";
+        }
 
-            // Strip some styling returned by MathJax
-            if (data.svg) {
-                data.svg = data.svg.replace(/style="([^"]+)"/, function(match, style) {
-                    return 'style="'
-                        + style.replace(/(?:margin(?:-[a-z]+)?|position):[^;]+; */g, '')
-                        + '"';
+        // Strip some styling returned by MathJax
+        if (data.svg) {
+            data.svg = data.svg.replace(/style="([^"]+)"/, function (match, style) {
+                return 'style="'
+                    + style.replace(/(?:margin(?:-[a-z]+)?|position):[^;]+; */g, '')
+                    + '"';
+            });
+        }
+
+        // Return the sanitized TeX to the client
+        if (sanitizedTex !== undefined) {
+            data.sanetex = sanitizedTex;
+        }
+        switch (outFormat) {
+            case 'json':
+                res.json(data).end();
+                break;
+            case 'complete':
+                Object.keys(outHeaders).forEach(function (outType) {
+                    if (data[outType]) {
+                        data[outType] = {
+                            headers: outHeaders[outType],
+                            body: data[outType]
+                        };
+                    }
                 });
-            }
-
-            // Return the sanitized TeX to the client
-            if (sanitizedTex !== undefined) {
-                data.sanetex = sanitizedTex;
-            }
-            switch (outFormat) {
-                case 'json':
-                    res.json(data).end();
-                    break;
-                case 'complete':
-                    Object.keys(outHeaders).forEach(function(outType) {
-                        if (data[outType]) {
-                            data[outType] = {
-                                headers: outHeaders[outType],
-                                body: data[outType]
-                            };
-                        }
-                    });
-                    res.json(data).end();
-                    break;
-                default:
-                    res.set(outHeaders[outFormat]);
-                    res.send(data[outFormat]).end();
-            }
+                res.json(data).end();
+                break;
+            default:
+                res.set(outHeaders[outFormat]);
+                res.send(data[outFormat]).end();
+        }
     });
 }
 
@@ -130,12 +138,12 @@ function handleRequest(res, q, type, outFormat, speakText) {
  * POST /
  * Performs the rendering request
  */
-router.post('/:outformat?/', function(req, res) {
+router.post('/:outformat?/', function (req, res) {
     var outFormat;
     var speakText = app.conf.speakText;
     // First some rudimentary input validation
     if (!(req.body.q)) {
-        emitError( "q (query) post parameter is missing!" );
+        emitError("q (query) post parameter is missing!");
     }
     var q = req.body.q;
     var type = (req.body.type || 'tex').toLowerCase();
@@ -156,9 +164,9 @@ router.post('/:outformat?/', function(req, res) {
             type = "AsciiMath";
             break;
         default :
-            emitError("Input format \""+type+"\" is not recognized!");
+            emitError("Input format \"" + type + "\" is not recognized!");
     }
-    if (req.body.noSpeak){
+    if (req.body.noSpeak) {
         speakText = false;
     }
     function setOutFormat(fmt) {
@@ -168,6 +176,7 @@ router.post('/:outformat?/', function(req, res) {
             emitFormatError(fmt);
         }
     }
+
     if (req.params.outformat) {
         switch (req.params.outformat.toLowerCase()) {
             case "svg":
@@ -175,6 +184,9 @@ router.post('/:outformat?/', function(req, res) {
                 break;
             case "png":
                 setOutFormat('png');
+                break;
+            case "texvcinfo":
+                setOutFormat('texvcinfo');
                 break;
             case "json":
                 outFormat = "json";
@@ -195,12 +207,12 @@ router.post('/:outformat?/', function(req, res) {
     } else {
         outFormat = "json";
     }
-    handleRequest(res, q, type, outFormat, speakText);
+    handleRequest(res, q, type, outFormat, {speakText:speakText});
 
 });
 
 
-module.exports = function(appObj) {
+module.exports = function (appObj) {
 
     app = appObj;
 

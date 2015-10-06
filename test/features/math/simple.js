@@ -242,6 +242,15 @@ describe('Simple Mathoid API tests', function () {
                 assert.deepEqual(res.body.detail, "Input format \"invalid\" is not recognized!");
             });
         });
+        it("display texvcinfo", function () {
+            return preq.post({
+                uri: baseURL+"texvcinfo",
+                body: {q: "\\hbar+\\mathcal{S}"}
+            }).then(function (res) {
+                assert.status(res, 200);
+                assert.ok(res.body.texvcinfo.identifier.indexOf("\\hbar")===0);
+            });
+        });
     });
 
 });

@@ -18,6 +18,7 @@ see http://formulasearchengine.com/mathoid
 The main entry point is '/' with one required POST parameter 'q'.
 
 Additional entry points for individual formats are
+* /texvcinfo does not do any rendering. Only displays information regarding the texvc input.
 * /mml only MathML
 * /svg only SVG
 * /png only PNG
@@ -52,6 +53,7 @@ are now (JSON) objects containing the 'body' and 'headers' fields.
 * img: creates a img element with dimension information about the svg image
 * png: creates png images using java
 * speakText: creates speech output using speech rule engine
+* texvcinfo: displays information regarding the texvc input (experimental)
 
 ## Create a new release
 

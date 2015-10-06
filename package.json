@@ -47,7 +47,8 @@
     "preq": "^0.4.4",
     "service-runner": "^0.2.1",
     "texvcjs": "git+https://github.com/wikimedia/texvcjs",
-    "MathJax-node": "git+https://github.com/wikimedia/MathJax-node#mathoid-0-2-8"
+    "MathJax-node": "git+https://github.com/wikimedia/MathJax-node#mathoid-0-2-8",
+    "texvcinfo": "^0.3.1"
   },
   "devDependencies": {
     "coveralls": "2.11.2",
