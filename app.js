@@ -58,15 +58,28 @@ function initApp(options) {
         }
     }
 
+    // set up header whitelisting for logging
+    if(!app.conf.log_header_whitelist) {
+        app.conf.log_header_whitelist = [
+                'cache-control', 'content-type', 'content-length', 'if-match',
+                'user-agent', 'x-request-id'
+        ];
+    }
+    app.conf.log_header_whitelist = new RegExp('^(?:' + app.conf.log_header_whitelist.map(function(item) {
+        return item.trim();
+    }).join('|') + ')$', 'i');
+
     // set up the spec
     if(!app.conf.spec) {
         app.conf.spec = __dirname + '/spec.yaml';
     }
-    try {
-        app.conf.spec = yaml.safeLoad(fs.readFileSync(app.conf.spec));
-    } catch(e) {
-        app.logger.log('warn/spec', 'Could not load the spec: ' + e);
-        app.conf.spec = {};
+    if(app.conf.spec.constructor !== Object) {
+        try {
+            app.conf.spec = yaml.safeLoad(fs.readFileSync(app.conf.spec));
+        } catch(e) {
+            app.logger.log('warn/spec', 'Could not load the spec: ' + e);
+            app.conf.spec = {};
+        }
     }
     if(!app.conf.spec.swagger) {
         app.conf.spec.swagger = '2.0';
@@ -86,15 +99,19 @@ function initApp(options) {
     // set the CORS and CSP headers
     app.all('*', function(req, res, next) {
         if(app.conf.cors !== false) {
-            res.header('Access-Control-Allow-Origin', app.conf.cors);
-            res.header('Access-Control-Allow-Headers', 'Accept, X-Requested-With, Content-Type');
+            res.header('access-control-allow-origin', app.conf.cors);
+            res.header('access-control-allow-headers', 'accept, x-requested-with, content-type');
+            res.header('access-control-expose-headers', 'etag');
         }
-        res.header('X-XSS-Protection', '1; mode=block');
-        res.header('X-Content-Type-Options', 'nosniff');
-        res.header('X-Frame-Options', 'SAMEORIGIN');
-        res.header('Content-Security-Policy', app.conf.csp);
-        res.header('X-Content-Security-Policy', app.conf.csp);
-        res.header('X-WebKit-CSP', app.conf.csp);
+        res.header('x-xss-protection', '1; mode=block');
+        res.header('x-content-type-options', 'nosniff');
+        res.header('x-frame-options', 'SAMEORIGIN');
+        res.header('content-security-policy', app.conf.csp);
+        res.header('x-content-security-policy', app.conf.csp);
+        res.header('x-webkit-csp', app.conf.csp);
+
+        sUtil.initAndLogRequest(req, app);
+
         next();
     });
 
@@ -136,35 +153,40 @@ function loadRoutes (app) {
 
     // get the list of files in routes/
     return fs.readdirAsync(__dirname + '/routes')
-    .map(function (fname) {
-        // ... and then load each route
-        // but only if it's a js file
-        if(!/\.js$/.test(fname)) {
-            return;
-        }
-        // import the route file
-        var route = require(__dirname + '/routes/' + fname);
-        route = route(app);
-        // check that the route exports the object we need
-        if(route.constructor !== Object || !route.path || !route.router || !(route.api_version || route.skip_domain)) {
-            throw new TypeError('routes/' + fname + ' does not export the correct object!');
-        }
-        // wrap the route handlers with Promise.try() blocks
-        sUtil.wrapRouteHandlers(route.router, app);
-        // determine the path prefix
-        var prefix = '';
-        if(!route.skip_domain) {
-            prefix = '/:domain/v' + route.api_version;
-        }
-        // all good, use that route
-        app.use(prefix + route.path, route.router);
-    }).then(function () {
-        // catch errors
-        sUtil.setErrorHandler(app);
-        // route loading is now complete, return the app object
-        return BBPromise.resolve(app);
-    });
-
+        .map(function (fname) {
+            return BBPromise.try(function () {
+                // ... and then load each route
+                // but only if it's a js file
+                if(!/\.js$/.test(fname)) {
+                    return undefined;
+                }
+                // import the route file
+                var route = require(__dirname + '/routes/' + fname);
+                return route(app);
+            }).then(function (route) {
+                if(route === undefined) {
+                    return undefined;
+                }
+                // check that the route exports the object we need
+                if (route.constructor !== Object || !route.path || !route.router || !(route.api_version || route.skip_domain)) {
+                    throw new TypeError('routes/' + fname + ' does not export the correct object!');
+                }
+                // wrap the route handlers with Promise.try() blocks
+                sUtil.wrapRouteHandlers(route.router);
+                // determine the path prefix
+                var prefix = '';
+                if(!route.skip_domain) {
+                    prefix = '/:domain/v' + route.api_version;
+                }
+                // all good, use that route
+                app.use(prefix + route.path, route.router);
+            });
+        }).then(function () {
+            // catch errors
+            sUtil.setErrorHandler(app);
+            // route loading is now complete, return the app object
+            return BBPromise.resolve(app);
+        });
 }
 
 /**
@@ -177,16 +199,18 @@ function createServer(app) {
     // return a promise which creates an HTTP server,
     // attaches the app to it, and starts accepting
     // incoming client requests
+    var server;
     return new BBPromise(function (resolve) {
-        http.createServer(app).listen(
+        server = http.createServer(app).listen(
             app.conf.port,
             app.conf.interface,
             resolve
         );
     }).then(function () {
-            app.logger.log('info',
-                'Worker ' + process.pid + ' listening on ' + app.conf.interface + ':' + app.conf.port);
-        });
+        app.logger.log('info',
+            'Worker ' + process.pid + ' listening on ' + app.conf.interface + ':' + app.conf.port);
+        return server;
+    });
 
 }
 
