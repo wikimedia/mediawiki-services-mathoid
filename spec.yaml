@@ -77,10 +77,11 @@ paths:
     post:
       tags:
         - Render
-      description: Converts TeX to SVG, PNG or MathML depending on the parameter format
+      description: Converts TeX to SVG, PNG or MathML depending on the parameter format. The special format 'texvcinfo' returns information about the input without to render anything.
       produces:
         - image/svg+xml
         - application/mathml+xml
+        - application/json
       x-amples:
         - title: mass-energy equivalence (complete)
           request:
@@ -124,3 +125,36 @@ paths:
             headers:
               content-type: /application\/mathml\+xml/
             body: /^\<math[\s\S]+math\>$/
+        - title: mass-energy equivalence (texvcinfo)
+          request:
+            params:
+              format: texvcinfo
+            body:
+              q: 'E = m c^2'
+          response:
+            status: 200
+            headers:
+              content-type: application/json
+            body:
+              texvcinfo:
+                success: true
+                checked: /E=mc/
+                identifiers: ["E", "m", "c"]
+        - title: Invaid command (texvcinfo)
+          request:
+            params:
+              format: texvcinfo
+            body:
+              q: 'a + \invalid = b'
+          response:
+            status: 200
+            headers:
+              content-type: application/json
+            body:
+              texvcinfo:
+                success: false
+                error:
+                  found: /invalid/
+                  location:
+                   start:
+                    column: 5
