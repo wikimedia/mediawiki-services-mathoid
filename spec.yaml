@@ -136,10 +136,9 @@ paths:
             headers:
               content-type: application/json
             body:
-              texvcinfo:
-                success: true
-                checked: /E=mc/
-                identifiers: ["E", "m", "c"]
+              success: true
+              checked: /E=mc/
+              identifiers: ["E", "m", "c"]
         - title: Invaid command (texvcinfo)
           request:
             params:
@@ -147,14 +146,14 @@ paths:
             body:
               q: 'a + \invalid = b'
           response:
-            status: 200
+            status: 400
             headers:
               content-type: application/json
             body:
-              texvcinfo:
-                success: false
+              success: false
+              detail:
                 error:
                   found: /invalid/
                   location:
-                   start:
-                    column: 5
+                    start:
+                      column: 5

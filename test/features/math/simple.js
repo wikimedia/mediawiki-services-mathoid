@@ -250,7 +250,7 @@ describe('Simple Mathoid API tests', function () {
                 body: {q: "\\hbar+\\mathcal{S}"}
             }).then(function (res) {
                 assert.status(res, 200);
-                assert.ok(res.body.texvcinfo.identifiers.indexOf("\\hbar")===0);
+                assert.ok(res.body.identifiers.indexOf("\\hbar")===0);
             });
         });
     });

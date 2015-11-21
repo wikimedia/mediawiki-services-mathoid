@@ -60,16 +60,16 @@ function handleRequest(res, q, type, outFormat, features) {
 
     if (type === "TeX" || type === "inline-TeX") {
         var feedback = texvcInfo.feedback(q);
-        if (app.conf.texvcinfo && outFormat === "texvcinfo") {
-            res.json({texvcinfo: feedback}).end();
-            return;
-        }
         // XXX properly handle errors here!
         if (feedback.success) {
             sanitizedTex = feedback.checked || '';
             q = sanitizedTex;
         } else {
             emitError(feedback.error.name + ': ' + feedback.error.message, feedback);
+        }
+        if (app.conf.texvcinfo && outFormat === "texvcinfo") {
+            res.json(feedback).end();
+            return;
         }
     }
 
@@ -181,6 +181,9 @@ router.post('/:outformat?/', function (req, res) {
                 break;
             case "texvcinfo":
                 setOutFormat('texvcinfo');
+                if (!/tex$/i.test(type)) {
+                    emitError('texvcinfo accepts only tex or inline-tex as the input type, "' + type + '" given!');
+                }
                 break;
             case "json":
                 outFormat = "json";
