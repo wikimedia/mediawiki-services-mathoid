@@ -24,7 +24,7 @@ describe('Run test for all mathjax-texvc commands:', function () {
                 it(testcase.id + " $" + testcase.input + "$", function () {
                     return preq.post({
                         uri: baseURL + "svg/",
-                        body: {q: testcase.input, noSpeak: true}
+                        body: {q: testcase.input, nospeech: true}
                     }).then(function (res) {
                         assert.status(res, 200);
                         var referenceSvg = fs.readFileSync(path.resolve(__dirname, "../../files/mathjax-texvc/svg", testcase.id + ".svg"));

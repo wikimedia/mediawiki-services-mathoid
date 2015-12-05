@@ -14,3 +14,4 @@ node_modules
 .idea
 mathoid*.iml
 config.vagrant.yaml
+Thumbs.db

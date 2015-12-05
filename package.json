@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/wikimedia/mathoid",
   "dependencies": {
-    "bluebird": "~2.8.2",
+    "bluebird": "^3.0.6",
     "body-parser": "^1.14.1",
     "bunyan": "^1.5.1",
     "cassandra-uuid": "^0.0.2",
@@ -51,11 +51,14 @@
   },
   "devDependencies": {
     "extend": "^3.0.0",
-    "istanbul": "^0.3.22",
+    "istanbul": "^0.4.1",
     "mocha": "^2.3.3",
     "mocha-jshint": "^2.2.3",
     "mocha-lcov-reporter": "^1.0.0",
-    "swagger-router": "^0.2.0"
+    "swagger-router": "^0.3.3",
+    "commander": "~2.9.0",
+    "xmldom": "~0.1.19",
+    "dom-compare":"~0.2.1"
   },
   "deploy": {
     "node": "4.2",

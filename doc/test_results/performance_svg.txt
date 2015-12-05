@@ -13,33 +13,33 @@ Document Path:          /svg
 Document Length:        3724 bytes
 
 Concurrency Level:      8
-Time taken for tests:   16.582 seconds
+Time taken for tests:   3.987 seconds
 Complete requests:      100
 Failed requests:        0
 Total transferred:      448800 bytes
-Total body sent:        16800
+Total body sent:        16700
 HTML transferred:       372400 bytes
-Requests per second:    6.03 [#/sec] (mean)
-Time per request:       1326.565 [ms] (mean)
-Time per request:       165.821 [ms] (mean, across all concurrent requests)
-Transfer rate:          26.43 [Kbytes/sec] received
-                        0.99 kb/s sent
-                        27.42 kb/s total
+Requests per second:    25.08 [#/sec] (mean)
+Time per request:       318.929 [ms] (mean)
+Time per request:       39.866 [ms] (mean, across all concurrent requests)
+Transfer rate:          109.94 [Kbytes/sec] received
+                        4.09 kb/s sent
+                        114.03 kb/s total
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.8      0       4
-Processing:   902 1294 434.3   1143    3887
-Waiting:      902 1294 434.3   1143    3887
-Total:        902 1295 434.7   1143    3890
+Connect:        0    0   0.0      0       0
+Processing:   181  313  48.1    305     566
+Waiting:      181  312  48.1    304     565
+Total:        181  313  48.1    305     566
 
 Percentage of the requests served within a certain time (ms)
-  50%   1143
-  66%   1295
-  75%   1389
-  80%   1573
-  90%   1833
-  95%   2011
-  98%   2957
-  99%   3890
- 100%   3890 (longest request)
+  50%    305
+  66%    309
+  75%    314
+  80%    321
+  90%    387
+  95%    407
+  98%    436
+  99%    566
+ 100%    566 (longest request)

@@ -13,33 +13,33 @@ Document Path:          /png
 Document Length:        1510 bytes
 
 Concurrency Level:      8
-Time taken for tests:   21.830 seconds
+Time taken for tests:   20.963 seconds
 Complete requests:      100
 Failed requests:        0
 Total transferred:      224700 bytes
 Total body sent:        16700
 HTML transferred:       151000 bytes
-Requests per second:    4.58 [#/sec] (mean)
-Time per request:       1746.403 [ms] (mean)
-Time per request:       218.300 [ms] (mean, across all concurrent requests)
-Transfer rate:          10.05 [Kbytes/sec] received
-                        0.75 kb/s sent
-                        10.80 kb/s total
+Requests per second:    4.77 [#/sec] (mean)
+Time per request:       1677.075 [ms] (mean)
+Time per request:       209.634 [ms] (mean, across all concurrent requests)
+Transfer rate:          10.47 [Kbytes/sec] received
+                        0.78 kb/s sent
+                        11.25 kb/s total
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.1      0       0
-Processing:   663 1656 988.3   1287    4143
-Waiting:      659 1645 985.2   1280    4131
-Total:        663 1656 988.3   1287    4143
+Connect:        0    0   0.0      0       0
+Processing:   665 1609 872.0   1323    4122
+Waiting:      665 1598 869.3   1323    4111
+Total:        665 1609 872.0   1323    4122
 
 Percentage of the requests served within a certain time (ms)
-  50%   1287
-  66%   1874
-  75%   2220
-  80%   2499
-  90%   3366
-  95%   3917
-  98%   4076
-  99%   4143
- 100%   4143 (longest request)
+  50%   1323
+  66%   1649
+  75%   2225
+  80%   2348
+  90%   2926
+  95%   3587
+  98%   4024
+  99%   4122
+ 100%   4122 (longest request)

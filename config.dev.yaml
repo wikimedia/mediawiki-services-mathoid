@@ -61,5 +61,6 @@ services:
       svg: true
       img: true
       png: true #new feature
-      speakText: true #new feature
+      speech: true #new feature
       texvcinfo: true
+      speechOn: true

@@ -36,3 +36,5 @@ services:
       svg: true
       img: true
       texvcinfo: true
+      speech: true
+      sppechOn: false

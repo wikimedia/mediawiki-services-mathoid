@@ -56,7 +56,7 @@ function handleRequest(res, q, type, outFormat, features) {
     var mml = (type !== "MathML") && /^mml|json|complete$/.test(outFormat);
     var png = app.conf.png && /^png|json|complete$/.test(outFormat);
     var img = app.conf.img && /^json|complete$/.test(outFormat);
-    var speakText = (outFormat !== "png") && features.speakText;
+    var speech = (outFormat !== "png") && features.speech || outFormat === "speech";
 
     if (type === "TeX" || type === "inline-TeX") {
         var feedback = texvcInfo.feedback(q);
@@ -79,7 +79,7 @@ function handleRequest(res, q, type, outFormat, features) {
         svg: svg,
         img: img,
         mml: mml,
-        speakText: speakText,
+        speakText: speech,
         png: png
     }, function (data) {
         if (data.errors) {
@@ -104,6 +104,9 @@ function handleRequest(res, q, type, outFormat, features) {
         // Return the sanitized TeX to the client
         if (sanitizedTex !== undefined) {
             data.sanetex = sanitizedTex;
+        }
+        if (speech){
+            data.speech = data.speakText;
         }
         switch (outFormat) {
             case 'json':
@@ -134,7 +137,7 @@ function handleRequest(res, q, type, outFormat, features) {
  */
 router.post('/:outformat?/', function (req, res) {
     var outFormat;
-    var speakText = app.conf.speakText;
+    var speech = app.conf.speechOn;
     // First some rudimentary input validation
     if (!(req.body.q)) {
         emitError("q (query) post parameter is missing!");
@@ -160,8 +163,8 @@ router.post('/:outformat?/', function (req, res) {
         default :
             emitError("Input format \"" + type + "\" is not recognized!");
     }
-    if (req.body.noSpeak) {
-        speakText = false;
+    if (req.body.nospeech) {
+        speech = false;
     }
     function setOutFormat(fmt) {
         if (app.conf[fmt]) {
@@ -195,13 +198,16 @@ router.post('/:outformat?/', function (req, res) {
             case "mathml":
                 outFormat = "mml";
                 break;
+            case "speech":
+                setOutFormat('speech');
+                break;
             default:
                 emitError("Output format \"" + req.params.outformat + "\" is not recognized!");
         }
     } else {
         outFormat = "json";
     }
-    handleRequest(res, q, type, outFormat, {speakText:speakText});
+    handleRequest(res, q, type, outFormat, {speech:speech});
 
 });
 
