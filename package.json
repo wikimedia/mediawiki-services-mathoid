@@ -45,7 +45,7 @@
     "express": "^4.13.3",
     "js-yaml": "^3.4.3",
     "preq": "^0.4.4",
-    "service-runner": "^0.2.11",
+    "service-runner": "^0.3.5",
     "mathjax-node": "git+https://github.com/wikimedia/MathJax-node#mathoid-0.2.9",
     "texvcinfo": "^0.3.3"
   },
