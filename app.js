@@ -15,7 +15,7 @@ var fs = BBPromise.promisifyAll(require('fs'));
 var sUtil = require('./lib/util');
 var packageInfo = require('./package.json');
 var yaml = require('js-yaml');
-var mjAPI = require("mathjax-node/lib/mj-single.js");
+var mjAPI = require("mathoid-mathjax-node/lib/mj-single.js");
 
 
 /**
