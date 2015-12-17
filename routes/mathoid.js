@@ -59,40 +59,6 @@ function handleRequest(res, q, type, outFormat, features) {
     var speakText = (outFormat !== "png") && features.speakText;
 
     if (type === "TeX" || type === "inline-TeX") {
-        /* TODO: TEMP TEMP TEMP
-         * This is a nasty hack to prevent Mathoid from entering a
-         * recursive loop, cf. https://phabricator.wikimedia.org/T121762
-         */
-        if (/\\limits_\{\s*\\binom\{/.test(q)) {
-            throw new HTTPError({
-                status: 500,
-                success: false,
-                title: 'Internal server error',
-                type: 'internal_error',
-                detail: {
-                    "success": false,
-                    "error": {
-                        "message": "\\limits_{\\binom is currently not supported by Mathoid",
-                        "expected": [],
-                        "found": "\\biom",
-                        "location": {
-                            "start": {
-                                "offset": 0,
-                                "line": 1,
-                                "column": 0
-                            },
-                            "end": {
-                                "offset": 0,
-                                "line": 1,
-                                "column": 0
-                            }
-                        },
-                    }
-                },
-                error: "\\limits_{\\binom is currently not supported by Mathoid"
-            });
-        }
-        /* TODO: END TEMP */
         var feedback = texvcInfo.feedback(q);
         // XXX properly handle errors here!
         if (feedback.success) {
