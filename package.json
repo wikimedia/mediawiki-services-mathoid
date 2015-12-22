@@ -1,6 +1,6 @@
 {
   "name": "mathoid",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Render TeX to SVG and MathML using MathJax. Based on svgtex.",
   "main": "./app.js",
   "scripts": {
@@ -46,7 +46,7 @@
     "js-yaml": "^3.4.3",
     "preq": "^0.4.4",
     "service-runner": "^0.3.5",
-    "mathoid-mathjax-node": "git+https://github.com/wikimedia/MathJax-node",
+    "mathoid-mathjax-node": "0.4.4-wmf",
     "texvcinfo": "^0.3.3"
   },
   "devDependencies": {
