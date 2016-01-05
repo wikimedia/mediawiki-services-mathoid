@@ -172,18 +172,17 @@ describe('Simple Mathoid API tests', function () {
                 return preq.post({
                     uri: baseURL,
                     body: data.query
-                })
-                    .then(function (res) {
-                        assert.status(res, data.response.status);
-                        Object.keys(data.response.body).forEach(function (key) {
-                            if (key === 'png') {
-                                assert.notDeepEqual(res.body.png, undefined);
-                                assert.notDeepEqual(res.body.png.length, 0);
-                            } else {
-                                assert.deepEqual(res.body[key], data.response.body[key]);
-                            }
-                        });
+                }).then(function (res) {
+                    assert.status(res, data.response.status);
+                    Object.keys(data.response.body).forEach(function (key) {
+                        if (key === 'png') {
+                            assert.notDeepEqual(res.body.png, undefined);
+                            assert.notDeepEqual(res.body.png.length, 0);
+                        } else {
+                            assert.deepEqual(res.body[key], data.response.body[key]);
+                        }
                     });
+                });
             });
         });
     });
@@ -246,20 +245,29 @@ describe('Simple Mathoid API tests', function () {
         });
         it("display texvcinfo", function () {
             return preq.post({
-                uri: baseURL+"texvcinfo",
-                body: {q: "\\hbar+\\mathcal{S}"}
+                uri: baseURL + "texvcinfo",
+                body: {q: "\\mathcal{S}"}
             }).then(function (res) {
                 assert.status(res, 200);
-                assert.ok(res.body.identifiers.indexOf("\\hbar")===0);
+                assert.ok(res.body.identifiers.indexOf("\\mathcal{S}") === 0);
+            });
+        });
+        it("display graph", function () {
+            return preq.post({
+                uri: baseURL + "graph",
+                body: {q: "\\frac{a}{b}"}
+            }).then(function (res) {
+                assert.status(res, 200);
+                assert.notDeepEqual(res.body.name === 'root');
             });
         });
         it("get speech text", function () {
             return preq.post({
-                uri: baseURL+"speech",
+                uri: baseURL + "speech",
                 body: {q: "E=mc^2"}
             }).then(function (res) {
                 assert.status(res, 200);
-                assert.deepEqual(res.body,"upper E equals m c squared");
+                assert.deepEqual(res.body, "upper E equals m c squared");
             });
         });
     });
