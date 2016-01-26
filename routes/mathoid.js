@@ -51,15 +51,19 @@ function emitFormatError(format) {
 }
 
 function handleRequest(res, q, type, outFormat, features) {
-    var sanitizedTex;
+    var sanitizedTex, feedback;
     var svg = app.conf.svg && /^svg|json|complete$/.test(outFormat);
     var mml = (type !== "MathML") && /^mml|json|complete$/.test(outFormat);
     var png = app.conf.png && /^png|json|complete$/.test(outFormat);
     var img = app.conf.img && /^json|complete$/.test(outFormat);
     var speech = (outFormat !== "png") && features.speech || outFormat === "speech";
+    var chem = type === "chem";
 
+    if (chem) {
+        type = "inline-TeX";
+    }
     if (type === "TeX" || type === "inline-TeX") {
-        var feedback = texvcInfo.feedback(q);
+        feedback = texvcInfo.feedback(q,{usemhchem: chem});
         // XXX properly handle errors here!
         if (feedback.success) {
             sanitizedTex = feedback.checked || '';
@@ -81,7 +85,7 @@ function handleRequest(res, q, type, outFormat, features) {
         math: q,
         format: type,
         svg: svg,
-        img: img,
+        mathoidStyle: img,
         mml: mml,
         speakText: speech,
         png: png
@@ -94,15 +98,6 @@ function handleRequest(res, q, type, outFormat, features) {
             data.success = true;
             // @deprecated
             data.log = "success";
-        }
-
-        // Strip some styling returned by MathJax
-        if (data.svg) {
-            data.svg = data.svg.replace(/style="([^"]+)"/, function (match, style) {
-                return 'style="'
-                    + style.replace(/(?:margin(?:-[a-z]+)?|position):[^;]+; */g, '')
-                    + '"';
-            });
         }
 
         // Return the sanitized TeX to the client
@@ -164,6 +159,9 @@ router.post('/:outformat?/', function (req, res) {
         case "asciimath":
             type = "AsciiMath";
             break;
+        case "chem":
+            type = "chem";
+            break;
         default :
             emitError("Input format \"" + type + "\" is not recognized!");
     }
@@ -188,8 +186,8 @@ router.post('/:outformat?/', function (req, res) {
                 break;
             case "texvcinfo":
                 setOutFormat('texvcinfo');
-                if (!/tex$/i.test(type)) {
-                    emitError('texvcinfo accepts only tex or inline-tex as the input type, "' + type + '" given!');
+                if (!/(chem|tex$)/i.test(type)) {
+                    emitError('texvcinfo accepts only tex, inline-tex, or chem as the input type, "' + type + '" given!');
                 }
                 break;
             case "graph":

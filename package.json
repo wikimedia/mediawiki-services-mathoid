@@ -46,8 +46,8 @@
     "js-yaml": "^3.5.2",
     "preq": "^0.4.8",
     "service-runner": "^0.3.8",
-    "mathoid-mathjax-node": "0.4.4",
-    "texvcinfo": "^0.3.3"
+    "mathoid-mathjax-node": "^0.5.0",
+    "texvcinfo": "^0.4.1"
   },
   "devDependencies": {
     "extend": "^3.0.0",
