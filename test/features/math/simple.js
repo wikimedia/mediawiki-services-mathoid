@@ -249,6 +249,20 @@ describe('Simple Mathoid API tests', function () {
                 assert.deepEqual(res.body.detail.error.location.end.column, 12);
             });
         });
+        it("reject use of \\ce commands without chemistry mode enabled", function () {
+            return preq.post({
+                uri: baseURL,
+                body: {q: "\\ce{H2O}"}
+            }).then(function (res) {
+                // if we are here, no error was thrown, not good
+                throw new Error('Expected an error to be thrown, got status: ' + res.status);
+            }, function (res) {
+                assert.status(res, 400);
+                assert.deepEqual(res.body.success, false);
+                assert.deepEqual(res.body.detail.error.found, "\\ce");
+                assert.deepEqual(res.body.error, "SyntaxError: Attempting to use the $\\ce$ command outside of a chemistry environment.");
+            });
+        });
         it("reject invalid input type", function () {
             return preq.post({
                 uri: baseURL,
