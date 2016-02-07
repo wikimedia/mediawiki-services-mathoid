@@ -42,7 +42,7 @@ return server.start().delay(1000).then(function () {
     }
     return preq.post({
         uri: baseURL + "svg/",
-        body: {q: testcase.input, noSpeak: true}
+        body: {q: testcase.input, nospeech: true}
     }).then(function (res) {
         var nextProm = BBPromise.resolve();
         var svgPath = path.resolve(__dirname, "../test/files/mathjax-texvc/svg", testcase.id + ".svg");
