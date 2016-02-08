@@ -41,7 +41,6 @@
     "bunyan": "^1.5.1",
     "cassandra-uuid": "^0.0.2",
     "compression": "^1.6.1",
-    "domino": "^1.0.21",
     "express": "^4.13.3",
     "js-yaml": "^3.5.2",
     "preq": "^0.4.8",
