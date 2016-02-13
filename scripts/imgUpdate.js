@@ -63,7 +63,7 @@ return server.start().delay(1000).then(function () {
                 nextProm = fs.writeFileAsync(svgPath, actualSvg).catch(function(err) {
                     console.log(err);
                 }).then(function() {
-                    console.log("SVG File for " + testcase.id + " has been saved!");
+                    console.log("SVG file for " + testcase.id + " has been saved!");
                 });
             }
         }
@@ -86,11 +86,14 @@ return server.start().delay(1000).then(function () {
         } else {
             console.log("PNG for testcase " + testcase.id + " has changed.");
             if (program.force) {
-                nextProm = fs.writeFileAsync(pngPath, actualPng).catch(function(err) {
-                    console.log(err);
-                    return BBPromise.reject(err);
-                }).then(function() {
-                    console.log("PNG File for " + testcase.id + " has been saved!");
+                var img = new Buffer(actualPng, 'base64');
+                nextProm = fs.writeFileAsync(pngPath, img, 'binary', function (err) {
+                    if (err) {
+                        console.log(err);
+                        return BBPromise.reject(err);
+                    } else {
+                        console.log("PNG file for " + testcase.id + " has been saved!");
+                    }
                 });
             }
         }
@@ -103,7 +106,7 @@ return server.start().delay(1000).then(function () {
                     console.log(err);
                     return BBPromise.reject(err);
                 }).then(function() {
-                    console.log("MD File for " + testcase.id + " has been updated!");
+                    console.log("MD file for " + testcase.id + " has been updated!");
                 });
             });
         }

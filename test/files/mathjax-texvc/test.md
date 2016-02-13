@@ -84,3 +84,5 @@
  * Test 86 $\arccsc$ ($\operatorname {arccsc} $)![Test-image](png/86.png) [Test-image-svg](svg/86.svg)
  * Test 87 $\bold{x}$ (${\mathbf {x}}$)![Test-image](png/87.png) [Test-image-svg](svg/87.svg)
  * Test 90 $\pagecolor{red}x$ ($\pagecolor {red}x$)![Test-image](png/90.png) [Test-image-svg](svg/90.svg)
+ * Test 91 $\vline$ ($\vline $)![Test-image](png/91.png) [Test-image-svg](svg/91.svg)
+ * Test 92 $\image$ ($\Im $)![Test-image](png/92.png) [Test-image-svg](svg/92.svg)
