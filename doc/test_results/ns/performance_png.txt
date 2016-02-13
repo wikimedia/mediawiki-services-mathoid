@@ -10,36 +10,36 @@ Server Hostname:        localhost
 Server Port:            10042
 
 Document Path:          /png
-Document Length:        1510 bytes
+Document Length:        170 bytes
 
 Concurrency Level:      8
-Time taken for tests:   20.963 seconds
+Time taken for tests:   0.379 seconds
 Complete requests:      100
 Failed requests:        0
-Total transferred:      224700 bytes
+Total transferred:      90600 bytes
 Total body sent:        16700
-HTML transferred:       151000 bytes
-Requests per second:    4.77 [#/sec] (mean)
-Time per request:       1677.075 [ms] (mean)
-Time per request:       209.634 [ms] (mean, across all concurrent requests)
-Transfer rate:          10.47 [Kbytes/sec] received
-                        0.78 kb/s sent
-                        11.25 kb/s total
+HTML transferred:       17000 bytes
+Requests per second:    263.57 [#/sec] (mean)
+Time per request:       30.352 [ms] (mean)
+Time per request:       3.794 [ms] (mean, across all concurrent requests)
+Transfer rate:          233.20 [Kbytes/sec] received
+                        42.98 kb/s sent
+                        276.19 kb/s total
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
 Connect:        0    0   0.0      0       0
-Processing:   665 1609 872.0   1323    4122
-Waiting:      665 1598 869.3   1323    4111
-Total:        665 1609 872.0   1323    4122
+Processing:    17   30   5.7     29      66
+Waiting:       17   29   5.7     28      65
+Total:         17   30   5.7     29      66
 
 Percentage of the requests served within a certain time (ms)
-  50%   1323
-  66%   1649
-  75%   2225
-  80%   2348
-  90%   2926
-  95%   3587
-  98%   4024
-  99%   4122
- 100%   4122 (longest request)
+  50%     29
+  66%     30
+  75%     31
+  80%     31
+  90%     34
+  95%     38
+  98%     50
+  99%     66
+ 100%     66 (longest request)

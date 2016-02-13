@@ -13,33 +13,33 @@ Document Path:          /mml
 Document Length:        402 bytes
 
 Concurrency Level:      8
-Time taken for tests:   3.968 seconds
+Time taken for tests:   4.415 seconds
 Complete requests:      100
 Failed requests:        0
 Total transferred:      117400 bytes
 Total body sent:        16700
 HTML transferred:       40200 bytes
-Requests per second:    25.20 [#/sec] (mean)
-Time per request:       317.454 [ms] (mean)
-Time per request:       39.682 [ms] (mean, across all concurrent requests)
-Transfer rate:          28.89 [Kbytes/sec] received
-                        4.11 kb/s sent
-                        33.00 kb/s total
+Requests per second:    22.65 [#/sec] (mean)
+Time per request:       353.176 [ms] (mean)
+Time per request:       44.147 [ms] (mean, across all concurrent requests)
+Transfer rate:          25.97 [Kbytes/sec] received
+                        3.69 kb/s sent
+                        29.66 kb/s total
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
 Connect:        0    0   0.0      0       0
-Processing:   203  308  57.8    302     788
-Waiting:      203  308  57.8    301     788
-Total:        204  308  57.8    302     788
+Processing:   223  344  61.2    331     788
+Waiting:      223  344  61.2    330     788
+Total:        223  344  61.2    331     788
 
 Percentage of the requests served within a certain time (ms)
-  50%    302
-  66%    307
-  75%    309
-  80%    315
-  90%    322
-  95%    333
-  98%    490
+  50%    331
+  66%    343
+  75%    345
+  80%    348
+  90%    394
+  95%    460
+  98%    489
   99%    788
  100%    788 (longest request)

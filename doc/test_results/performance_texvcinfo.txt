@@ -10,36 +10,36 @@ Server Hostname:        localhost
 Server Port:            10042
 
 Document Path:          /texvcinfo
-Document Length:        87 bytes
+Document Length:        107 bytes
 
 Concurrency Level:      8
-Time taken for tests:   0.055 seconds
+Time taken for tests:   0.065 seconds
 Complete requests:      100
 Failed requests:        0
-Total transferred:      85200 bytes
+Total transferred:      87300 bytes
 Total body sent:        17300
-HTML transferred:       8700 bytes
-Requests per second:    1814.82 [#/sec] (mean)
-Time per request:       4.408 [ms] (mean)
-Time per request:       0.551 [ms] (mean, across all concurrent requests)
-Transfer rate:          1509.98 [Kbytes/sec] received
-                        306.60 kb/s sent
-                        1816.59 kb/s total
+HTML transferred:       10700 bytes
+Requests per second:    1538.53 [#/sec] (mean)
+Time per request:       5.200 [ms] (mean)
+Time per request:       0.650 [ms] (mean, across all concurrent requests)
+Transfer rate:          1311.66 [Kbytes/sec] received
+                        259.93 kb/s sent
+                        1571.59 kb/s total
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.1      0       0
-Processing:     1    4   3.0      3      19
-Waiting:        1    4   2.9      3      19
-Total:          2    4   3.0      3      19
+Connect:        0    0   0.1      0       1
+Processing:     2    5   3.1      4      16
+Waiting:        2    5   2.9      4      16
+Total:          2    5   3.2      4      16
 
 Percentage of the requests served within a certain time (ms)
-  50%      3
-  66%      4
-  75%      5
-  80%      5
-  90%     10
-  95%     10
-  98%     15
-  99%     19
- 100%     19 (longest request)
+  50%      4
+  66%      5
+  75%      7
+  80%      7
+  90%      9
+  95%     12
+  98%     16
+  99%     16
+ 100%     16 (longest request)

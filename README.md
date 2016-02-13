@@ -77,17 +77,17 @@ for the input $E = m c^2$:
 
 |format                                      |time|    sd|
 |--------------------------------------------|----|------|
-| [texvcinfo](doc/test_results/performance_texvcinfo.txt) |0004|003.0|
-| [mml](doc/test_results/performance_mml.txt)             |0308|057.8|
-| [svg](doc/test_results/performance_svg.txt)             |0313|048.1|
-| [png](doc/test_results/performance_png.txt)             |1656|988.3|
+| [texvcinfo](doc/test_results/performance_texvcinfo.txt) |0005|003.2|
+| [mml](doc/test_results/performance_mml.txt)             |0334|061.2|
+| [svg](doc/test_results/performance_svg.txt)             |0343|058.6|
+| [png](doc/test_results/performance_png.txt)             |0027|007.2|
 
 |format (without speech support)               |time|    sd|
 |----------------------------------------------|----|------|
-| [texvcinfo](doc/test_results/ns/performance_texvcinfo.txt) |0005|004.6|
-| [mml](doc/test_results/ns/performance_mml.txt)             |0031|008.0|
-| [svg](doc/test_results/ns/performance_svg.txt)             |0028|006.5|
-| [png](doc/test_results/ns/performance_png.txt)             |1609|872.3|
+| [texvcinfo](doc/test_results/ns/performance_texvcinfo.txt) |0005|003.0|
+| [mml](doc/test_results/ns/performance_mml.txt)             |0030|004.5|
+| [svg](doc/test_results/ns/performance_svg.txt)             |0030|004.2|
+| [png](doc/test_results/ns/performance_png.txt)             |0030|005.7|
 The time, i.e. "Total Connection Times" were measured in unit ms.
 ## Create a new release
 
