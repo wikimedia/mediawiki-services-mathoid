@@ -38,3 +38,4 @@ services:
       texvcinfo: true
       speech: true
       speech_on: false
+      no_check: true

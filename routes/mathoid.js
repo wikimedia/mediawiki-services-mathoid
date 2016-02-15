@@ -56,13 +56,14 @@ function handleRequest(res, q, type, outFormat, features) {
     var mml = (type !== "MathML") && /^mml|json|complete$/.test(outFormat);
     var png = app.conf.png && /^png|json|complete$/.test(outFormat);
     var img = app.conf.img && /^json|complete$/.test(outFormat);
+    var info = app.conf.texvcinfo && /^graph|texvcinfo$/.test(outFormat);
     var speech = (outFormat !== "png") && features.speech || outFormat === "speech";
     var chem = type === "chem";
 
     if (chem) {
         type = "inline-TeX";
     }
-    if (type === "TeX" || type === "inline-TeX") {
+    if ((!app.conf.no_check && /^TeX|inline-TeX$/.test(type)) || info  ) {
         feedback = texvcInfo.feedback(q,{usemhchem: chem});
         // XXX properly handle errors here!
         if (feedback.success) {
@@ -71,13 +72,15 @@ function handleRequest(res, q, type, outFormat, features) {
         } else {
             emitError(feedback.error.name + ': ' + feedback.error.message, feedback);
         }
-        if (app.conf.texvcinfo && outFormat === "graph") {
-            res.json(texvcInfo.texvcinfo(q, {"format": "json", "compact": true}));
-            return;
-        }
-        if (app.conf.texvcinfo && outFormat === "texvcinfo") {
-            res.json(feedback).end();
-            return;
+        if (info) {
+            if (outFormat === "graph") {
+                res.json(texvcInfo.texvcinfo(q, {"format": "json", "compact": true}));
+                return;
+            }
+            if (info && outFormat === "texvcinfo") {
+                res.json(feedback).end();
+                return;
+            }
         }
     }
 

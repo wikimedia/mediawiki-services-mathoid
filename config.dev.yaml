@@ -66,3 +66,4 @@ services:
       speech: true #new feature
       texvcinfo: true
       speech_on: true
+      no_check: false
