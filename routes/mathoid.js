@@ -136,7 +136,7 @@ function handleRequest(res, q, type, outFormat, features) {
  */
 router.post('/:outformat?/', function (req, res) {
     var outFormat;
-    var speech = app.conf.speechOn;
+    var speech = app.conf.speech_on;
     // First some rudimentary input validation
     if (!(req.body.q)) {
         emitError("q (query) post parameter is missing!");

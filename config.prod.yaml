@@ -37,4 +37,4 @@ services:
       img: true
       texvcinfo: true
       speech: true
-      sppechOn: false
+      speech_on: false
