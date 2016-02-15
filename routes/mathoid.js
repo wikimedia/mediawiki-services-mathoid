@@ -55,8 +55,8 @@ function handleRequest(res, q, type, outFormat, features) {
     var svg = app.conf.svg && /^svg|json|complete$/.test(outFormat);
     var mml = (type !== "MathML") && /^mml|json|complete$/.test(outFormat);
     var png = app.conf.png && /^png|json|complete$/.test(outFormat);
-    var img = app.conf.img && /^json|complete$/.test(outFormat);
     var info = app.conf.texvcinfo && /^graph|texvcinfo$/.test(outFormat);
+    var img = app.conf.img && /^mml|json|complete$/.test(outFormat);
     var speech = (outFormat !== "png") && features.speech || outFormat === "speech";
     var chem = type === "chem";
 
@@ -124,6 +124,10 @@ function handleRequest(res, q, type, outFormat, features) {
                     }
                 });
                 res.json(data).end();
+                break;
+            case 'mml':
+                res.set(Object.assign({}, outHeaders.mml, {'x-mathoid-style': data.mathoidStyle}));
+                res.send(data.mml).end();
                 break;
             default:
                 res.set(outHeaders[outFormat]);

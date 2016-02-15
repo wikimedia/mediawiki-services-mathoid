@@ -304,6 +304,15 @@ describe('Simple Mathoid API tests', function () {
                 assert.deepEqual(res.body, "upper E equals m c squared");
             });
         });
+        it("get svg dimensions in mathml headers", function () {
+            return preq.post({
+                uri: baseURL + "mml",
+                body: {q: "E=mc^2"}
+            }).then(function (res) {
+                assert.status(res, 200);
+                assert.deepEqual(res.headers['x-mathoid-style'], 'vertical-align: -0.338ex; width:9.025ex; height:2.676ex;');
+            });
+        });
     });
 
 });
