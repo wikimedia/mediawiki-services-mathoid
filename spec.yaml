@@ -101,6 +101,7 @@ paths:
               mml:
                 headers:
                   content-type: application/mathml+xml
+                  x-mathoid-style: /.+/
                 body: /.+/
         - title: mass-energy equivalence (svg)
           request:

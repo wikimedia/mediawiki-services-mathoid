@@ -18,16 +18,19 @@ var app;
 
 
 /* The response headers for different render types */
-var outHeaders = {
-    svg: {
-        'content-type': 'image/svg+xml'
-    },
-    png: {
-        'content-type': 'image/png'
-    },
-    mml: {
-        'content-type': 'application/mathml+xml'
-    }
+var outHeaders = function(data) {
+    return {
+        svg: {
+            'content-type': 'image/svg+xml'
+        },
+        png: {
+            'content-type': 'image/png'
+        },
+        mml: {
+            'content-type': 'application/mathml+xml',
+            'x-mathoid-style': data.mathoidStyle
+        }
+    };
 };
 
 
@@ -63,8 +66,8 @@ function handleRequest(res, q, type, outFormat, features) {
     if (chem) {
         type = "inline-TeX";
     }
-    if ((!app.conf.no_check && /^TeX|inline-TeX$/.test(type)) || info  ) {
-        feedback = texvcInfo.feedback(q,{usemhchem: chem});
+    if ((!app.conf.no_check && /^TeX|inline-TeX$/.test(type)) || info) {
+        feedback = texvcInfo.feedback(q, {usemhchem: chem});
         // XXX properly handle errors here!
         if (feedback.success) {
             sanitizedTex = feedback.checked || '';
@@ -107,7 +110,7 @@ function handleRequest(res, q, type, outFormat, features) {
         if (sanitizedTex !== undefined) {
             data.sanetex = sanitizedTex;
         }
-        if (speech){
+        if (speech) {
             data.speech = data.speakText;
         }
         switch (outFormat) {
@@ -115,22 +118,19 @@ function handleRequest(res, q, type, outFormat, features) {
                 res.json(data).end();
                 break;
             case 'complete':
-                Object.keys(outHeaders).forEach(function (outType) {
+                var headers = outHeaders(data);
+                Object.keys(headers).forEach(function (outType) {
                     if (data[outType]) {
                         data[outType] = {
-                            headers: outHeaders[outType],
+                            headers: headers[outType],
                             body: data[outType]
                         };
                     }
                 });
                 res.json(data).end();
                 break;
-            case 'mml':
-                res.set(Object.assign({}, outHeaders.mml, {'x-mathoid-style': data.mathoidStyle}));
-                res.send(data.mml).end();
-                break;
             default:
-                res.set(outHeaders[outFormat]);
+                res.set(outHeaders(data)[outFormat]);
                 res.send(data[outFormat]).end();
         }
     });
