@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "4.2.4"
+  - "4.3.0"
   - "5"
 
 script: npm run-script coverage && (npm run-script coveralls || exit 0)

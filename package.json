@@ -60,7 +60,7 @@
     "dom-compare":"^0.2.1"
   },
   "deploy": {
-    "node": "4.2",
+    "node": "4.3.0",
     "target": "debian",
     "dependencies": {
       "_all": ["openjdk-7-jre-headless"]
