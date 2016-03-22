@@ -1,8 +1,1 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.819ex" height="2.509ex" style="vertical-align: -0.505ex;" viewBox="0 -863.1 783 1080.4" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<path stroke-width="10" id="E1-MJMAIN-2660" d="M181 -21Q134 -21 96 27T55 193Q55 224 58 247T82 317T143 410Q172 443 234 498Q282 543 314 598T360 687T380 725Q386 727 389 727Q395 727 398 725T406 716T413 702T423 677T439 641Q481 556 544 498Q633 420 678 353T723 204Q723 142 711 94T669 12T590 -21Q520 -21 490 8T459 66V70H409V62Q409 22 416 -17T430 -82T437 -112Q437 -131 407 -131Q403 -131 397 -131T389 -130T382 -130T372 -131Q341 -131 341 -111Q341 -107 348 -82T362 -18T369 62V70H319V66Q319 57 314 44T297 16T257 -10T191 -21H181Z"></path>
-</defs>
-<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
- <use xlink:href="#E1-MJMAIN-2660" x="0" y="0"></use>
-</g>
-</svg>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.819ex" height="2.509ex" style="vertical-align:-.505ex" viewBox="0 -863.1 783 1080.4" xmlns="http://www.w3.org/2000/svg"><defs><path stroke-width="10" id="a" d="M181-21q-47 0-85 48T55 193q0 31 3 54t24 70 61 93q29 33 91 88 48 45 80 100t46 89 20 38q6 2 9 2 6 0 9-2t8-9 7-14 10-25 16-36q42-85 105-143 89-78 134-145t45-149q0-62-12-110t-42-82-79-33q-70 0-100 29t-31 58v4h-50v-8q0-40 7-79t14-65 7-30q0-19-30-19h-10q-6 0-8 1t-7 0-10-1q-31 0-31 20 0 4 7 29t14 64 7 80v8h-50v-4q0-9-5-22t-17-28-40-26-66-11h-10z"/></defs><use xlink:href="#a" stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"/></svg>

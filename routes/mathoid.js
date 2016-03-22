@@ -4,6 +4,12 @@
 var sUtil = require('../lib/util');
 var texvcInfo = require('texvcinfo');
 var HTTPError = sUtil.HTTPError;
+var SVGO = require( 'svgo' );
+var svgo = new SVGO( {
+    plugins: [
+        { convertTransform: false }
+    ]
+} );
 
 
 /**
@@ -113,25 +119,37 @@ function handleRequest(res, q, type, outFormat, features) {
         if (speech) {
             data.speech = data.speakText;
         }
-        switch (outFormat) {
-            case 'json':
-                res.json(data).end();
-                break;
-            case 'complete':
-                var headers = outHeaders(data);
-                Object.keys(headers).forEach(function (outType) {
-                    if (data[outType]) {
-                        data[outType] = {
-                            headers: headers[outType],
-                            body: data[outType]
-                        };
-                    }
-                });
-                res.json(data).end();
-                break;
-            default:
-                res.set(outHeaders(data)[outFormat]);
-                res.send(data[outFormat]).end();
+
+        function outputResponse() {
+            switch (outFormat) {
+                case 'json':
+                    res.json(data).end();
+                    break;
+                case 'complete':
+                    var headers = outHeaders(data);
+                    Object.keys(headers).forEach(function (outType) {
+                        if (data[outType]) {
+                            data[outType] = {
+                                headers: headers[outType],
+                                body: data[outType]
+                            };
+                        }
+                    });
+                    res.json(data).end();
+                    break;
+                default:
+                    res.set(outHeaders(data)[outFormat]);
+                    res.send(data[outFormat]).end();
+            }
+        }
+
+        if (data.svg) {
+            svgo.optimize( data.svg, function ( result ) {
+                data.svg = result.data;
+                outputResponse();
+            } );
+        } else {
+            outputResponse();
         }
     });
 }

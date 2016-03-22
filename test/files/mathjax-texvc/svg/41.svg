@@ -1,8 +1,1 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.819ex" height="2.509ex" style="vertical-align: -0.671ex;" viewBox="0 -791.3 783 1080.4" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<path stroke-width="10" id="E1-MJMAIN-2287" d="M83 616Q83 628 98 636H251Q267 636 297 636T343 637Q427 637 488 621T605 551Q693 470 693 346Q693 261 650 195T545 96T415 57Q407 56 251 56H98Q83 64 83 76Q83 86 96 96H255H308H337Q412 96 439 100T512 124Q533 135 553 150T599 192T639 259T654 346Q654 437 592 507Q557 545 512 568Q468 587 439 591T335 596H306H255L96 597Q83 607 83 616ZM84 -131T84 -118T98 -98H659Q674 -106 674 -118T659 -138H98Q84 -131 84 -118Z"></path>
-</defs>
-<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
- <use xlink:href="#E1-MJMAIN-2287" x="0" y="0"></use>
-</g>
-</svg>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.819ex" height="2.509ex" style="vertical-align:-.671ex" viewBox="0 -791.3 783 1080.4" xmlns="http://www.w3.org/2000/svg"><defs><path stroke-width="10" id="a" d="M83 616q0 12 15 20h199q30 0 46 1 84 0 145-16t117-70q88-81 88-205 0-85-43-151T545 96 415 57q-8-1-164-1H98q-15 8-15 20 0 10 13 20h241q75 0 102 4t73 24q21 11 41 26t46 42 40 67 15 87q0 91-62 161-35 38-80 61-44 19-73 23t-104 5h-80l-159 1q-13 10-13 19zm1-747v13l14 20h561q15-8 15-20t-15-20H98q-14 7-14 20z"/></defs><use xlink:href="#a" stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"/></svg>
