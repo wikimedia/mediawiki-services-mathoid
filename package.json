@@ -53,7 +53,7 @@
     "extend": "^3.0.0",
     "istanbul": "^0.4.2",
     "mocha": "^2.3.4",
-    "mocha-jshint": "^2.2.6",
+    "mocha-jshint": "^2.3.1",
     "mocha-lcov-reporter": "^1.0.0",
     "swagger-router": "^0.3.4",
     "commander": "^2.9.0",

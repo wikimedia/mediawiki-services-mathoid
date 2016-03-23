@@ -99,8 +99,8 @@ return server.start().delay(1000).then(function () {
         }
         if (program.force) {
             nextProm = nextProm.then(function() {
-                return fs.appendFileAsync(mdPath, "\n * Test " + testcase.id + " $" + testcase.input
-                    + "$ ($"+ testcase.texvcjs + "$)![Test-image](png/" + testcase.id +
+                return fs.appendFileAsync(mdPath, "\n * Test " + testcase.id + " $" + testcase.input +
+                    "$ ($"+ testcase.texvcjs + "$)![Test-image](png/" + testcase.id +
                     ".png) [Test-image-svg](svg/" + testcase.id + ".svg)")
                 .catch(function(err) {
                     console.log(err);
