@@ -93,7 +93,7 @@ function handleRequest(res, q, type, outFormat, features) {
         }
     }
 
-    app.mjAPI.typeset({
+    var mathJaxOptions = {
         math: q,
         format: type,
         svg: svg,
@@ -101,7 +101,11 @@ function handleRequest(res, q, type, outFormat, features) {
         mml: mml,
         speakText: speech,
         png: png
-    }, function (data) {
+    };
+    if ( app.conf.dpi ){
+        mathJaxOptions.dpi = app.conf.dpi;
+    }
+    app.mjAPI.typeset(mathJaxOptions, function (data) {
         if (data.errors) {
             data.success = false;
             // @deprecated replace with emitError
