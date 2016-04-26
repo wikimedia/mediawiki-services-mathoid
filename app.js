@@ -126,9 +126,6 @@ function initApp(options) {
     // use the application/x-www-form-urlencoded parser
     app.use(bodyParser.urlencoded({extended: true}));
 
-    // serve static files from static/
-    app.use('/static', express.static(__dirname + '/static'));
-
     mjAPI.config({
         MathJax: {
             menuSettings: {semantics: true},
@@ -227,7 +224,11 @@ function createServer(app) {
 module.exports = function(options) {
 
     return initApp(options)
-        .then(loadRoutes)
-        .then(createServer);
+    .then(loadRoutes)
+    .then(function(app) {
+        // serve static files from static/
+        app.use('/static', express.static(__dirname + '/static'));
+        return app;
+    }).then(createServer);
 
 };
