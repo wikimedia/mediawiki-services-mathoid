@@ -216,14 +216,13 @@
 	},
 	{
 		"id": 44,
-		"input": "\\hAar",
+		"input": "\\hArr",
 		"texvcjs": "\\Leftrightarrow "
 	},
 	{
 		"id": 45,
-		"ignore": true,
-		"input": "\\hArr",
-		"comment": "Not allowed in PNG mode. So it was never visible to anonymous users."
+		"input": "\\harr",
+		"texvcjs": "\\leftrightarrow "
 	},
 	{
 		"id": 46,

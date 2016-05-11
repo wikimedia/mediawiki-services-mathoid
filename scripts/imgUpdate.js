@@ -42,11 +42,17 @@ return server.start().delay(1000).then(function () {
     }
     return preq.post({
         uri: baseURL + "svg/",
+        encoding: null,
         body: {q: testcase.input, nospeech: true}
     }).then(function (res) {
-        var nextProm = BBPromise.resolve();
+        var referenceSvg, nextProm = BBPromise.resolve();
         var svgPath = path.resolve(__dirname, "../test/files/mathjax-texvc/svg", testcase.id + ".svg");
-        var referenceSvg = fs.readFileSync(svgPath).toString();
+        try{
+            referenceSvg = fs.readFileSync(svgPath).toString();
+        } catch (e) {
+            console.log("Reference SVG for testcase " + testcase.id + " could not be read.");
+            referenceSvg = false;
+        }
         assert.status(res, 200);
         var actualSvg = res.body.toString();
         if (referenceSvg === actualSvg) {
@@ -55,10 +61,12 @@ return server.start().delay(1000).then(function () {
             }
         } else {
             console.log("SVG for testcase " + testcase.id + " has changed.");
-            var domRef = parser.parseFromString(referenceSvg);
-            var domReal = parser.parseFromString(actualSvg);
-            var result = compare(domRef, domReal);
-            console.log(reporter.report(result));
+            if ( referenceSvg ) {
+                var domReal = parser.parseFromString(actualSvg);
+                var domRef = parser.parseFromString(referenceSvg);
+                var result = compare(domRef, domReal);
+                console.log(reporter.report(result));
+            }
             if (program.force) {
                 nextProm = fs.writeFileAsync(svgPath, actualSvg).catch(function(err) {
                     console.log(err);
@@ -72,22 +80,27 @@ return server.start().delay(1000).then(function () {
                 uri: baseURL + "png/",
                 body: {q: testcase.input, noSpeak: true}
             });
+        }).catch(function (){
+            console.log('skip');
         });
     }).then(function (res) {
-        var nextProm = BBPromise.resolve();
+        var referencePng, nextProm = BBPromise.resolve();
         var pngPath = path.resolve(__dirname, "../test/files/mathjax-texvc/png", testcase.id + ".png");
-        var referencePng = fs.readFileSync(pngPath, 'base64');
+        try{
+            referencePng = fs.readFileSync(pngPath);
+        } catch (e) {
+            console.log("Reference PNG for testcase " + testcase.id + " could not be read.");
+            referencePng = new Buffer();
+        }
         assert.status(res, 200);
-        var actualPng = res.body.toString().replace(/^data:image\/png;base64,/, "");
-        if (referencePng === actualPng) {
+        if (referencePng.compare(res.body) === 0) {
             if (program.verbose) {
                 console.log("PNG for testcase " + testcase.id + " has not changed.");
             }
         } else {
             console.log("PNG for testcase " + testcase.id + " has changed.");
             if (program.force) {
-                var img = new Buffer(actualPng, 'base64');
-                nextProm = fs.writeFileAsync(pngPath, img, 'binary', function (err) {
+                nextProm = fs.writeFileAsync(pngPath, res.body, 'binary', function (err) {
                     if (err) {
                         console.log(err);
                         return BBPromise.reject(err);
@@ -111,8 +124,12 @@ return server.start().delay(1000).then(function () {
             });
         }
         return nextProm;
+    }).catch(function(err){
+        console.log('Skip testcase ' + testcase.id + "\n");
+        console.log(err);
     });
 }).then(server.stop).then(function () {
+    console.log('done');
     process.exit(0);
 });
 
