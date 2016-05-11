@@ -50,21 +50,24 @@
     "svgo": "^0.6.0"
   },
   "devDependencies": {
+    "commander": "^2.9.0",
+    "dom-compare": "^0.2.1",
     "extend": "^3.0.0",
     "istanbul": "^0.4.3",
     "mocha": "^2.4.5",
     "mocha-jshint": "^2.3.1",
     "mocha-lcov-reporter": "^1.2.0",
+    "rewire": "^2.5.1",
     "swagger-router": "^0.4.2",
-    "commander": "^2.9.0",
-    "xmldom": "^0.1.21",
-    "dom-compare":"^0.2.1"
+    "xmldom": "^0.1.21"
   },
   "deploy": {
     "node": "4.3.0",
     "target": "debian",
     "dependencies": {
-      "_all": ["librsvg2-dev"]
+      "_all": [
+        "librsvg2-dev"
+      ]
     }
   }
 }

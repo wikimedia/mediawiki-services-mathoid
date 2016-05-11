@@ -4,12 +4,12 @@
 var sUtil = require('../lib/util');
 var texvcInfo = require('texvcinfo');
 var HTTPError = sUtil.HTTPError;
-var SVGO = require( 'svgo' );
-var svgo = new SVGO( {
+var SVGO = require('svgo');
+var svgo = new SVGO({
     plugins: [
-        { convertTransform: false }
+        {convertTransform: false}
     ]
-} );
+});
 
 
 /**
@@ -24,7 +24,7 @@ var app;
 
 
 /* The response headers for different render types */
-var outHeaders = function(data) {
+var outHeaders = function (data) {
     return {
         svg: {
             'content-type': 'image/svg+xml'
@@ -59,7 +59,23 @@ function emitFormatError(format) {
         format + ": true\" to enable " + format + "rendering.");
 }
 
-function handleRequest(res, q, type, outFormat, features) {
+var optimizeSvg = function (data, req, cb) {
+    try {
+        svgo.optimize(data.svg, function (result) {
+            if (!result.error) {
+                data.svg = result.data;
+            } else {
+                req.logger.log('warn/svgo', result.error);
+            }
+            cb();
+        });
+    } catch (e) {
+        req.logger.log('warn/svgo', e);
+        cb();
+    }
+};
+
+function handleRequest(res, q, type, outFormat, features, req) {
     var sanitizedTex, feedback;
     var svg = app.conf.svg && /^svg|json|complete$/.test(outFormat);
     var mml = (type !== "MathML") && /^mml|json|complete$/.test(outFormat);
@@ -102,7 +118,7 @@ function handleRequest(res, q, type, outFormat, features) {
         speakText: speech,
         png: png
     };
-    if ( app.conf.dpi ){
+    if (app.conf.dpi) {
         mathJaxOptions.dpi = app.conf.dpi;
     }
     app.mjAPI.typeset(mathJaxOptions, function (data) {
@@ -148,10 +164,7 @@ function handleRequest(res, q, type, outFormat, features) {
         }
 
         if (data.svg) {
-            svgo.optimize( data.svg, function ( result ) {
-                data.svg = result.data;
-                outputResponse();
-            } );
+            optimizeSvg(data, req, outputResponse);
         } else {
             outputResponse();
         }
@@ -244,7 +257,7 @@ router.post('/:outformat?/', function (req, res) {
     } else {
         outFormat = "json";
     }
-    handleRequest(res, q, type, outFormat, {speech: speech});
+    handleRequest(res, q, type, outFormat, {speech: speech}, req);
 
 });
 
