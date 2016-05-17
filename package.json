@@ -45,7 +45,7 @@
     "js-yaml": "^3.6.0",
     "preq": "^0.4.9",
     "service-runner": "^1.2.2",
-    "mathoid-mathjax-node": "^0.6.4",
+    "mathoid-mathjax-node": "^0.6.5",
     "texvcinfo": "^0.4.2",
     "svgo": "^0.6.0"
   },
