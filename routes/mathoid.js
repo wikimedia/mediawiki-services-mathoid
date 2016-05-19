@@ -1,10 +1,12 @@
 'use strict';
 
 
+var BBPromise = require('bluebird');
 var sUtil = require('../lib/util');
 var texvcInfo = require('texvcinfo');
-var HTTPError = sUtil.HTTPError;
 var SVGO = require('svgo');
+
+var HTTPError = sUtil.HTTPError;
 var svgo = new SVGO({
     plugins: [
         {convertTransform: false}
@@ -121,16 +123,17 @@ function handleRequest(res, q, type, outFormat, features, req) {
     if (app.conf.dpi) {
         mathJaxOptions.dpi = app.conf.dpi;
     }
-    app.mjAPI.typeset(mathJaxOptions, function (data) {
+    return new BBPromise(function(resolve, reject) {
+        app.mjAPI.typeset(mathJaxOptions, function (data) {
+            resolve(data);
+        });
+    }).then(function (data) {
         if (data.errors) {
-            data.success = false;
-            // @deprecated replace with emitError
-            data.log = "Error:" + JSON.stringify(data.errors);
-        } else {
-            data.success = true;
-            // @deprecated
-            data.log = "success";
+            emitError(data.errors);
         }
+        data.success = true;
+        // @deprecated
+        data.log = "success";
 
         // Return the sanitized TeX to the client
         if (sanitizedTex !== undefined) {
@@ -257,7 +260,7 @@ router.post('/:outformat?/', function (req, res) {
     } else {
         outFormat = "json";
     }
-    handleRequest(res, q, type, outFormat, {speech: speech}, req);
+    return handleRequest(res, q, type, outFormat, {speech: speech}, req);
 
 });
 
