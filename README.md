@@ -11,6 +11,11 @@ Mathoid-server is a based on svgtex - https://github.com/agrbin/svgtex.
 
 ## Installation
 Install node 4.2.3, iojs-v2.5.0 or a compatible node version and npm version 2.14.7 or similar.
+In addition the prerequisites from [librsvg](https://www.npmjs.com/package/librsvg#installation) are needed.
+For Debian based systems installing the `librsvg2-dev` should be sufficient.
+```bash
+sudo apt-get install librsvg2-dev
+```
 Thereafter, install mathoid by running
 ```bash
 npm install mathoid
