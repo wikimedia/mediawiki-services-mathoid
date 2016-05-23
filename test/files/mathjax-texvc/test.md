@@ -87,3 +87,4 @@
  * Test 90 $\pagecolor{red}x$ ($\pagecolor {red}x$)![Test-image](png/90.png) [Test-image-svg](svg/90.svg)
  * Test 91 $\vline$ ($\vline $)![Test-image](png/91.png) [Test-image-svg](svg/91.svg)
  * Test 92 $\image$ ($\Im $)![Test-image](png/92.png) [Test-image-svg](svg/92.svg)
+ * Test 93 ${\displaystyle \left(\left(\sum_A\right)B \right)}$ (${\displaystyle \left(\left(\sum_A\right)B \right)}$)![Test-image](png/93.png) [Test-image-svg](svg/93.svg)

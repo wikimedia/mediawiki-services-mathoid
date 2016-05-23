@@ -1,1 +1,8 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.334ex" height="1.843ex" style="vertical-align:-.338ex" viewBox="0 -647.8 1005 793.3" xmlns="http://www.w3.org/2000/svg"><defs><path stroke-width="10" id="a" d="M56 237v13l14 20h765q-116 87-143 223v3q0 2-1 3 0 12 17 12h3q9 0 12-1t6-4 3-9 3-16 8-25q22-67 73-120t119-75q9-3 9-11 0-6-5-9t-24-10-38-19q-41-26-71-60t-45-67-21-50-8-31q-2-10-5-12t-16-3q-20 0-20 11 0 7 5 25 32 126 139 205H70q-14 7-14 20z"/></defs><use xlink:href="#a" stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"/></svg>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.334ex" height="1.843ex" style="vertical-align: -0.338ex;" viewBox="0 -647.8 1005 793.3" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMAIN-2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMAIN-2192" x="0" y="0"></use>
+</g>
+</svg>

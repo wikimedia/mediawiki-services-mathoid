@@ -1,1 +1,8 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width=".85ex" height="2.176ex" style="vertical-align:-.338ex" viewBox="0 -791.3 366 936.9" xmlns="http://www.w3.org/2000/svg"><defs><path stroke-width="10" id="a" d="M328 0q-21 3-148 3T32 0H21v46h22q49 0 63 3t20 11q2 3 2 282 0 278-2 281-4 5-8 7t-22 5-53 2H21v46h11q21-3 148-3t148 3h11v-46h-22q-49 0-63-3t-20-11q-2-3-2-281 0-279 2-282 4-5 8-7t22-5 53-2h22V0h-11z"/></defs><use xlink:href="#a" stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"/></svg>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="0.85ex" height="2.176ex" style="vertical-align: -0.338ex;" viewBox="0 -791.3 366 936.9" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMAIN-49" d="M328 0Q307 3 180 3T32 0H21V46H43Q92 46 106 49T126 60Q128 63 128 342Q128 620 126 623Q122 628 118 630T96 635T43 637H21V683H32Q53 680 180 680T328 683H339V637H317Q268 637 254 634T234 623Q232 620 232 342Q232 63 234 60Q238 55 242 53T264 48T317 46H339V0H328Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMAIN-49" x="0" y="0"></use>
+</g>
+</svg>

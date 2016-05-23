@@ -68,3 +68,4 @@ services:
       speech_on: true
       no_check: false
       dpi: 180
+      svgo: false

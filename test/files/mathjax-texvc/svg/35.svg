@@ -1,1 +1,8 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.561ex" height="2.009ex" style="vertical-align:-.338ex" viewBox="0 -719.6 672 865.1" xmlns="http://www.w3.org/2000/svg"><defs><path stroke-width="10" id="a" d="M55 580q1 7 6 12t14 6q11 0 21-18L333 48l237 532q9 16 16 17 2 1 5 1 18 0 20-18 0-6-65-154T415 132 348-15q-5-7-15-7t-15 7q-1 1-66 146T121 425 55 580z"/></defs><use xlink:href="#a" stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"/></svg>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.561ex" height="2.009ex" style="vertical-align: -0.338ex;" viewBox="0 -719.6 672 865.1" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMAIN-2228" d="M55 580Q56 587 61 592T75 598Q86 598 96 580L333 48L570 580Q579 596 586 597Q588 598 591 598Q609 598 611 580Q611 574 546 426T415 132T348 -15Q343 -22 333 -22T318 -15Q317 -14 252 131T121 425T55 580Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMAIN-2228" x="0" y="0"></use>
+</g>
+</svg>

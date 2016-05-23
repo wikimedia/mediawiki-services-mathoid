@@ -39,3 +39,5 @@ services:
       speech: true
       speech_on: false
       no_check: true
+      dpi: 180
+      svgo: false

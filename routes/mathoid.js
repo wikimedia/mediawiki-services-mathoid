@@ -166,7 +166,7 @@ function handleRequest(res, q, type, outFormat, features, req) {
             }
         }
 
-        if (data.svg) {
+        if (data.svg && app.conf.svgo) {
             optimizeSvg(data, req, outputResponse);
         } else {
             outputResponse();
