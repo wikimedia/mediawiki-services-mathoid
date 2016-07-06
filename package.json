@@ -62,7 +62,7 @@
     "xmldom": "^0.1.21"
   },
   "deploy": {
-    "node": "4.3.0",
+    "node": "4.4.6",
     "target": "debian",
     "dependencies": {
       "_all": [
