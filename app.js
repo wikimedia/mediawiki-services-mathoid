@@ -6,6 +6,8 @@
 'use strict';
 
 
+require('core-js/shim');
+
 var http = require('http');
 var BBPromise = require('bluebird');
 var express = require('express');
@@ -13,6 +15,7 @@ var compression = require('compression');
 var bodyParser = require('body-parser');
 var fs = BBPromise.promisifyAll(require('fs'));
 var sUtil = require('./lib/util');
+var apiUtil = require('./lib/api-util');
 var packageInfo = require('./package.json');
 var yaml = require('js-yaml');
 var mjAPI = require("mathoid-mathjax-node/lib/mj-single.js");
@@ -69,6 +72,9 @@ function initApp(options) {
         return item.trim();
     }).join('|') + ')$', 'i');
 
+    // set up the request templates for the APIs
+    apiUtil.setupApiTemplates(app);
+
     // set up the spec
     if(!app.conf.spec) {
         app.conf.spec = __dirname + '/spec.yaml';
@@ -114,6 +120,9 @@ function initApp(options) {
         sUtil.initAndLogRequest(req, app);
         next();
     });
+
+    // set up the user agent header string to use for requests
+    app.conf.user_agent = app.conf.user_agent || app.info.name;
 
     // disable the X-Powered-By header
     app.set('x-powered-by', false);
@@ -169,15 +178,20 @@ function loadRoutes (app) {
             if(route.constructor !== Object || !route.path || !route.router || !(route.api_version || route.skip_domain)) {
                 throw new TypeError('routes/' + fname + ' does not export the correct object!');
             }
-            // wrap the route handlers with Promise.try() blocks
-            sUtil.wrapRouteHandlers(route.router);
-            // determine the path prefix
-            var prefix = '';
-            if(!route.skip_domain) {
-                prefix = '/:domain/v' + route.api_version;
+            // normalise the path to be used as the mount point
+            if(route.path[0] !== '/') {
+                route.path = '/' + route.path;
             }
+            if(route.path[route.path.length - 1] !== '/') {
+                route.path = route.path + '/';
+            }
+            if(!route.skip_domain) {
+                route.path = '/:domain/v' + route.api_version + route.path;
+            }
+            // wrap the route handlers with Promise.try() blocks
+            sUtil.wrapRouteHandlers(route, app);
             // all good, use that route
-            app.use(prefix + route.path, route.router);
+            app.use(route.path, route.router);
         });
     }).then(function () {
         // catch errors
@@ -208,7 +222,7 @@ function createServer(app) {
         );
     }).then(function () {
         app.logger.log('info',
-            'Worker ' + process.pid + ' listening on ' + app.conf.interface + ':' + app.conf.port);
+            'Worker ' + process.pid + ' listening on ' + (app.conf.interface || '*') + ':' + app.conf.port);
         return server;
     });
 
