@@ -44,7 +44,7 @@
     "core-js": "^2.4.1",
     "express": "^4.14.0",
     "js-yaml": "^3.6.1",
-    "mathoid-mathjax-node": "git+https://github.com/d00rman/MathJax-node#rsvg-errors",
+    "mathoid-mathjax-node": "0.6.6",
     "preq": "^0.4.10",
     "service-runner": "^2.0.4",
     "svgo": "^0.6.0",
