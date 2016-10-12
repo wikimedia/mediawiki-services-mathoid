@@ -47,16 +47,16 @@
     "mathoid-mathjax-node": "^0.6.6",
     "preq": "^0.4.10",
     "service-runner": "^2.0.4",
-    "svgo": "^0.6.0",
+    "svgo": "^0.7.1",
     "texvcinfo": "^0.4.2",
-    "swagger-router": "^0.4.6"
+    "swagger-router": "^0.5.2"
   },
   "devDependencies": {
     "commander": "^2.9.0",
     "dom-compare": "^0.2.1",
     "extend": "^3.0.0",
     "istanbul": "^0.4.4",
-    "mocha": "^2.5.3",
+    "mocha": "^3.1.2",
     "mocha-jshint": "^2.3.1",
     "mocha-lcov-reporter": "^1.2.0",
     "nsp": "^2.6.1",
