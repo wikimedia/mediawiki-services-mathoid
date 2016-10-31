@@ -2,7 +2,8 @@ sudo: false
 language: node_js
 node_js:
   - "4"
-  - "5"
+  - "6"
+  - "node"
 
 script: npm run-script coverage && (npm run-script coveralls || exit 0)
 
