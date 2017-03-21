@@ -38,6 +38,24 @@ services:
       texvcinfo: true
       speech: true
       speech_on: false
+      speech_config:
+        semantics: true
+        domain: 'mathspeak'
+        style: 'default'
+        semantic: false
+        minSTree: false
+        speakText: true
+        enrich: false
+      mj_config:
+          extensions: "TeX/color,TeX/mediawiki-texvc,TeX/mhchem"
+          MathJax:
+            menuSettings:
+              semantics: true
+            SVG:
+              font: "TeX"
+            TeX:
+              noErrors:
+                disabled: true
       no_check: true
       dpi: 180
       svgo: false

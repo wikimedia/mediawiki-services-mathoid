@@ -94,6 +94,21 @@ for the input $E = m c^2$:
 | [svg](doc/test_results/ns/performance_svg.txt)             |0030|004.2|
 | [png](doc/test_results/ns/performance_png.txt)             |0030|005.7|
 The time, i.e. "Total Connection Times" were measured in unit ms.
+
+## Run as service (with PM2)
+
+[PM2](http://pm2.keymetrics.io/) is a process manager for Node.js. It supports starting applications
+on system startup. You can set up mathoid to run automatically using this process manager.
+
+For example, run
+```bash
+npm install pm2 -g
+pm2 start pm2.config.js
+pm2 save
+pm2 startup
+```
+Thereafter check the generated output and run it as with root permissions.
+
 ## Create a new release
 
 Checkout the latest version and switch to the master branch:

@@ -4,6 +4,10 @@
 
 
 const assert = require('assert');
+const xmldom = require("xmldom");
+const parser = new xmldom.DOMParser();
+const compare = require('dom-compare').compare;
+const reporter = require('dom-compare').GroupingReporter;
 
 
 function deepEqual(result, expected, message) {
@@ -62,6 +66,36 @@ function isDeepEqual(result, expected, message) {
 }
 
 
+function deepEqual(result, expected, message) {
+
+    try {
+        if (typeof expected === 'string') {
+            assert.ok(result === expected || (new RegExp(expected).test(result)));
+        } else {
+            assert.deepEqual(result, expected, message);
+        }
+    } catch (e) {
+        // Temporary remove the large debug output and rely on the IDE features
+        // console.log('Expected:\n' + JSON.stringify(expected, null, 2));
+        // console.log('Result:\n' + JSON.stringify(result, null, 2));
+        assert.equal(result, expected, message);
+        throw e;
+    }
+
+}
+
+function xEqual(result,expected,message) {
+    var domReal = parser.parseFromString(result);
+    var domRef = parser.parseFromString(expected);
+    var cmp = compare(domRef, domReal);
+    if(!cmp.getResult() ){
+        console.log(reporter.report(cmp));
+        assert.deepEqual(result,expected,message);
+
+    }
+}
+
+
 function notDeepEqual(result, expected, message) {
 
     try {
@@ -100,6 +134,7 @@ module.exports.fails          = fails;
 module.exports.deepEqual      = deepEqual;
 module.exports.isDeepEqual    = isDeepEqual;
 module.exports.notDeepEqual   = notDeepEqual;
+module.exports.xEqual         = xEqual;
 module.exports.contentType    = contentType;
 module.exports.status         = status;
 module.exports.throws         = assert.throws;
