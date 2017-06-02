@@ -1,4 +1,4 @@
-Dockerfile
+/Dockerfile
 .idea/
 coverage
 npm-debug.log
