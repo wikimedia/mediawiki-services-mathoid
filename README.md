@@ -4,13 +4,13 @@
 
 [![NPM](https://nodei.co/npm/mathoid.png)](https://nodei.co/npm/mathoid/)
 
-Mathoid-server is a service that uses MathJax and PhantomJS to create SVGs and MathML on server side.
+Mathoid-server is a service that uses MathJax to create SVGs and MathML on server side.
 Mathoid-server is a based on svgtex - https://github.com/agrbin/svgtex.
 
 
 
 ## Installation
-Install node 4.2.3, iojs-v2.5.0 or a compatible node version and npm version 2.14.7 or similar.
+Install node 6.9.0 or a compatible node version.
 In addition the prerequisites from [librsvg](https://www.npmjs.com/package/librsvg#installation) are needed.
 For Debian based systems installing the `librsvg2-dev` should be sufficient.
 ```bash
@@ -19,7 +19,7 @@ sudo apt-get install librsvg2-dev
 Thereafter, install mathoid by running
 ```bash
 npm install mathoid
-nodejs /node_modules/mathoid/server.js
+node /node_modules/mathoid/server.js
 ```
 To install mathoid as a unix service there is a [script](scripts/gen-init-scripts.rb).
 
