@@ -63,6 +63,9 @@
     "rewire": "^2.5.1",
     "xmldom": "^0.1.21"
   },
+  "engines": {
+    "node": ">=4"
+  },
   "deploy": {
     "node": "6.9.1",
     "target": "debian",
