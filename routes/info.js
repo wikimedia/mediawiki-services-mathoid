@@ -1,25 +1,25 @@
 'use strict';
 
 
-var sUtil = require('../lib/util');
+const sUtil = require('../lib/util');
 
 
 /**
  * The main router object
  */
-var router = sUtil.router();
+const router = sUtil.router();
 
 /**
  * The main application object reported when this module is require()d
  */
-var app;
+let app;
 
 
 /**
  * GET /
  * Gets some basic info about this service
  */
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
 
     // simple sync return
     res.json({
@@ -36,7 +36,7 @@ router.get('/', function(req, res) {
  * GET /name
  * Gets the service's name as defined in package.json
  */
-router.get('/name', function(req, res) {
+router.get('/name', (req, res) => {
 
     // simple return
     res.json({ name: app.info.name });
@@ -48,7 +48,7 @@ router.get('/name', function(req, res) {
  * GET /version
  * Gets the service's version as defined in package.json
  */
-router.get('/version', function(req, res) {
+router.get('/version', (req, res) => {
 
     // simple return
     res.json({ version: app.info.version });
@@ -61,29 +61,28 @@ router.get('/version', function(req, res) {
  * Redirects to the service's home page if one is given,
  * returns a 404 otherwise
  */
-router.all('/home', function(req, res) {
+router.all('/home', (req, res) => {
 
-    var home = app.info.homepage;
-    if(home && /^http/.test(home)) {
+    const home = app.info.homepage;
+    if (home && /^http/.test(home)) {
         // we have a home page URI defined, so send it
         res.redirect(301, home);
-        return;
     } else {
         // no URI defined for the home page, error out
-        res.status(404).end('No home page URL defined for ' + app.info.name);
+        res.status(404).end(`No home page URL defined for ${app.info.name}`);
     }
 
 });
 
 
-module.exports = function(appObj) {
+module.exports = (appObj) => {
 
     app = appObj;
 
     return {
         path: '/_info',
         skip_domain: true,
-        router: router
+        router
     };
 
 };
