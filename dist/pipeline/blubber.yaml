@@ -1,0 +1,27 @@
+base: docker-registry.wikimedia.org/nodejs-slim
+apt: { packages: [librsvg2-2] }
+runs:
+  in: /srv/service
+  as: runuser
+  uid: 666
+  gid: 666
+  environment: { APP_BASE_PATH: /srv/service }
+
+variants:
+  build:
+    base: docker-registry.wikimedia.org/nodejs-devel
+    apt: { packages: [librsvg2-dev, git] }
+    node: { dependencies: true }
+  development:
+    includes: [build]
+    entrypoint: [node, server.js]
+  test:
+    includes: [build]
+    entrypoint: [npm, test]
+  prep:
+    includes: [build]
+    node: { env: production }
+  production:
+    copies: prep
+    node: { env: production }
+    entrypoint: [node, server.js]
