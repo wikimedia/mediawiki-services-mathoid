@@ -10,8 +10,9 @@ runs:
 variants:
   build:
     base: docker-registry.wikimedia.org/nodejs-devel
-    apt: { packages: [librsvg2-dev, git] }
+    apt: { packages: [librsvg2-dev, git, python-pkgconfig, build-essential] }
     node: { dependencies: true }
+    runs: { environment: { LINK: g++ } }
   development:
     includes: [build]
     entrypoint: [node, server.js]
