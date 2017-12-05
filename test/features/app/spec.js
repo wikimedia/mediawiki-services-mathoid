@@ -1,3 +1,5 @@
+/* global describe, it, before, after */
+
 'use strict';
 
 
@@ -212,8 +214,10 @@ function validateTestResponse(testCase, res) {
         }
     }
     // check that the body type is the same
-    if(expRes.body.constructor !== res.body.constructor) {
-        throw new Error('Expected a body of type ' + expRes.body.constructor + ' but gotten ' + res.body.constructor);
+    if (expRes.body.constructor !== res.body.constructor) {
+        throw new Error(
+            `Expected body type ${expRes.body.constructor} but got ${res.body.constructor}`
+        );
     }
 
     // compare the bodies
@@ -263,7 +267,7 @@ describe('Swagger spec', function() {
             const path = spec.paths[pathStr];
             assert.deepEqual(!!Object.keys(path), true, `No methods defined for path: ${pathStr}`);
             Object.keys(path).forEach((method) => {
-                const  mSpec = path[method];
+                const mSpec = path[method];
                 if ({}.hasOwnProperty.call(mSpec, 'x-monitor') && !mSpec['x-monitor']) {
                     return;
                 }

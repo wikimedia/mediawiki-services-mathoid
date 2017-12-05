@@ -58,8 +58,8 @@ function start(_options) {
                     serviceReturns.forEach(servers =>
                         servers.forEach(server =>
                             server.shutdown()));
-                    return runner.stop().then(function () {
-                        module.exports.stop = function () {
+                    return runner.stop().then(() => {
+                        module.exports.stop = () => {
                             return BBPromise.resolve();
                         };
                     });

@@ -17,7 +17,6 @@ const apiUtil = require('./lib/api-util');
 const packageInfo = require('./package.json');
 const yaml = require('js-yaml');
 const addShutdown = require('http-shutdown');
-
 const mjAPI = require("mathoid-mathjax-node/lib/mj-single.js");
 
 
@@ -155,7 +154,7 @@ function initApp(options) {
 /**
  * Loads all routes declared in routes/ into the app
  * @param {Application} app the application object to load routes into
- * @returns {bluebird} a promise resolving to the app object
+ * @return {bluebird} a promise resolving to the app object
  */
 function loadRoutes(app) {
 
@@ -207,7 +206,7 @@ function loadRoutes(app) {
 /**
  * Creates and start the service's web server
  * @param {Application} app the app object to use in the service
- * @returns {bluebird} a promise creating the web server
+ * @return {bluebird} a promise creating the web server
  */
 function createServer(app) {
 

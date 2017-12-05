@@ -1,6 +1,1 @@
 extends: 'eslint-config-node-services'
-rules:
-  indent:
-    - error
-    - 4
-    - SwitchCase: 1

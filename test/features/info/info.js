@@ -1,3 +1,5 @@
+/* global describe, it, before, after */
+
 'use strict';
 
 
@@ -12,12 +14,12 @@ if (!server.stopHookAdded) {
 
 describe('service information', function() {
 
-    this.timeout(20000);
+    this.timeout(20000); // eslint-disable-line no-invalid-this
 
     before(() => { return server.start(); });
 
     // common URI prefix for info tests
-    const infoUri = server.config.uri + '_info/';
+    const infoUri = `${server.config.uri}_info/`;
 
     // common function used for generating requests
     // and checking their return values

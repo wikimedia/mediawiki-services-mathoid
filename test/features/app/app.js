@@ -1,3 +1,5 @@
+/* global describe, it, before, after */
+
 'use strict';
 
 
