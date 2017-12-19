@@ -1,6 +1,6 @@
 'use strict';
 var rewire = require('rewire');
-var mathoid = rewire('../../../routes/mathoid');
+var mathoid = rewire('../../../lib/math');
 //To test with invalid files as well, we need to gain direct access the optimize SVG method.
 var optimize = mathoid.__get__('optimizeSvg');
 var assert = require('../../utils/assert.js');
@@ -20,20 +20,18 @@ describe('Mathoids SVG compression', function () {
         it(t.title || ('hanlde ' + t.err), function (done) {
             var err = false;
             var msg = false;
-            var fakeReq = {
-                logger: {
-                    log: function (m, e) {
-                        msg = m;
-                        if (e instanceof Error) {
-                            err = e.message;
-                        } else {
-                            err = e;
-                        }
+            var logger = {
+                log: function (m, e) {
+                    msg = m;
+                    if (e instanceof Error) {
+                        err = e.message;
+                    } else {
+                        err = e;
                     }
                 }
             };
             var data = {svg: t.in};
-            optimize(data, fakeReq, function () {
+            optimize(data, logger, function () {
                 if (t.err) {
                     assert.deepEqual(msg, 'warn/svgo');
                     assert.ok(err.indexOf(t.err) > 0, err.message + ' should contain ' + t.err);

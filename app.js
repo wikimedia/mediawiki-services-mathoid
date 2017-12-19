@@ -17,7 +17,8 @@ const apiUtil = require('./lib/api-util');
 const packageInfo = require('./package.json');
 const yaml = require('js-yaml');
 const addShutdown = require('http-shutdown');
-const mjAPI = require("mathoid-mathjax-node/lib/mj-single.js");
+
+const mjAPI = require("mathoid-mathjax-node");
 
 
 /**
@@ -133,15 +134,19 @@ function initApp(options) {
     app.use(bodyParser.json());
     // use the application/x-www-form-urlencoded parser
     app.use(bodyParser.urlencoded({ extended: true }));
-
-    mjAPI.config({
-        MathJax: {
-            menuSettings: {semantics: true},
-            SVG: {font: "TeX"},
-            TeX: {noErrors: {disabled: true}}//,
-            //TeX: {extensions: ["mediawiki-texvc.js"]}
+    if (app.conf.png) {
+        let rsvgVersion = false;
+        try {
+            rsvgVersion = require('librsvg/package.json').version;
+        } catch (e) {
         }
-    });
+        if (!rsvgVersion) {
+            app.conf.png = false;
+            app.logger.log('warn/png', 'png feature disabled. Librsvg not found');
+        }
+    }
+
+    mjAPI.config(app.conf.mj_config);
     mjAPI.start();
 
     app.mjAPI = mjAPI;

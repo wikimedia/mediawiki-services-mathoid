@@ -1,8 +1,9 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.431ex" height="2.176ex" style="vertical-align: -0.338ex;" viewBox="0 -791.3 616 936.9" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<path stroke-width="10" id="E1-MJMAIN-5A" d="M69 443Q69 452 74 554T80 683H549Q555 677 555 664Q555 649 554 648Q552 645 366 348T179 50T192 49T263 49H275H302Q333 49 353 50T401 59T447 78T482 115T507 173Q513 200 520 273V282H560V274Q560 272 552 143T543 8V0H302L61 1L58 3Q55 8 55 21V35Q59 43 153 193T340 489T432 637H343Q259 637 214 625T141 573Q109 523 109 445Q109 443 89 443H69Z"></path>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.42ex" height="2.176ex" style="vertical-align: -0.338ex;" viewBox="0 -791.3 611.5 936.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">
+<title id="MathJax-SVG-1-Title">\mathrm {Z} </title>
+<defs aria-hidden="true">
+<path stroke-width="1" id="E1-MJMAIN-5A" d="M69 443Q69 452 74 554T80 683H549Q555 677 555 664Q555 649 554 648Q552 645 366 348T179 50T192 49T263 49H275H302Q333 49 353 50T401 59T447 78T482 115T507 173Q513 200 520 273V282H560V274Q560 272 552 143T543 8V0H302L61 1L58 3Q55 8 55 21V35Q59 43 153 193T340 489T432 637H343Q259 637 214 625T141 573Q109 523 109 445Q109 443 89 443H69Z"></path>
 </defs>
-<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
  <use xlink:href="#E1-MJMAIN-5A" x="0" y="0"></use>
 </g>
 </svg>
