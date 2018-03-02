@@ -57,11 +57,11 @@
     "speech-rule-engine": "^2.1.1",
     "svgo": "^1.0.4",
     "swagger-router": "^0.7.1",
-    "swagger-ui": "git+https://github.com/wikimedia/swagger-ui#master",
     "texvcinfo": "^0.5.2"
   },
   "optionalDependencies": {
-    "librsvg": "^0.7.0"
+    "librsvg": "^0.7.0",
+    "swagger-ui": "git+https://github.com/wikimedia/swagger-ui#master"
   },
   "devDependencies": {
     "ajv": "^5.5.0",

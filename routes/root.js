@@ -2,8 +2,11 @@
 
 
 const sUtil = require('../lib/util');
-const swaggerUi = require('../lib/swagger-ui');
+let swaggerUi;
 
+try {
+    swaggerUi = require('../lib/swagger-ui');
+} catch (e) {}
 
 /**
  * The main router object
@@ -39,7 +42,7 @@ router.get('/', (req, res, next) => {
 
     if ({}.hasOwnProperty.call(req.query || {}, 'spec')) {
         res.json(app.conf.spec);
-    } else if ({}.hasOwnProperty.call(req.query || {}, 'doc')) {
+    } else if ({}.hasOwnProperty.call(req.query || {}, 'doc') && swaggerUi) {
         return swaggerUi.processRequest(app, req, res);
     } else {
         next();
