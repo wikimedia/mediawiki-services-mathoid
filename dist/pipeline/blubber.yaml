@@ -1,10 +1,8 @@
 base: docker-registry.wikimedia.org/nodejs-slim
 apt: { packages: [librsvg2-2] }
-runs:
+lives:
   in: /srv/service
-  as: runuser
-  uid: 666
-  gid: 666
+runs:
   environment: { APP_BASE_PATH: /srv/service }
 
 variants:
