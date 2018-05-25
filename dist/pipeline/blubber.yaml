@@ -1,3 +1,4 @@
+version: v2
 base: docker-registry.wikimedia.org/nodejs-slim
 apt: { packages: [librsvg2-2] }
 lives:
@@ -9,7 +10,7 @@ variants:
   build:
     base: docker-registry.wikimedia.org/nodejs-devel
     apt: { packages: [librsvg2-dev, git, python-pkgconfig, build-essential] }
-    node: { dependencies: true }
+    node: { requirements: [package.json]}
     runs: { environment: { LINK: g++ } }
   development:
     includes: [build]
