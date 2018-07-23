@@ -57,7 +57,7 @@
     "speech-rule-engine": "^2.1.1",
     "svgo": "^1.0.4",
     "swagger-router": "^0.7.1",
-    "texvcinfo": "^0.5.2"
+    "texvcinfo": "^0.5.3"
   },
   "optionalDependencies": {
     "librsvg": "^0.7.0",

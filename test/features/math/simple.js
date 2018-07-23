@@ -169,6 +169,16 @@ testGroups.forEach(function (t) {
                     assert.deepEqual(res.headers['x-mathoid-style'], 'vertical-align: -0.338ex; width:8.976ex; height:2.676ex;');
                 });
             });
+            it("warn on deprecated mhchem syntax", function () {
+                return preq.post({
+                    uri: baseURL + "texvcinfo",
+                    body: {q: "\\ce {pH=-\\log _{10}[H+]}", type: "chem"}
+                }).then(function (res) {
+                    assert.status(res, 200);
+                    assert.deepEqual(res.body.warnings.length, 1);
+                    assert.deepEqual(res.body.warnings[0].type, "mhchem-deprecation");
+                });
+            });
         });
 
     });
