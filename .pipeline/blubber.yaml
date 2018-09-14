@@ -1,4 +1,4 @@
-version: v2
+version: v3
 base: docker-registry.wikimedia.org/nodejs-slim
 apt: { packages: [librsvg2-2] }
 lives:
