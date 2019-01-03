@@ -157,3 +157,57 @@ paths:
                   location:
                     start:
                       column: 5
+  /zlib{/outformat}{/type}/{q}:
+    get:
+      tags:
+        - zLib
+      description: Converts a formula encoded in the URI to TeX to SVG, PNG or MathML depending on the parameter format. The special format 'texvcinfo' returns information about the input without to render anything.
+      produces:
+        - image/svg+xml
+        - application/mathml+xml
+        - application/json
+      parameters:
+        - name: outformat
+          in: path
+          type: string
+          description: output type
+          enum:
+            - texvcinfo
+            - speech
+            - mml
+            - svg
+            - png
+            - json
+            - complete
+        - name: type
+          in: path
+          type: string
+          description: input type
+          enum:
+            - tex
+            - inline-tex
+            - mml
+            - ascii
+        - name: q
+          in: path
+          type: string
+          required: true
+          description: compressed input to be converted
+      x-amples:
+        - title: Get identifiers from compressed mass-energy equivalence formula
+        request:
+          params:
+            outformat: texvcinfo
+            type: tex
+            q: eJxztc1NjjMCAAagAeM=
+        response:
+          status: 200
+          headers:
+            content-type: application/json
+          body:
+            success: true
+            checked: /E=mc/
+            identifiers:
+             - E
+             - m
+             - c

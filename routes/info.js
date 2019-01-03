@@ -64,6 +64,7 @@ router.get('/version', (req, res) => {
 router.all('/home', (req, res) => {
 
     const home = app.info.homepage;
+    /* istanbul ignore else */
     if (home && /^http/.test(home)) {
         // we have a home page URI defined, so send it
         res.redirect(301, home);
