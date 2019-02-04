@@ -53,7 +53,7 @@ router.get('/zlib/:outformat?/:type?/:q*', (req, res) => {
     }
     // base64 encoding also accepts Encoding with URL and Filename Safe Alphabet https://tools.ietf.org/html/rfc4648#section-5
     const buffer = Buffer.from(req.params.q, 'base64');
-    return zlib.unzipAsync(buffer, { "finishFlush": zlib.constants.Z_SYNC_FLUSH })
+    return zlib.unzipAsync(buffer, { "finishFlush": (zlib.constants || zlib).Z_SYNC_FLUSH })
         .then(q => mathoid.handleRequest(res,
             q,
             req.params.type,

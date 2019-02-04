@@ -193,21 +193,24 @@ paths:
           type: string
           required: true
           description: compressed input to be converted
-      x-amples:
-        - title: Get identifiers from compressed mass-energy equivalence formula
-        request:
-          params:
-            outformat: texvcinfo
-            type: tex
-            q: eJxztc1NjjMCAAagAeM=
-        response:
-          status: 200
-          headers:
-            content-type: application/json
-          body:
-            success: true
-            checked: /E=mc/
-            identifiers:
-             - E
-             - m
-             - c
+      # TODO: remove and uncomment the below example
+      # once T215220 has been resolved
+      x-monitor: false
+#      x-amples:
+#        - title: Get identifiers from compressed mass-energy equivalence formula
+#          request:
+#            params:
+#              outformat: texvcinfo
+#              type: tex
+#              q: eJxztc1NjjMCAAagAeM=
+#          response:
+#            status: 200
+#            headers:
+#              content-type: application/json
+#            body:
+#              success: true
+#              checked: /E=mc/
+#              identifiers:
+#                - E
+#                - m
+#                - c
