@@ -1,1 +1,24 @@
-extends: 'eslint-config-node-services'
+extends:
+  - 'eslint-config-wikimedia/server'
+
+plugins:
+  - json
+  - jsdoc
+
+rules:
+  camelcase:
+    - error
+    - properties: never
+  indent:
+    - off
+    - 4
+  no-unused-vars:
+    - error
+    - args: none
+  space-in-parens:
+    - error
+    - never
+  computed-property-spacing:
+    - off
+  no-multi-spaces:
+    - off

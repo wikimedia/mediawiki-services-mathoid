@@ -1,8 +1,6 @@
 'use strict';
 
-
 const sUtil = require('../lib/util');
-
 
 /**
  * The main router object
@@ -13,7 +11,6 @@ const router = sUtil.router();
  * The main application object reported when this module is require()d
  */
 let app;
-
 
 /**
  * GET /
@@ -31,7 +28,6 @@ router.get('/', (req, res) => {
 
 });
 
-
 /**
  * GET /name
  * Gets the service's name as defined in package.json
@@ -42,7 +38,6 @@ router.get('/name', (req, res) => {
     res.json({ name: app.info.name });
 
 });
-
 
 /**
  * GET /version
@@ -55,7 +50,6 @@ router.get('/version', (req, res) => {
 
 });
 
-
 /**
  * ALL /home
  * Redirects to the service's home page if one is given,
@@ -64,7 +58,6 @@ router.get('/version', (req, res) => {
 router.all('/home', (req, res) => {
 
     const home = app.info.homepage;
-    /* istanbul ignore else */
     if (home && /^http/.test(home)) {
         // we have a home page URI defined, so send it
         res.redirect(301, home);
@@ -74,7 +67,6 @@ router.all('/home', (req, res) => {
     }
 
 });
-
 
 module.exports = (appObj) => {
 
@@ -87,4 +79,3 @@ module.exports = (appObj) => {
     };
 
 };
-

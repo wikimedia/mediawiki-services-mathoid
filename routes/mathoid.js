@@ -1,12 +1,10 @@
 'use strict';
 
-
 const sUtil = require('../lib/util');
 const mathoid = require('../lib/math');
 const emitError = mathoid.emitError;
 const BBPromise = require('bluebird');
 const zlib = BBPromise.promisifyAll(require('zlib'));
-
 
 /**
  * The main router object
@@ -53,8 +51,8 @@ router.get('/zlib/:outformat?/:type?/:q*', (req, res) => {
     }
     // base64 encoding also accepts Encoding with URL and Filename Safe Alphabet https://tools.ietf.org/html/rfc4648#section-5
     const buffer = Buffer.from(req.params.q, 'base64');
-    return zlib.unzipAsync(buffer, { "finishFlush": (zlib.constants || zlib).Z_SYNC_FLUSH })
-        .then(q => mathoid.handleRequest(res,
+    return zlib.unzipAsync(buffer, { finishFlush: (zlib.constants || zlib).Z_SYNC_FLUSH })
+        .then((q) => mathoid.handleRequest(res,
             q,
             req.params.type,
             req.params.outformat,
@@ -82,7 +80,6 @@ router.post('/:outformat?/', (req, res) => {
 
 });
 
-
 module.exports = (appObj) => {
 
     app = appObj;
@@ -94,4 +91,3 @@ module.exports = (appObj) => {
     };
 
 };
-

@@ -1,0 +1,4 @@
+test/
+coverage/
+scripts/
+pm2.config.js

@@ -1,10 +1,4 @@
-/*
- * Mathoid worker.
- *
- * Configure in storoid.config.json.
- */
 'use strict';
-
 
 const http = require('http');
 const BBPromise = require('bluebird');
@@ -17,9 +11,8 @@ const apiUtil = require('./lib/api-util');
 const packageInfo = require('./package.json');
 const yaml = require('js-yaml');
 const addShutdown = require('http-shutdown');
-
-const mjAPI = require("mathoid-mathjax-node");
-
+const path = require('path');
+const mjAPI = require('mathoid-mathjax-node');
 
 /**
  * Creates an express app and initialises it
@@ -38,10 +31,11 @@ function initApp(options) {
     app.info = packageInfo;         // this app's package info
 
     // ensure some sane defaults
-    if (!app.conf.port) { app.conf.port = 10042; }
-    if (!app.conf.interface) { app.conf.interface = '0.0.0.0'; }
-    if (app.conf.compression_level === undefined) { app.conf.compression_level = 3; }
-    if (app.conf.cors === undefined) { app.conf.cors = '*'; }
+    app.conf.port = app.conf.port || 10042;
+    app.conf.interface = app.conf.interface || '0.0.0.0';
+    // eslint-disable-next-line max-len
+    app.conf.compression_level = app.conf.compression_level === undefined ? 3 : app.conf.compression_level;
+    app.conf.cors = app.conf.cors === undefined ? '*' : app.conf.cors;
     if (app.conf.csp === undefined) {
         // eslint-disable-next-line max-len
         app.conf.csp = "default-src 'self'; object-src 'none'; media-src *; img-src *; style-src *; frame-ancestors 'self'";
@@ -155,32 +149,33 @@ function initApp(options) {
 
 }
 
-
 /**
  * Loads all routes declared in routes/ into the app
  * @param {Application} app the application object to load routes into
+ * @param {string} dir routes folder
  * @return {bluebird} a promise resolving to the app object
  */
-function loadRoutes(app) {
+function loadRoutes(app, dir) {
 
-    // get the list of files in routes/
-    return fs.readdirAsync(`${__dirname}/routes`).map((fname) => {
+    // recursively load routes from .js files under routes/
+    return fs.readdirAsync(dir).map((fname) => {
         return BBPromise.try(() => {
-            // ... and then load each route
-            // but only if it's a js file
-            if (!/\.js$/.test(fname)) {
-                return undefined;
+            const resolvedPath = path.resolve(dir, fname);
+            const isDirectory = fs.statSync(resolvedPath).isDirectory();
+            if (isDirectory) {
+                loadRoutes(app, resolvedPath);
+            } else if (/\.js$/.test(fname)) {
+                // import the route file
+                const route = require(`${dir}/${fname}`);
+                return route(app);
             }
-            // import the route file
-            const route = require(`${__dirname}/routes/${fname}`);
-            return route(app);
         }).then((route) => {
             if (route === undefined) {
                 return undefined;
             }
             // check that the route exports the object we need
-            if (route.constructor !== Object || !route.path || !route.router
-                || !(route.api_version || route.skip_domain)) {
+            if (route.constructor !== Object || !route.path || !route.router ||
+                !(route.api_version || route.skip_domain)) {
                 throw new TypeError(`routes/${fname} does not export the correct object!`);
             }
             // normalise the path to be used as the mount point
@@ -207,7 +202,6 @@ function loadRoutes(app) {
 
 }
 
-
 /**
  * Creates and start the service's web server
  * @param {Application} app the app object to use in the service
@@ -233,7 +227,7 @@ function createServer(app) {
         // Don't delay incomplete packets for 40ms (Linux default) on
         // pipelined HTTP sockets. We write in large chunks or buffers, so
         // lack of coalescing should not be an issue here.
-        server.on("connection", (socket) => {
+        server.on('connection', (socket) => {
             socket.setNoDelay(true);
         });
 
@@ -242,17 +236,18 @@ function createServer(app) {
 
 }
 
-
 /**
  * The service's entry point. It takes over the configuration
  * options and the logger- and metrics-reporting objects from
  * service-runner and starts an HTTP server, attaching the application
  * object to it.
+ * @param {Object} options the options to initialise the app with
+ * @return {bluebird} HTTP server
  */
-module.exports = function(options) {
+module.exports = (options) => {
 
     return initApp(options)
-    .then(loadRoutes)
+    .then((app) => loadRoutes(app, `${__dirname}/routes`))
     .then((app) => {
         // serve static files from static/
         app.use('/static', express.static(`${__dirname}/static`));

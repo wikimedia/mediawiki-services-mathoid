@@ -6,7 +6,7 @@ const program = require('commander');
 const json = require('./package.json');
 const fileOrStdin = require('file-or-stdin');
 const fileOrStdout = require('file-or-stdout');
-const render = require("./lib/render.js");
+const render = require('./lib/render.js');
 
 program
     .version(json.version)
@@ -29,4 +29,3 @@ fileOrStdin(program.args[0], 'utf8').then((data) => {
         }
     });
 });
-
