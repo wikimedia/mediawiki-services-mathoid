@@ -18,6 +18,9 @@ paths:
         - Root
         - Robots
       description: Gets robots.txt
+      responses:
+        '200':
+          description: OK
       x-monitor: false
   /:
     get:
@@ -26,6 +29,9 @@ paths:
       description: The root service end-point
       produces:
         - application/json
+      responses:
+        '200':
+          description: OK
       x-amples:
         - title: spec from root
           request:
@@ -59,6 +65,9 @@ paths:
       description: Gets information about the service
       produces:
         - application/json
+      responses:
+        '200':
+          description: OK
       x-amples:
         - title: retrieve service info
           request: {}
@@ -81,6 +90,25 @@ paths:
         - image/svg+xml
         - application/mathml+xml
         - application/json
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: invalid input
+      parameters:
+        - name: format
+          in: path
+          type: string
+          required: true
+          description: output type
+          enum:
+            - texvcinfo
+            - speech
+            - mml
+            - svg
+            - png
+            - json
+            - complete
       x-amples:
         - title: mass-energy equivalence (complete)
           request:
@@ -157,7 +185,7 @@ paths:
                   location:
                     start:
                       column: 5
-  /zlib{/outformat}{/type}/{q}:
+  /zlib/{outformat}/{type}/{q}:
     get:
       tags:
         - zLib
@@ -166,10 +194,16 @@ paths:
         - image/svg+xml
         - application/mathml+xml
         - application/json
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
       parameters:
         - name: outformat
           in: path
           type: string
+          required: true
           description: output type
           enum:
             - texvcinfo
@@ -182,6 +216,7 @@ paths:
         - name: type
           in: path
           type: string
+          required: true
           description: input type
           enum:
             - tex

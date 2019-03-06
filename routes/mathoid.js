@@ -39,7 +39,7 @@ router.get('/get/:outformat?/:type?/:q?', (req, res) => {
  * GET /
  * Performs the check get request
  */
-router.get('/zlib/:outformat?/:type?/:q*', (req, res) => {
+router.get('/zlib/:outformat/:type/:q*', (req, res) => {
     if (!(req.params.q)) {
         emitError('q (query) parameter is missing!');
     }
