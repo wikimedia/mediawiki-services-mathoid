@@ -15,4 +15,5 @@ node_modules
 mathoid*.iml
 config.vagrant.yaml
 Thumbs.db
-.eslintcache
+# nyc
+.nyc_output
