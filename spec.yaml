@@ -1,6 +1,5 @@
-swagger: '2.0'
+openapi: 3.0.1
 info:
-  version: 0.2.8
   title: Mathoid
   description: Renders TeX to SVG and MathML using MathJax
   termsOfService: https://wikimediafoundation.org/wiki/Terms_of_Use
@@ -10,6 +9,9 @@ info:
   license:
     name: Apache2
     url: http://www.apache.org/licenses/LICENSE-2.0
+  version: 0.2.8
+servers:
+  - url: /
 paths:
   # from routes/root.js
   /robots.txt:
@@ -19,19 +21,19 @@ paths:
         - Robots
       description: Gets robots.txt
       responses:
-        '200':
+        200:
           description: OK
+          content: {}
       x-monitor: false
   /:
     get:
       tags:
         - Root
       description: The root service end-point
-      produces:
-        - application/json
       responses:
-        '200':
+        200:
           description: OK
+          content: {}
       x-amples:
         - title: spec from root
           request:
@@ -43,13 +45,19 @@ paths:
       tags:
         - Render
       description: Converts TeX to MathML, SVG, PNG and IMG
-      produces:
-        - application/json
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: invalid input
+          content: {}
       x-amples:
+        # from routes/info.js
         - title: mass-energy equivalence (json)
           request:
             body:
-              q: 'E=mc^2'
+              q: E=mc^2
           response:
             status: 200
             body:
@@ -57,18 +65,17 @@ paths:
               success: true
               svg: /.+/
               mml: /.+/
-  # from routes/info.js
   /_info:
     get:
       tags:
         - Service information
       description: Gets information about the service
-      produces:
-        - application/json
       responses:
-        '200':
+        200:
           description: OK
+          content: {}
       x-amples:
+        # from routes/mathoid.js
         - title: retrieve service info
           request: {}
           response:
@@ -80,42 +87,42 @@ paths:
               description: /.+/
               version: /.+/
               home: /.+/
-  # from routes/mathoid.js
   /{format}/:
     post:
       tags:
         - Render
-      description: Converts TeX to SVG, PNG or MathML depending on the parameter format. The special format 'texvcinfo' returns information about the input without to render anything.
-      produces:
-        - image/svg+xml
-        - application/mathml+xml
-        - application/json
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: invalid input
+      description: Converts TeX to SVG, PNG or MathML depending on the parameter format.
+        The special format 'texvcinfo' returns information about the input without
+        to render anything.
       parameters:
         - name: format
           in: path
-          type: string
-          required: true
           description: output type
-          enum:
-            - texvcinfo
-            - speech
-            - mml
-            - svg
-            - png
-            - json
-            - complete
+          required: true
+          schema:
+            type: string
+            enum:
+              - texvcinfo
+              - speech
+              - mml
+              - svg
+              - png
+              - json
+              - complete
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: invalid input
+          content: {}
       x-amples:
         - title: mass-energy equivalence (complete)
           request:
             params:
               format: complete
             body:
-              q: 'E=mc^2'
+              q: E=mc^2
           response:
             status: 200
             headers:
@@ -136,7 +143,7 @@ paths:
             params:
               format: svg
             body:
-              q: 'E=mc^2'
+              q: E=mc^2
           response:
             status: 200
             headers:
@@ -147,7 +154,7 @@ paths:
             params:
               format: mml
             body:
-              q: 'E=mc^2'
+              q: E=mc^2
           response:
             status: 200
             headers:
@@ -158,7 +165,7 @@ paths:
             params:
               format: texvcinfo
             body:
-              q: 'E = m c^2'
+              q: E = m c^2
           response:
             status: 200
             headers:
@@ -166,13 +173,16 @@ paths:
             body:
               success: true
               checked: /E=mc/
-              identifiers: ["E", "m", "c"]
-        - title: Invaid command (texvcinfo)
+              identifiers:
+                - E
+                - m
+                - c
+        - title: Invalid command (texvcinfo)
           request:
             params:
               format: texvcinfo
             body:
-              q: 'a + \invalid = b'
+              q: a + \invalid = b
           response:
             status: 400
             headers:
@@ -189,45 +199,48 @@ paths:
     get:
       tags:
         - zLib
-      description: Converts a formula encoded in the URI to TeX to SVG, PNG or MathML depending on the parameter format. The special format 'texvcinfo' returns information about the input without to render anything.
-      produces:
-        - image/svg+xml
-        - application/mathml+xml
-        - application/json
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad request
+      description: Converts a formula encoded in the URI to TeX to SVG, PNG or MathML
+        depending on the parameter format. The special format 'texvcinfo' returns
+        information about the input without to render anything.
       parameters:
         - name: outformat
           in: path
-          type: string
-          required: true
           description: output type
-          enum:
-            - texvcinfo
-            - speech
-            - mml
-            - svg
-            - png
-            - json
-            - complete
+          required: true
+          schema:
+            type: string
+            enum:
+              - texvcinfo
+              - speech
+              - mml
+              - svg
+              - png
+              - json
+              - complete
         - name: type
           in: path
-          type: string
-          required: true
           description: input type
-          enum:
-            - tex
-            - inline-tex
-            - mml
-            - ascii
+          required: true
+          schema:
+            type: string
+            enum:
+              - tex
+              - inline-tex
+              - mml
+              - ascii
         - name: q
           in: path
-          type: string
-          required: true
           description: compressed input to be converted
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: Bad request
+          content: {}
       # TODO: remove and uncomment the below example
       # once T215220 has been resolved
       x-monitor: false
@@ -249,3 +262,4 @@ paths:
 #                - E
 #                - m
 #                - c
+components: {}
