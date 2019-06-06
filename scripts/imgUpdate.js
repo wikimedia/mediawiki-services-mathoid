@@ -90,7 +90,7 @@ return server.start().delay(1000).then(function () {
             referencePng = fs.readFileSync(pngPath);
         } catch (e) {
             console.log("Reference PNG for testcase " + testcase.id + " could not be read.");
-            referencePng = new Buffer();
+            referencePng = Buffer.alloc(0);
         }
         assert.status(res, 200);
         if (referencePng.compare(res.body) === 0) {
@@ -100,13 +100,10 @@ return server.start().delay(1000).then(function () {
         } else {
             console.log("PNG for testcase " + testcase.id + " has changed.");
             if (program.force) {
-                nextProm = fs.writeFileAsync(pngPath, res.body, 'binary', function (err) {
-                    if (err) {
-                        console.log(err);
-                        return BBPromise.reject(err);
-                    } else {
-                        console.log("PNG file for " + testcase.id + " has been saved!");
-                    }
+                nextProm = fs.writeFileAsync(pngPath, res.body, 'binary').catch(function (err) {
+                    console.log(err);
+                }).then(function() {
+                    console.log("PNG file for " + testcase.id + " has been saved!");
                 });
             }
         }
@@ -117,7 +114,6 @@ return server.start().delay(1000).then(function () {
                     ".png) [Test-image-svg](svg/" + testcase.id + ".svg)")
                 .catch(function(err) {
                     console.log(err);
-                    return BBPromise.reject(err);
                 }).then(function() {
                     console.log("MD file for " + testcase.id + " has been updated!");
                 });
