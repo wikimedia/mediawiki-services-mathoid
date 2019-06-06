@@ -10,8 +10,10 @@ info:
     name: Apache2
     url: http://www.apache.org/licenses/LICENSE-2.0
   version: 0.2.8
-servers:
-  - url: /
+# TODO: uncomment once we have support for removing
+# trailing slashes in service-checker
+#servers:
+#  - url: /
 paths:
   # from routes/root.js
   /robots.txt:
