@@ -58,7 +58,7 @@
     "texvcinfo": "^0.5.3"
   },
   "optionalDependencies": {
-    "librsvg": "^0.7.0",
+    "librsvg-prebuilt": "^0.7.0",
     "swagger-ui": "git+https://github.com/wikimedia/swagger-ui#master"
   },
   "devDependencies": {
