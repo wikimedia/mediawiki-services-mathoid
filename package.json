@@ -59,7 +59,7 @@
   },
   "optionalDependencies": {
     "librsvg": "^0.7.0",
-    "swagger-ui": "git+https://github.com/wikimedia/swagger-ui#master"
+    "swagger-ui-dist": "^3.23.11"
   },
   "devDependencies": {
     "ajv": "^6.6.2",

@@ -81,8 +81,8 @@ function initApp(options) {
             app.conf.spec = {};
         }
     }
-    if (!app.conf.spec.swagger) {
-        app.conf.spec.swagger = '2.0';
+    if (!app.conf.spec.openapi) {
+        app.conf.spec.openapi = '3.0.1';
     }
     if (!app.conf.spec.info) {
         app.conf.spec.info = {

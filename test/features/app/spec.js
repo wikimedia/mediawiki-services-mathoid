@@ -256,7 +256,7 @@ describe('Swagger spec', function() {
             defParams = spec['x-default-params'];
         }
         // check the high-level attributes
-        ['info', 'swagger', 'paths'].forEach((prop) => {
+        ['info', 'openapi', 'paths'].forEach((prop) => {
             assert.deepEqual(!!spec[prop], true, `No ${prop} field present!`);
         });
         // no paths - no love
