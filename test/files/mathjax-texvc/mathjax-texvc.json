@@ -468,5 +468,55 @@
 		"id": 93,
 		"input": "{\\displaystyle \\left(\\left(\\sum_A\\right)B \\right)}",
 		"texvcjs": "{\\displaystyle \\left(\\left(\\sum_A\\right)B \\right)}"
+	},
+	{
+		"id": 94,
+		"input": "\\varDelta",
+		"texvcjs": "\\varDelta "
+	},
+	{
+		"id": 95,
+		"input": "\\varGamma",
+		"texvcjs": "\\varGamma "
+	},
+	{
+		"id": 96,
+		"input": "\\varLambda",
+		"texvcjs": "\\varLambda "
+	},
+	{
+		"id": 97,
+		"input": "\\varOmega",
+		"texvcjs": "\\varOmega "
+	},
+	{
+		"id": 98,
+		"input": "\\varPhi",
+		"texvcjs": "\\varPhi "
+	},
+	{
+		"id": 99,
+		"input": "\\varPi",
+		"texvcjs": "\\varPi "
+	},
+	{
+		"id": 100,
+		"input": "\\varSigma",
+		"texvcjs": "\\varSigma "
+	},
+	{
+		"id": 101,
+		"input": "\\varTheta",
+		"texvcjs": "\\varTheta "
+	},
+	{
+		"id": 102,
+		"input": "\\varUpsilon",
+		"texvcjs": "\\varUpsilon "
+	},
+	{
+		"id": 103,
+		"input": "\\varXi",
+		"texvcjs": "\\varXi "
 	}
 ]
