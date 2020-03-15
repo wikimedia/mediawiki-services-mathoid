@@ -1,6 +1,8 @@
 'use strict';
 
 const sUtil = require('../lib/util');
+const express = require('express');
+
 let swaggerUi;
 
 try {
@@ -28,7 +30,7 @@ router.get('/robots.txt', (req, res) => {
 /**
  * GET /
  * Main entry point. Currently it only responds if the spec or doc query
- * parameter is given, otherwise lets the next middleware handle it
+ * parameter is given, otherwise it displays the test page.
  */
 router.get('/', (req, res, next) => {
 
@@ -37,7 +39,7 @@ router.get('/', (req, res, next) => {
     } else if ({}.hasOwnProperty.call(req.query || {}, 'doc') && swaggerUi) {
         return swaggerUi.processRequest(app, req, res);
     } else {
-        next();
+        res.redirect('info.html');
     }
 
 });
@@ -45,6 +47,7 @@ router.get('/', (req, res, next) => {
 module.exports = (appObj) => {
 
     app = appObj;
+    app.use(express.static('./static'));
 
     return {
         path: '/',
