@@ -2,8 +2,6 @@
 
 'use strict';
 
-/* eslint-disable no-console */
-
 const program = require('commander');
 const json = require('./package.json');
 const render = require('./lib/render.js');
