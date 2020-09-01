@@ -1,1 +1,2 @@
-chart: https://releases.wikimedia.org/charts/mathoid-0.0.19.tgz
+chart:
+  name: mathoid
