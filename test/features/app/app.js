@@ -28,21 +28,23 @@ describe('express app', function() {
     });
 
     it('should set CORS headers', () => {
-        if (server.config.service.conf.cors === false) {
+        const cors = server.config.service.conf.cors;
+        if (cors === false) {
             return true;
         }
         return preq.get({
             uri: `${server.config.uri}robots.txt`
         }).then((res) => {
             assert.deepEqual(res.status, 200);
-            assert.deepEqual(res.headers['access-control-allow-origin'], '*');
+            assert.deepEqual(res.headers['access-control-allow-origin'], cors);
             assert.deepEqual(!!res.headers['access-control-allow-headers'], true);
             assert.deepEqual(!!res.headers['access-control-expose-headers'], true);
         });
     });
 
     it('should set CSP headers', () => {
-        if (server.config.service.conf.csp === false) {
+        const csp = server.config.service.conf.csp;
+        if (csp === false) {
             return true;
         }
         return preq.get({
@@ -52,9 +54,9 @@ describe('express app', function() {
             assert.deepEqual(res.headers['x-xss-protection'], '1; mode=block');
             assert.deepEqual(res.headers['x-content-type-options'], 'nosniff');
             assert.deepEqual(res.headers['x-frame-options'], 'SAMEORIGIN');
-            assert.deepEqual(res.headers['content-security-policy'], 'default-src');
-            assert.deepEqual(res.headers['x-content-security-policy'], 'default-src');
-            assert.deepEqual(res.headers['x-webkit-csp'], 'default-src');
+            assert.deepEqual(res.headers['content-security-policy'], csp);
+            assert.deepEqual(res.headers['x-content-security-policy'], csp);
+            assert.deepEqual(res.headers['x-webkit-csp'], csp);
         });
     });
 

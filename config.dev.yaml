@@ -60,6 +60,7 @@ services:
       #   - user-agent
       #   - x-request-id
       # list of enabled renders
+      csp: "style-src 'self' 'unsafe-inline'; script-src 'self';"
       svg: true
       img: true
       png: true #new feature
