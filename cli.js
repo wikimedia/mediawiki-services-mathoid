@@ -72,6 +72,7 @@ fileOrStdin(program.args[0]).then((data) => {
         // If no output file was given, wait until all data was written to stdout
         if (!isFile) {
             stdout.on('drain', () => {
+                // eslint-disable-next-line no-process-exit
                 process.exit();
             });
         }
