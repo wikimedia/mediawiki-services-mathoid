@@ -31,4 +31,5 @@ pipelines:
         build: production
         publish:
           image: true
-        promote: true
+        promote:
+          - chart: mathoid
