@@ -1,0 +1,67 @@
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: lightgreen;
+    color: black;
+    padding: 10px 20px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    float: right;
+}
+
+label {
+    padding: 10px 10px 10px 0;
+    display: inline-block;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: lightgrey;
+    padding: 20px;
+}
+
+.col25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.col37 {
+    float: left;
+    width: 37.5%;
+    margin-top: 6px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media screen and (max-width: 600px) {
+    .col25, .col75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .col25, .col37, .col37 {
+        width: 100%;
+        margin-top: 0;
+    }
+}

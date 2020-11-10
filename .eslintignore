@@ -1,4 +1,5 @@
 test/
 coverage/
 scripts/
+static/
 pm2.config.js
