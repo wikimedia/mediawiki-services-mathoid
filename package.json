@@ -7,7 +7,7 @@
   "scripts": {
     "start": "service-runner",
     "test": "npm run lint && PREQ_CONNECT_TIMEOUT=15 mocha 'test/**/*.js'",
-    "lint": "eslint --max-warnings 0 --ext .js --ext .json .",
+    "lint": "eslint --ext .js --ext .json .",
     "docker-start": "service-runner docker-start",
     "docker-test": "service-runner docker-test",
     "test-build": "service-runner docker-test && service-runner build --deploy-repo --force",
