@@ -1,4 +1,5 @@
 {
+	"root": true,
 	"extends": "eslint-config-wikimedia/server",
 	"plugins": [
 		"json",
