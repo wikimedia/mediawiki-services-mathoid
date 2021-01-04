@@ -22,7 +22,7 @@ var testGroups = [{
 }, {
     testName: "No-check",
     testSettings: {no_check: true, png: false, speech_config: {enrich: false}},
-    skipTests: ['reject', 'sanetex']
+    skipTests: ['reject', 'sanetex', 'warnings']
 }
 ];
 
@@ -194,6 +194,18 @@ testGroups.forEach(function (t) {
                     assert.deepEqual(res.body.warnings[0].type, "mhchem-deprecation");
                 });
             });
+            if (!t.skipTests.indexOf('warnings')) {
+                it('warn on deprecated texvc syntax in complete endpoint', function () {
+                    return preq.post({
+                        uri: baseURL + 'complete',
+                        body: { q: '%' }
+                    }).then(function (res) {
+                        assert.status(res, 200);
+                        assert.deepEqual(res.body.warnings.length, 1);
+                        assert.deepEqual(res.body.warnings[0].type, 'texvc-deprecation');
+                    });
+                });
+            }
         });
 
     });
