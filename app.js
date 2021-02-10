@@ -75,7 +75,7 @@ function initApp(options) {
     }
     if (app.conf.spec.constructor !== Object) {
         try {
-            app.conf.spec = yaml.safeLoad(fs.readFileSync(app.conf.spec));
+            app.conf.spec = yaml.load(fs.readFileSync(app.conf.spec));
         } catch (e) {
             app.logger.log('warn/spec', `Could not load the spec: ${e}`);
             app.conf.spec = {};

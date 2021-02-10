@@ -22,7 +22,7 @@ function staticSpecLoad() {
     const specPath = `${__dirname}/../../../${myService.spec ? myService.spec : 'spec.yaml'}`;
 
     try {
-        spec = yaml.safeLoad(fs.readFileSync(specPath));
+        spec = yaml.load(fs.readFileSync(specPath));
     } catch (e) {
         // this error will be detected later, so ignore it
         spec = { paths: {}, 'x-default-params': {} };
