@@ -1,9 +1,8 @@
 {
 	"root": true,
-	"extends": "eslint-config-wikimedia/server",
-	"plugins": [
-		"json",
-		"jsdoc"
+	"extends": [
+		"wikimedia/server",
+		"wikimedia/jsdoc"
 	],
 	"rules": {
 		"camelcase": [

@@ -131,6 +131,7 @@ function initApp(options) {
     if (app.conf.png) {
         let rsvgVersion = false;
         try {
+            // eslint-disable-next-line node/no-missing-require
             rsvgVersion = require('librsvg/package.json').version;
         } catch (e) {
         }
