@@ -11,10 +11,6 @@
 				"properties": "never"
 			}
 		],
-		"indent": [
-			"off",
-			4
-		],
 		"no-unused-vars": [
 			"error",
 			{

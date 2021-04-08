@@ -6,7 +6,7 @@ const express = require('express');
 let swaggerUi;
 
 try {
-    swaggerUi = require('../lib/swagger-ui');
+	swaggerUi = require('../lib/swagger-ui');
 } catch (e) {}
 
 /**
@@ -24,7 +24,7 @@ let app;
  * Instructs robots no indexing should occur on this domain.
  */
 router.get('/robots.txt', (req, res) => {
-    res.type('txt').send('User-agent: *\nDisallow: /\n');
+	res.type('txt').send('User-agent: *\nDisallow: /\n');
 });
 
 /**
@@ -34,25 +34,25 @@ router.get('/robots.txt', (req, res) => {
  */
 router.get('/', (req, res, next) => {
 
-    if ({}.hasOwnProperty.call(req.query || {}, 'spec')) {
-        res.json(app.conf.spec);
-    } else if ({}.hasOwnProperty.call(req.query || {}, 'doc') && swaggerUi) {
-        return swaggerUi.processRequest(app, req, res);
-    } else {
-        res.redirect('info.html');
-    }
+	if ({}.hasOwnProperty.call(req.query || {}, 'spec')) {
+		res.json(app.conf.spec);
+	} else if ({}.hasOwnProperty.call(req.query || {}, 'doc') && swaggerUi) {
+		return swaggerUi.processRequest(app, req, res);
+	} else {
+		res.redirect('info.html');
+	}
 
 });
 
 module.exports = (appObj) => {
 
-    app = appObj;
-    app.use(express.static('./static'));
+	app = appObj;
+	app.use(express.static('./static'));
 
-    return {
-        path: '/',
-        skip_domain: true,
-        router
-    };
+	return {
+		path: '/',
+		skip_domain: true,
+		router
+	};
 
 };
