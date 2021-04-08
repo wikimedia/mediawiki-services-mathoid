@@ -66,10 +66,8 @@
 		"commander": "^7.0.0",
 		"coveralls": "^3.1.0",
 		"dom-compare": "^0.6.0",
-		"eslint-config-wikimedia": "^0.18.1",
-		"eslint-plugin-jsdoc": "^31.6.1",
-		"eslint-plugin-json": "^2.1.2",
 		"eslint": "7.19.0",
+		"eslint-config-wikimedia": "^0.18.1",
 		"extend": "^3.0.2",
 		"istanbul": "^0.4.5",
 		"microtime": "^3.0.0",
@@ -78,7 +76,7 @@
 		"mock-require": "^3.0.3",
 		"nyc": "^15.1.0",
 		"rewire": "^5.0.0",
-		"xmldom": "^0.4.0"
+		"xmldom": "^0.5.0"
 	},
 	"engines": {
 		"node": ">=10"
