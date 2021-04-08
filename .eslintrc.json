@@ -16,12 +16,6 @@
 			{
 				"args": "none"
 			}
-		],
-		"space-in-parens": [
-			"error",
-			"never"
-		],
-		"computed-property-spacing": "off",
-		"no-multi-spaces": "off"
+		]
 	}
 }

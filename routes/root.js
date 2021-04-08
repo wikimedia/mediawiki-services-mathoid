@@ -1,13 +1,13 @@
 'use strict';
 
-const sUtil = require('../lib/util');
-const express = require('express');
+const sUtil = require( '../lib/util' );
+const express = require( 'express' );
 
 let swaggerUi;
 
 try {
-	swaggerUi = require('../lib/swagger-ui');
-} catch (e) {}
+	swaggerUi = require( '../lib/swagger-ui' );
+} catch ( e ) {}
 
 /**
  * The main router object
@@ -23,31 +23,31 @@ let app;
  * GET /robots.txt
  * Instructs robots no indexing should occur on this domain.
  */
-router.get('/robots.txt', (req, res) => {
-	res.type('txt').send('User-agent: *\nDisallow: /\n');
-});
+router.get( '/robots.txt', ( req, res ) => {
+	res.type( 'txt' ).send( 'User-agent: *\nDisallow: /\n' );
+} );
 
 /**
  * GET /
  * Main entry point. Currently it only responds if the spec or doc query
  * parameter is given, otherwise it displays the test page.
  */
-router.get('/', (req, res, next) => {
+router.get( '/', ( req, res, next ) => {
 
-	if ({}.hasOwnProperty.call(req.query || {}, 'spec')) {
-		res.json(app.conf.spec);
-	} else if ({}.hasOwnProperty.call(req.query || {}, 'doc') && swaggerUi) {
-		return swaggerUi.processRequest(app, req, res);
+	if ( {}.hasOwnProperty.call( req.query || {}, 'spec' ) ) {
+		res.json( app.conf.spec );
+	} else if ( {}.hasOwnProperty.call( req.query || {}, 'doc' ) && swaggerUi ) {
+		return swaggerUi.processRequest( app, req, res );
 	} else {
-		res.redirect('info.html');
+		res.redirect( 'info.html' );
 	}
 
-});
+} );
 
-module.exports = (appObj) => {
+module.exports = ( appObj ) => {
 
 	app = appObj;
-	app.use(express.static('./static'));
+	app.use( express.static( './static' ) );
 
 	return {
 		path: '/',

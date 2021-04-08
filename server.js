@@ -8,5 +8,5 @@
 // (config.yaml by default, specify other path with -c). It requires the
 // module(s) specified in the config 'services' section (mathoid.js in this
 // example).
-const ServiceRunner = require('service-runner');
+const ServiceRunner = require( 'service-runner' );
 new ServiceRunner().start();
