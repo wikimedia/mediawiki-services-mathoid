@@ -29,7 +29,7 @@ program.on('--help', () => {
 });
 program.parse(process.argv);
 
-const conf = render.start(program.config);
+const conf = render.start(program.opts().config);
 
 const fileOrStdin = (path) => {
     // adapted from https://github.com/shinnn/file-or-stdin/blob/v1.0.2/index.js
