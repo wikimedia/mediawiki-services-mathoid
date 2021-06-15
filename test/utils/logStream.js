@@ -1,72 +1,68 @@
-/* eslint-disable no-console */
-
 'use strict';
 
-const bunyan = require('bunyan');
+const bunyan = require( 'bunyan' );
 
-function logStream(logStdout) {
+function logStream( logStdout ) {
 
-    const log = [];
-    const parrot = bunyan.createLogger({
-        name: 'test-logger',
-        level: 'warn'
-    });
+	const log = [];
+	const parrot = bunyan.createLogger( {
+		name: 'test-logger',
+		level: 'warn'
+	} );
 
-    function write(chunk, encoding, callback) {
-        try {
-            const entry = JSON.parse(chunk);
-            const levelMatch = /^(\w+)/.exec(entry.levelPath);
-            if (logStdout && levelMatch) {
-                const level = levelMatch[1];
-                if (parrot[level]) {
-                    parrot[level](entry);
-                }
-            }
-        } catch (e) {
-            console.error('something went wrong trying to parrot a log entry', e, chunk);
-        }
+	function write( chunk, encoding, callback ) {
+		try {
+			const entry = JSON.parse( chunk );
+			const levelMatch = /^(\w+)/.exec( entry.levelPath );
+			if ( logStdout && levelMatch ) {
+				const level = levelMatch[ 1 ];
+				if ( parrot[ level ] ) {
+					parrot[ level ]( entry );
+				}
+			}
+		} catch ( e ) {
+			console.error( 'something went wrong trying to parrot a log entry', e, chunk );
+		}
 
-        log.push(chunk);
-    }
+		log.push( chunk );
+	}
 
-    // to implement the stream writer interface
-    function end(chunk, encoding, callback) {
-    }
+	// to implement the stream writer interface
+	function end( chunk, encoding, callback ) {
+	}
 
-    function get() {
-        return log;
-    }
+	function get() {
+		return log;
+	}
 
-    function slice() {
+	function slice() {
 
-        const begin = log.length;
-        let end   = null;
+		const beginPos = log.length;
+		let endPos = null;
 
-        function halt() {
-            if (end === null) {
-                end = log.length;
-            }
-        }
+		function halt() {
+			if ( endPos === null ) {
+				endPos = log.length;
+			}
+		}
 
-        function get() {
-            return log.slice(begin, end);
-        }
+		function getInner() {
+			return log.slice( beginPos, endPos );
+		}
 
-        /* Disable eslint object-shorthand until Node 4 support is dropped */
-        /* eslint-disable object-shorthand */
-        return {
-            halt: halt,
-            get: get
-        };
+		return {
+			halt: halt,
+			get: getInner
+		};
 
-    }
+	}
 
-    return {
-        write: write,
-        end: end,
-        slice: slice,
-        get: get
-    };
+	return {
+		write: write,
+		end: end,
+		slice: slice,
+		get: get
+	};
 }
 
 module.exports = logStream;

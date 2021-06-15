@@ -287,13 +287,13 @@
 	{
 		"id": 58,
 		"input": "\\oiint",
-		"ignore":true,
+		"ignore": true,
 		"comment": "Not allowed in PNG mode. So it was never visible to anonymous users."
 	},
 	{
 		"id": 59,
 		"input": "\\oiiint",
-		"ignore":true,
+		"ignore": true,
 		"comment": "Not allowed in PNG mode. So it was never visible to anonymous users."
 	},
 	{
