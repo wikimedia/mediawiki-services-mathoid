@@ -89,6 +89,15 @@ testGroups.forEach( function ( t ) {
 					assert.deepEqual( res.body.error, 'q (query) parameter is missing!' );
 				} );
 			} );
+			it( 'empty q parameter should pass', function () {
+				return preq.post( {
+					uri: baseURL,
+					body: { q: '{\\displaystyle}' }
+				} ).then( function ( res ) {
+					assert.status( res, 200 );
+					assert.deepEqual( res.body.width, '0' );
+				} );
+			} );
 			if ( t.skipTests.indexOf( 'reject' ) === -1 ) {
 				it( 'reject invalid tex input', function () {
 					return preq.post( {
