@@ -11,6 +11,7 @@ const stdin = process.stdin;
 const stdout = process.stdout;
 
 program
+	.storeOptionsAsProperties()
 	.version( json.version )
 	.usage( '[options] [input-file] [output-file]' )
 	.option( '-v, --verbose', 'Show verbose error information' )
