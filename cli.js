@@ -11,7 +11,6 @@ const stdin = process.stdin;
 const stdout = process.stdout;
 
 program
-	.storeOptionsAsProperties()
 	.version( json.version )
 	.usage( '[options] [input-file] [output-file]' )
 	.option( '-v, --verbose', 'Show verbose error information' )
@@ -30,7 +29,8 @@ program.on( '--help', () => {
 } );
 program.parse( process.argv );
 
-const conf = render.start( program.config );
+const options = program.opts();
+const conf = render.start( options.config );
 
 const fileOrStdin = ( path ) => {
 	// adapted from https://github.com/shinnn/file-or-stdin/blob/v1.0.2/index.js
