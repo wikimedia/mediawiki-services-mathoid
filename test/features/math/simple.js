@@ -214,6 +214,15 @@ testGroups.forEach( function ( t ) {
 						assert.deepEqual( res.body.warnings[ 0 ].type, 'texvc-deprecation' );
 					} );
 				} );
+				it( 'not warn on new texvc syntax in complete endpoint', function () {
+					return preq.post( {
+						uri: baseURL + 'complete',
+						body: { q: '\\land' }
+					} ).then( function ( res ) {
+						assert.status( res, 200 );
+						assert.deepEqual( res.body.warnings.length, 0 );
+					} );
+				} );
 			}
 		} );
 
