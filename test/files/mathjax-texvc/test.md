@@ -98,3 +98,6 @@
  * Test 101 $\varTheta$ ($\varTheta $)![Test-image](png/101.png) [Test-image-svg](svg/101.svg)
  * Test 102 $\varUpsilon$ ($\varUpsilon $)![Test-image](png/102.png) [Test-image-svg](svg/102.svg)
  * Test 103 $\varXi$ ($\varXi $)![Test-image](png/103.png) [Test-image-svg](svg/103.svg)
+ * Test 104 $\sqrt{\phantom{p'}p}$ (${\sqrt {{\phantom {p'}}p}}$)![Test-image](png/104.png) [Test-image-svg](svg/104.svg)
+ * Test 105 $\sqrt{\vphantom{p'}p}$ (${\sqrt {{\vphantom {p'}}p}}$)![Test-image](png/105.png) [Test-image-svg](svg/105.svg)
+ * Test 106 $\sqrt{\hphantom{p'}p}$ (${\sqrt {{\hphantom {p'}}p}}$)![Test-image](png/106.png) [Test-image-svg](svg/106.svg)

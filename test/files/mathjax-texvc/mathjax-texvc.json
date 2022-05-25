@@ -518,5 +518,20 @@
 		"id": 103,
 		"input": "\\varXi",
 		"texvcjs": "\\varXi "
+	},
+	{
+		"id": 104,
+		"input": "\\sqrt{\\phantom{p'}p}",
+		"texvcjs": "{\\sqrt {{\\phantom {p'}}p}}"
+	},
+	{
+		"id": 105,
+		"input": "\\sqrt{\\vphantom{p'}p}",
+		"texvcjs": "{\\sqrt {{\\vphantom {p'}}p}}"
+	},
+	{
+		"id": 106,
+		"input": "\\sqrt{\\hphantom{p'}p}",
+		"texvcjs": "{\\sqrt {{\\hphantom {p'}}p}}"
 	}
 ]
