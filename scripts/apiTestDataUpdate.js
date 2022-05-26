@@ -15,10 +15,10 @@ const baseURL = server.config.uri;
 program
 	.version( json.version )
 	.usage( '[options]' )
-	.option( '-v, --verbose', 'Show verbose error information' )
 	.option( '-f, --force', 'Replace images in the data folders.' );
 
 program.parse( process.argv );
+const options = program.opts();
 const filename = '../test/files/mathjax-texvc/basic-test-data.json';
 const data = require( filename );
 const dPath = path.resolve( __dirname, filename );
@@ -41,8 +41,8 @@ return server.start( { speech_config: { enrich: false } } ).delay( 1000 ).then( 
 
 	} );
 } ).then( function ( newData ) {
-	const outStr = JSON.stringify( newData, null, 2 );
-	if ( program.force ) {
+	const outStr = JSON.stringify( newData, null, '\t' ) + '\n';
+	if ( options.force ) {
 		fs.writeFileSync( dPath, outStr );
 	} else {
 		console.log( outStr );

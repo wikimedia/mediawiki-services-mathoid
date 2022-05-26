@@ -72,7 +72,6 @@ services:
         domain: 'mathspeak'
         style:  'default'
         semantic: true
-        minSTree: false
         speakText: true
         enrich: true
       mj_config:
