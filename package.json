@@ -68,7 +68,6 @@
 		"dom-compare": "^0.6.0",
 		"eslint-config-wikimedia": "0.20.0",
 		"extend": "^3.0.2",
-		"istanbul": "^0.4.5",
 		"microtime": "^3.0.0",
 		"mocha": "^8.2.1",
 		"mocha-lcov-reporter": "^1.3.0",
