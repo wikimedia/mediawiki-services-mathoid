@@ -1,5 +1,5 @@
 FROM docker-registry.wikimedia.org/buster-nodejs10-devel
-RUN apt-get update && apt-get install -y librsvg2-dev && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y librsvg2-dev build-essential && rm -rf /var/lib/apt/lists/*
 RUN mkdir /opt/service
 ADD . /opt/service
 WORKDIR /opt/service

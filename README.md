@@ -181,6 +181,14 @@ rm -r node_modules
 npm install
 ```
 
+## Regenerate reference files
+
+Run
+```bash
+docker run --rm -v "$(pwd)"/test/files:/opt/service/test/files -it $(docker build -f dist/Dockerfile -q . ) scripts/imgUpdate.js --force
+
+```
+
 [1]: https://travis-ci.org/wikimedia/mathoid.svg
 [2]: https://travis-ci.org/wikimedia/mathoid
 [3]: https://david-dm.org/wikimedia/mathoid.svg
