@@ -50,7 +50,7 @@ testGroups.forEach( function ( t ) {
 								assert.notDeepEqual( res.body.png.length, 0 );
 							} else if ( /mml|svg/.test( key ) ) {
 								assert.xEqual( res.body[ key ], data.response.body[ key ] );
-							} else if ( t.skipTests.indexOf( key ) === -1 ) {
+							} else if ( !t.skipTests.includes( key ) ) {
 								assert.deepEqual( res.body[ key ], data.response.body[ key ], 'Difference in key ' + key );
 							}
 						} );
@@ -70,7 +70,7 @@ testGroups.forEach( function ( t ) {
 				} ).then( function ( res ) {
 					assert.status( res, 200 );
 					assert.deepEqual( res.body.mml, "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\" alttext=\"\\mathrm {&lt;/annotation-xml&gt;&lt;script&gt;alert('test');&lt;/script&gt;} \">\n  <semantics>\n    <mrow class=\"MJX-TeXAtom-ORD\">\n      <mo>&lt;</mo>\n      <mrow class=\"MJX-TeXAtom-ORD\">\n        <mo>/</mo>\n      </mrow>\n      <mi mathvariant=\"normal\">a</mi>\n      <mi mathvariant=\"normal\">n</mi>\n      <mi mathvariant=\"normal\">n</mi>\n      <mi mathvariant=\"normal\">o</mi>\n      <mi mathvariant=\"normal\">t</mi>\n      <mi mathvariant=\"normal\">a</mi>\n      <mi mathvariant=\"normal\">t</mi>\n      <mi mathvariant=\"normal\">i</mi>\n      <mi mathvariant=\"normal\">o</mi>\n      <mi mathvariant=\"normal\">n</mi>\n      <mo>&#x2212;<!-- − --></mo>\n      <mi mathvariant=\"normal\">x</mi>\n      <mi mathvariant=\"normal\">m</mi>\n      <mi mathvariant=\"normal\">l</mi>\n      <mo>&gt;&lt;</mo>\n      <mi mathvariant=\"normal\">s</mi>\n      <mi mathvariant=\"normal\">c</mi>\n      <mi mathvariant=\"normal\">r</mi>\n      <mi mathvariant=\"normal\">i</mi>\n      <mi mathvariant=\"normal\">p</mi>\n      <mi mathvariant=\"normal\">t</mi>\n      <mo>&gt;</mo>\n      <mi mathvariant=\"normal\">a</mi>\n      <mi mathvariant=\"normal\">l</mi>\n      <mi mathvariant=\"normal\">e</mi>\n      <mi mathvariant=\"normal\">r</mi>\n      <mi mathvariant=\"normal\">t</mi>\n      <msup>\n        <mo stretchy=\"false\">(</mo>\n        <mo>&#x2032;</mo>\n      </msup>\n      <mi mathvariant=\"normal\">t</mi>\n      <mi mathvariant=\"normal\">e</mi>\n      <mi mathvariant=\"normal\">s</mi>\n      <msup>\n        <mi mathvariant=\"normal\">t</mi>\n        <mo>&#x2032;</mo>\n      </msup>\n      <mo stretchy=\"false\">)</mo>\n      <mo>;</mo>\n      <mo>&lt;</mo>\n      <mrow class=\"MJX-TeXAtom-ORD\">\n        <mo>/</mo>\n      </mrow>\n      <mi mathvariant=\"normal\">s</mi>\n      <mi mathvariant=\"normal\">c</mi>\n      <mi mathvariant=\"normal\">r</mi>\n      <mi mathvariant=\"normal\">i</mi>\n      <mi mathvariant=\"normal\">p</mi>\n      <mi mathvariant=\"normal\">t</mi>\n      <mo>&gt;</mo>\n    </mrow>\n    <annotation encoding=\"application/x-tex\">\\mathrm {&lt;/annotation-xml&gt;&lt;script&gt;alert('test');&lt;/script&gt;}</annotation>\n  </semantics>\n</math>" );
-					if ( t.skipTests.indexOf( 'sanetex' ) === -1 ) {
+					if ( !t.skipTests.includes( 'sanetex' ) ) {
 						assert.deepEqual( res.body.sanetex, "\\mathrm {</annotation-xml><script>alert('test');</script>} " );
 					}
 				} );
@@ -98,7 +98,7 @@ testGroups.forEach( function ( t ) {
 					assert.deepEqual( res.body.width, '0' );
 				} );
 			} );
-			if ( t.skipTests.indexOf( 'reject' ) === -1 ) {
+			if ( !t.skipTests.includes( 'reject' ) ) {
 				it( 'reject invalid tex input', function () {
 					return preq.post( {
 						uri: baseURL,

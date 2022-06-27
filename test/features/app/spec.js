@@ -70,7 +70,7 @@ function constructTestCase( title, path, method, request, response ) {
 	return {
 		title,
 		request: {
-			uri: server.config.uri + ( path[ 0 ] === '/' ? path.substr( 1 ) : path ),
+			uri: server.config.uri + ( path[ 0 ] === '/' ? path.slice( 1 ) : path ),
 			method,
 			headers: request.headers || {},
 			query: request.query,

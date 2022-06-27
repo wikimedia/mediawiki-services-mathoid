@@ -36,13 +36,13 @@ describe( 'Mathoids SVG compression', () => {
 				.then( () => {
 					if ( t.err ) {
 						assert.deepEqual( msg, 'warn/svgo' );
-						assert.ok( err.indexOf( t.err ) !== -1, `${err} should contain ${t.err}` );
+						assert.ok( err.includes( t.err ), `${err} should contain ${t.err}` );
 					} else {
 						assert.deepEqual( msg, false );
 						assert.deepEqual( err, false );
 						assert.ok( data.svg.length <= t.in.length, 'Compression increased the file size' );
 						if ( t.contains ) {
-							assert.ok( data.svg.indexOf( t.contains ) >= 0, 'compressed svg should contain', t.contains );
+							assert.ok( data.svg.includes( t.contains ), 'compressed svg should contain', t.contains );
 						}
 					}
 					done();

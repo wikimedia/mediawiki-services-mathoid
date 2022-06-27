@@ -23,20 +23,20 @@ const post = async () => {
 	}
 
 	async function updateImages( body, postfix = '' ) {
-		const response = await fetch( '/complete', {
+		const rsp = await fetch( '/complete', {
 			method: 'POST',
 			headers: { 'Content-type': 'application/x-www-form-urlencoded' },
 			body: body
 		} );
-		const json = await response.json();
-		if ( response.ok ) {
+		const json = await rsp.json();
+		if ( rsp.ok ) {
 			document.getElementById( 'mmlRes' + postfix ).innerHTML = json.mml.body;
 			document.getElementById( 'svgRes' + postfix ).innerHTML = json.svg.body;
 			document.getElementById( 'styleRes' + postfix ).innerText = json.mathoidStyle;
 		} else {
 			document.getElementById( 'checkedRes' ).innerHTML = JSON.stringify( json, null, 2 );
 		}
-		return response;
+		return rsp;
 	}
 
 	let response = await updateImages( getReqBody() );
