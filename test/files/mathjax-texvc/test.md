@@ -65,7 +65,7 @@
  * Test 66 $\Kappa$ ($\mathrm {K} $)![Test-image](png/66.png) [Test-image-svg](svg/66.svg)
  * Test 67 $\Mu$ ($\mathrm {M} $)![Test-image](png/67.png) [Test-image-svg](svg/67.svg)
  * Test 68 $\Nu$ ($\mathrm {N} $)![Test-image](png/68.png) [Test-image-svg](svg/68.svg)
- * Test 69 $\Omicron$ ($\mathrm {O} $)![Test-image](png/69.png) [Test-image-svg](svg/69.svg)
+ * Test 69 $\Omicron$ ($O$)![Test-image](png/69.png) [Test-image-svg](svg/69.svg)
  * Test 70 $\Rho$ ($\mathrm {P} $)![Test-image](png/70.png) [Test-image-svg](svg/70.svg)
  * Test 71 $\Tau$ ($\mathrm {T} $)![Test-image](png/71.png) [Test-image-svg](svg/71.svg)
  * Test 72 $\Chi$ ($\mathrm {X} $)![Test-image](png/72.png) [Test-image-svg](svg/72.svg)
