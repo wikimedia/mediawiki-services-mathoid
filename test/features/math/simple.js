@@ -21,7 +21,7 @@ const testGroups = [ {
 	skipTests: []
 }, {
 	testName: 'No-check',
-	testSettings: { no_check: true, png: false, speech_config: { enrich: false } },
+	testSettings: { no_check: true, speech_config: { enrich: false } },
 	skipTests: [ 'reject', 'sanetex', 'warnings' ]
 }
 ];
@@ -45,10 +45,7 @@ testGroups.forEach( function ( t ) {
 					} ).then( function ( res ) {
 						assert.status( res, data.response.status );
 						Object.keys( data.response.body ).forEach( function ( key ) {
-							if ( key === 'png' ) {
-								assert.notDeepEqual( res.body.png, undefined );
-								assert.notDeepEqual( res.body.png.length, 0 );
-							} else if ( /mml|svg/.test( key ) ) {
+							if ( /mml|svg/.test( key ) ) {
 								assert.xEqual( res.body[ key ], data.response.body[ key ] );
 							} else if ( !t.skipTests.includes( key ) ) {
 								assert.deepEqual( res.body[ key ], data.response.body[ key ], 'Difference in key ' + key );

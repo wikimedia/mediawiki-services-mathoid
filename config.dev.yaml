@@ -63,7 +63,6 @@ services:
       csp: "style-src 'self' 'unsafe-inline'; script-src 'self';"
       svg: true
       img: true
-      png: true #new feature
       speech: true #new feature
       texvcinfo: true
       speech_on: true

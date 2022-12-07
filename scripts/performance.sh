@@ -1,6 +1,6 @@
 #!/bin/bash
 command -v ab >/dev/null 2>&1 || { echo "ab missing. Installation might work with sudo apt-get install apache2-utils" ; exit 1; }
-formats=(texvcinfo mml svg png)
+formats=(texvcinfo mml svg)
 SCRIPT_DIR=$(cd $(dirname $0) && pwd);
 for format in "${formats[@]}"
 do

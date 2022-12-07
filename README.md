@@ -72,7 +72,6 @@ Additional entry points for individual formats are
 * /speech returns the speech output only
 * /mml only MathML
 * /svg only SVG
-* /png only PNG
 * /json (same as /)
 * /complete (see below)
 
@@ -102,7 +101,6 @@ are now (JSON) objects containing the 'body' and 'headers' fields.
 ## Config
 * svg: creates and svg image (turned on by default)
 * img: creates a img element with dimension information about the svg image
-* png: creates png images using java
 * speech: creates speech output using speech rule engine
 * texvcinfo: displays information regarding the texvc input (experimental)
 * speechOn: default setting for speech output. 'true' is equivalent to the old speakText.

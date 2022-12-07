@@ -33,7 +33,6 @@ return server.start( { speech_config: { enrich: false } } ).delay( 1000 ).then( 
 		body: testcase.query
 	} ).then( function ( res ) {
 		testcase.response.status = res.status;
-		delete res.body.png;
 		delete res.body.streeXml;
 		delete res.body.streeJson;
 		testcase.response.body = res.body;

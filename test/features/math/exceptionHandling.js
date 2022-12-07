@@ -4,7 +4,6 @@
  */
 const render = require( '../../../lib/render.js' );
 const assert = require( '../../utils/assert.js' );
-const mock = require( 'mock-require' );
 
 describe( 'Mathoid special tests ', function () {
 	let config;
@@ -22,14 +21,6 @@ describe( 'Mathoid special tests ', function () {
 			assert.deepEqual( firstRes.detail, 'Output format svg is disabled via config' );
 		} );
 		return rend;
-	} );
-	it( 'render png example', function () {
-		const input = [ { query: { q: 'E=mc^2', outformat: 'png' } } ];
-		return render.render( JSON.stringify( input ), config ).then( function ( res ) {
-			assert.ok( res.success );
-			const firstRes = res.nohash[ 0 ].res;
-			assert.ok( firstRes.constructor.isBuffer( firstRes ) );
-		} );
 	} );
 	it( 'render invalid texvcinfo type', function () {
 		const input = [ {
@@ -69,7 +60,7 @@ describe( 'Mathoid special tests ', function () {
 		return render.render( JSON.stringify( input ), config ).then( function ( res ) {
 			assert.ok( res.success );
 			const firstRes = res.nohash[ 0 ].res;
-			assert.ok( firstRes.png );
+			assert.ok( firstRes.svg );
 		} );
 	} );
 	it( 'render invalid outformat', function () {
@@ -125,32 +116,6 @@ describe( 'Mathoid special tests ', function () {
 			const firstRes = res.nohash[ 0 ].res;
 			// The length of the uncompressed SVG image 3653 chars
 			assert.ok( firstRes.length < 3653, 'compressed image should be smaller than uncompressed image' );
-		} );
-	} );
-	it( 'svg to png conversion errors should be adequately reported', function () {
-		mock( 'librsvg', {
-			Rsvg: function () {
-				return {
-					render: function () {
-						throw new Error( 'test error' );
-					},
-					on: function ( sig, cb ) {
-						cb();
-					}
-				};
-			}
-		} );
-		const input = [ {
-			query: {
-				q: 'E=mc^2',
-				outformat: 'png'
-			}
-		} ];
-		return render.render( JSON.stringify( input ), config ).then( function ( res ) {
-			mock.stop( 'librsvg' );
-			assert.ok( res.success );
-			const firstRes = res.nohash[ 0 ].res;
-			assert.deepEqual( firstRes.error, 'test error' );
 		} );
 	} );
 } );

@@ -75,43 +75,14 @@ return server.start().delay( 1000 ).then( function () {
 				} );
 			}
 		}
-		return nextProm.then( function () {
-			return preq.post( {
-				uri: baseURL + 'png/',
-				body: { q: testcase.input, noSpeak: true }
-			} );
-		} ).catch( function () {
-			console.log( 'skip' );
-		} );
+		return nextProm;
 	} ).then( function ( res ) {
-		let referencePng, nextProm = BBPromise.resolve();
-		const pngPath = path.resolve( __dirname, '../test/files/mathjax-texvc/png', testcase.id + '.png' );
-		try {
-			referencePng = fs.readFileSync( pngPath );
-		} catch ( e ) {
-			console.log( 'Reference PNG for testcase ' + testcase.id + ' could not be read.' );
-			referencePng = Buffer.alloc( 0 );
-		}
+		let nextProm = BBPromise.resolve();
 		assert.status( res, 200 );
-		if ( referencePng.compare( res.body ) === 0 ) {
-			if ( program.verbose ) {
-				console.log( 'PNG for testcase ' + testcase.id + ' has not changed.' );
-			}
-		} else {
-			console.log( 'PNG for testcase ' + testcase.id + ' has changed.' );
-			if ( program.force ) {
-				nextProm = fs.writeFileAsync( pngPath, res.body, 'binary' ).catch( function ( err ) {
-					console.log( err );
-				} ).then( function () {
-					console.log( 'PNG file for ' + testcase.id + ' has been saved!' );
-				} );
-			}
-		}
 		if ( program.force ) {
 			nextProm = nextProm.then( function () {
 				return fs.appendFileAsync( mdPath, '\n * Test ' + testcase.id + ' $' + testcase.input +
-                    '$ ($' + testcase.texvcjs + '$)![Test-image](png/' + testcase.id +
-                    '.png) [Test-image-svg](svg/' + testcase.id + '.svg)' )
+                    '$ ($' + testcase.texvcjs + '$)![Test-image](svg/' + testcase.id + '.svg)' )
 					.catch( function ( err ) {
 						console.log( err );
 					} ).then( function () {

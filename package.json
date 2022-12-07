@@ -8,6 +8,7 @@
 		"start": "service-runner",
 		"test": "npm run lint && PREQ_CONNECT_TIMEOUT=15 mocha 'test/**/*.js'",
 		"lint": "eslint --ext .js,.json .",
+		"lint:fix": "eslint --fix --ext .js,.json .",
 		"docker-start": "service-runner docker-start",
 		"docker-test": "service-runner docker-test",
 		"test-build": "service-runner docker-test && service-runner build --deploy-repo --force",
@@ -58,7 +59,6 @@
 		"mathoid-texvcjs": "^0.5.0"
 	},
 	"optionalDependencies": {
-		"librsvg": "^0.7.0",
 		"swagger-ui-dist": "^3.42.0"
 	},
 	"devDependencies": {

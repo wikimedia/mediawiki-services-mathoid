@@ -4,7 +4,6 @@
  */
 const render = require( '../../../lib/render.js' );
 const assert = require( '../../utils/assert.js' );
-const mock = require( 'mock-require' );
 
 describe( 'Mathoid CLI tests ', function () {
 	let config;
@@ -13,13 +12,6 @@ describe( 'Mathoid CLI tests ', function () {
 	} );
 	it( 'get config test', function () {
 		assert.ok( config.svg );
-		assert.ok( config.png );
-	} );
-	it( 'no png config test', function () {
-		mock( 'librsvg/package.json', {} );
-		const c = render.config( 'config.dev.yaml' );
-		assert.ok( !c.png );
-		mock.stop( 'librsvg/package.json' );
 	} );
 	it( 'render minimal example', function () {
 		return render.render( '[{"query":{"q":"E=mc^2"}}]', config ).then( function ( res ) {

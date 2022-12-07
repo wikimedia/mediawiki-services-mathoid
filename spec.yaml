@@ -46,7 +46,7 @@ paths:
     post:
       tags:
         - Render
-      description: Converts TeX to MathML, SVG, PNG and IMG
+      description: Converts TeX to MathML and SVG
       responses:
         200:
           description: OK
@@ -108,7 +108,6 @@ paths:
               - speech
               - mml
               - svg
-              - png
               - json
               - complete
       responses:
@@ -216,7 +215,6 @@ paths:
               - speech
               - mml
               - svg
-              - png
               - json
               - complete
         - name: type
