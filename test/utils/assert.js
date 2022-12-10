@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require( 'assert' );
-const xmldom = require( 'xmldom' );
+const xmldom = require( '@xmldom/xmldom' );
 const parser = new xmldom.DOMParser();
 const compare = require( 'dom-compare' ).compare;
 const reporter = require( 'dom-compare' ).GroupingReporter;

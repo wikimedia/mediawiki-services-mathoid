@@ -6,7 +6,7 @@ const program = require( 'commander' );
 const BBPromise = require( 'bluebird' );
 const json = require( '../package.json' );
 const preq = require( 'preq' );
-const xmldom = require( 'xmldom' );
+const xmldom = require( '@xmldom/xmldom' );
 const parser = new xmldom.DOMParser();
 const compare = require( 'dom-compare' ).compare;
 const reporter = require( 'dom-compare' ).GroupingReporter;
@@ -24,13 +24,14 @@ program
 	.option( '-f, --force', 'Replace images in the data folders.' );
 
 program.parse( process.argv );
+const options = program.opts();
 
 const formulae = require( '../test/files/mathjax-texvc/mathjax-texvc.json' );
 const mdPath = path.resolve( __dirname, '../test/files/mathjax-texvc/test.md' );
 
 return server.start().delay( 1000 ).then( function () {
 	console.log( 'Server started' );
-	if ( program.force ) {
+	if ( options.force ) {
 		fs.writeFileSync( mdPath, '## Test overview' );
 	}
 	return BBPromise.resolve( formulae );
@@ -56,7 +57,7 @@ return server.start().delay( 1000 ).then( function () {
 		assert.status( res, 200 );
 		const actualSvg = res.body.toString();
 		if ( referenceSvg === actualSvg ) {
-			if ( program.verbose ) {
+			if ( options.verbose ) {
 				console.log( 'SVG for testcase ' + testcase.id + ' has not changed.' );
 			}
 		} else {
@@ -67,7 +68,7 @@ return server.start().delay( 1000 ).then( function () {
 				const result = compare( domRef, domReal );
 				console.log( reporter.report( result ) );
 			}
-			if ( program.force ) {
+			if ( options.force ) {
 				nextProm = fs.writeFileAsync( svgPath, actualSvg ).catch( function ( err ) {
 					console.log( err );
 				} ).then( function () {
@@ -78,8 +79,7 @@ return server.start().delay( 1000 ).then( function () {
 		return nextProm;
 	} ).then( function ( res ) {
 		let nextProm = BBPromise.resolve();
-		assert.status( res, 200 );
-		if ( program.force ) {
+		if ( options.force ) {
 			nextProm = nextProm.then( function () {
 				return fs.appendFileAsync( mdPath, '\n * Test ' + testcase.id + ' $' + testcase.input +
                     '$ ($' + testcase.texvcjs + '$)![Test-image](svg/' + testcase.id + '.svg)' )

@@ -16,6 +16,8 @@
 			{
 				"args": "none"
 			}
-		]
+		],
+		"es-x/no-hashbang": "off",
+		"es-x/no-symbol-prototype-description": "off"
 	}
 }

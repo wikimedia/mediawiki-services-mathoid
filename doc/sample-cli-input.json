@@ -2,11 +2,8 @@
 	{
 		"query": {
 			"hash": "1",
-			"q": "E=mc^{2}",
-			"outformat": "mml",
-			"features": {
-				"speech": false
-			}
+			"q": "abc",
+			"outformat": "mml"
 		}
 	},
 	{
