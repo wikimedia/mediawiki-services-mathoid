@@ -1,6 +1,5 @@
 version: v4
-base: docker-registry.wikimedia.org/buster-nodejs10-slim
-apt: { packages: [librsvg2-2] }
+base: docker-registry.wikimedia.org/nodejs16-slim
 lives:
   in: /srv/service
 runs:
@@ -8,11 +7,9 @@ runs:
 
 variants:
   build:
-    base: docker-registry.wikimedia.org/buster-nodejs10-devel
+    base: docker-registry.wikimedia.org/nodejs16-slim
     copies: [local]
-    apt: { packages: [librsvg2-dev, git, python-pkgconfig, build-essential] }
     node: { requirements: [package.json]}
-    runs: { environment: { LINK: g++ } }
   development:
     includes: [build]
     entrypoint: [node, server.js]
