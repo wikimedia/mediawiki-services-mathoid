@@ -8,7 +8,7 @@ Build-Depends: debhelper (>= 8.0.0), make
 Standards-Version: 3.9.2
 Homepage: http://www.formulasearchengine.com/Mathoid
 Vcs-Git: https://gerrit.wikimedia.org/r/mediawiki/services/mathoid
-Vcs-Browser: https://git.wikimedia.org/tree/mediawiki/services/mathoid
+Vcs-Browser: https://gerrit.wikimedia.org/g/mediawiki/services/mathoid
 
 Package: mathoid
 Architecture: amd64
