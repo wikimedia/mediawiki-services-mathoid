@@ -1,3 +1,2 @@
-debian: 'debian:jessie'
-ubuntu: 'ubuntu:14.04'
-
+debian: "debian:jessie"
+ubuntu: "ubuntu:14.04"

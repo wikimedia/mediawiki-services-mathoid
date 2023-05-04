@@ -18,6 +18,7 @@
 			}
 		],
 		"es-x/no-hashbang": "off",
-		"es-x/no-symbol-prototype-description": "off"
+		"es-x/no-symbol-prototype-description": "off",
+		"yml/no-empty-mapping-value": "warn"
 	}
 }

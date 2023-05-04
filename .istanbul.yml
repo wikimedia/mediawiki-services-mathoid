@@ -1,2 +1,2 @@
 instrumentation:
-    excludes: ['**/lib/swagger-ui.js']
+  excludes: [ "**/lib/swagger-ui.js" ]

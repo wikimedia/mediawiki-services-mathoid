@@ -60,7 +60,7 @@ services:
                   x-route-filters:
                     - path: ./lib/normalize_title_filter.js
                       options:
-                        redirect_cache_control: 's-maxage=0, max-age=86400'
+                        redirect_cache_control: "s-maxage=0, max-age=86400"
                   paths:
                     /media:
                       x-modules:

@@ -18,9 +18,9 @@ logging:
 
 # Statsd metrics reporter
 metrics:
-  #type: log
-  #host: localhost
-  #port: 8125
+# type: log
+# host: localhost
+# port: 8125
 
 services:
   - name: mathoid
@@ -36,7 +36,7 @@ services:
       # the location of the spec, defaults to spec.yaml if not specified
       # spec: ./spec.template.yaml
       # allow cross-domain requests to the API (default '*')
-      cors: '*'
+      cors: "*"
       # to disable use:
       # cors: false
       # to restrict to a particular domain, use:
@@ -63,26 +63,26 @@ services:
       csp: "style-src 'self' 'unsafe-inline'; script-src 'self';"
       svg: true
       img: true
-      speech: true #new feature
+      speech: true # new feature
       texvcinfo: true
       speech_on: true
       speech_config:
         semantics: true
-        domain: 'mathspeak'
-        style:  'default'
+        domain: mathspeak
+        style: default
         semantic: true
         speakText: true
         enrich: true
       mj_config:
-          extensions: "TeX/color,TeX/mediawiki-texvc,TeX/mhchem"
-          MathJax:
-            menuSettings:
-              semantics: true
-            SVG:
-              font: "TeX"
-            TeX:
-              noErrors:
-                disabled: true
+        extensions: "TeX/color,TeX/mediawiki-texvc,TeX/mhchem"
+        MathJax:
+          menuSettings:
+            semantics: true
+          SVG:
+            font: TeX
+          TeX:
+            noErrors:
+              disabled: true
       no_check: false
       dpi: 180
       svgo: false
@@ -93,12 +93,12 @@ services:
         method: post
         uri: https://{{domain}}/w/api.php
         headers:
-          user-agent: '{{user-agent}}'
-        body: '{{ default(request.query, {}) }}'
+          user-agent: "{{user-agent}}"
+        body: "{{ default(request.query, {}) }}"
       # the template used for contacting RESTBase
       restbase_req:
-        method: '{{request.method}}'
+        method: "{{request.method}}"
         uri: https://{{domain}}/api/rest_v1/{+path}
-        query: '{{ default(request.query, {}) }}'
-        headers: '{{request.headers}}'
-        body: '{{request.body}}'
+        query: "{{ default(request.query, {}) }}"
+        headers: "{{request.headers}}"
+        body: "{{request.body}}"

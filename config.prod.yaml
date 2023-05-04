@@ -11,10 +11,10 @@ worker_heap_limit_mb: 500
 logging:
   level: warn
   streams:
-  # Use gelf-stream -> logstash
-  - type: gelf
-    host: logstash1003.eqiad.wmnet
-    port: 12201
+    # Use gelf-stream -> logstash
+    - type: gelf
+      host: logstash1003.eqiad.wmnet
+      port: 12201
 
 # Statsd metrics reporter
 metrics:
@@ -40,28 +40,28 @@ services:
       speech_on: false
       speech_config:
         semantics: true
-        domain: 'mathspeak'
-        style: 'default'
+        domain: mathspeak
+        style: default
         semantic: false
         speakText: true
         enrich: false
       mj_config:
-          extensions: "TeX/color,TeX/mediawiki-texvc,TeX/mhchem"
-          MathJax:
-            menuSettings:
-              semantics: true
-            SVG:
-              font: "TeX"
-            TeX:
-              noErrors:
-                disabled: true
+        extensions: "TeX/color,TeX/mediawiki-texvc,TeX/mhchem"
+        MathJax:
+          menuSettings:
+            semantics: true
+          SVG:
+            font: TeX
+          TeX:
+            noErrors:
+              disabled: true
       no_check: true
       dpi: 180
       svgo: false
       # the location of the spec, defaults to spec.yaml if not specified
       # spec: ./spec.template.yaml
       # allow cross-domain requests to the API (default '*')
-      cors: '*'
+      cors: "*"
       # to disable use:
       # cors: false
       # to restrict to a particular domain, use:
@@ -91,13 +91,13 @@ services:
         method: post
         uri: http://api.svc.eqiad.wmnet/w/api.php
         headers:
-          host: '{{request.params.domain}}'
-          user-agent: '{{user-agent}}'
-        body: '{{ default(request.query, {}) }}'
+          host: "{{request.params.domain}}"
+          user-agent: "{{user-agent}}"
+        body: "{{ default(request.query, {}) }}"
       # the template used for contacting RESTBase
       restbase_req:
-        method: '{{request.method}}'
+        method: "{{request.method}}"
         uri: http://restbase.svc.eqiad.wmnet/{{domain}}/v1/{+path}
-        query: '{{ default(request.query, {}) }}'
-        headers: '{{request.headers}}'
-        body: '{{request.body}}'
+        query: "{{ default(request.query, {}) }}"
+        headers: "{{request.headers}}"
+        body: "{{request.body}}"
