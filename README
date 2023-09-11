@@ -1,0 +1,9 @@
+This repo has moved to Wikimedia GitLab:
+
+  https://gitlab.wikimedia.org/repos/mediawiki/services/mathoid
+
+To alter your local git clone, run:
+
+  git remote set-url origin git@gitlab.wikimedia.org:repos/mediawiki/services/mathoid
+  git fetch origin
+  git checkout -B main -t origin/main

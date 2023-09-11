@@ -1,6 +1,0 @@
-# main source
-*.{js,json,txt,html,md,yaml} usr/lib/mathoid/
-# node modules
-node_modules/ usr/lib/mathoid/
-#other
-{scripts/,routes/,/lib} usr/lib/mathoid/
